@@ -88,10 +88,13 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
             true -> R.drawable.ic_detail_bookmarked
             else -> R.drawable.ic_detail_bookmark
         }
-        uiBinding.btnBookSave.icon =
-            ResourcesCompat.getDrawable(
-                requireContext().resources, iconDrawable, null
-            )
+        uiBinding.btnBookSave.apply {
+            icon =
+                ResourcesCompat.getDrawable(
+                    requireContext().resources, iconDrawable, null
+                )
+            invalidate()
+        }
     }
 
     private fun setupScreen() {
