@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/screen_categories_browse"
-        android:name="dev.marlonlom.apps.bookbar.categories.CategoriesBrowseFragment"
+        android:name="dev.marlonlom.apps.bookbar.categories.BrowseCategoriesFragment"
         android:label="@string/destination_label_categories_browse"
         tools:layout="@layout/fragment_categories_browse" />
 

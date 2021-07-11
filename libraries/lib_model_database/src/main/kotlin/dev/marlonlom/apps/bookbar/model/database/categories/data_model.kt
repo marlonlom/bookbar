@@ -33,6 +33,9 @@ interface CategoriesDao {
     @Query("SELECT * FROM book_categories bc WHERE bc.tag = :categoryTag")
     fun findByTag(categoryTag: String): Flow<List<BookCategory>>
 
+    @Query("SELECT * FROM book_categories bc WHERE bc.tag LIKE '%:someText%'")
+    fun findByText(someText: String): Flow<List<BookCategory>>
+
 }
 
 @Entity(tableName = "book_categories")
