@@ -26,8 +26,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-private const val errorMessage = "Released books not found."
-
 /**
  * MVVM Contract for released books listing query.
  *
@@ -76,16 +74,16 @@ interface ReleasedBooksContract {
      * @author marlonlom
      */
     class Repository(
-        private val localDataSource: LocalDataSource,
-        private val remoteDataSource: RemoteDataSource
+        private val localDataSource: LocalDataSource, private val remoteDataSource: RemoteDataSource
     ) {
+
+        private val errorMessage = "Released books not found."
 
         /**
          * Retrieves released books from remote data source.
          *
          * @return flow with released books query result
          */
-
         suspend fun retrieveNewBooks(): Flow<Result<List<ReleasedBook>>> = flow {
             val apiResult: Result<List<ReleasedBook>> = try {
                 val localResults: List<ReleasedBook> = localDataSource.listAll().first()
@@ -129,6 +127,8 @@ interface ReleasedBooksContract {
      * @author marlonlom
      */
     class RemoteDataSource(private val bookStoreApi: BookStoreApi) {
+
+        private val errorMessage = "Released books not found."
 
         /**
          * Retrieves released books from api.
