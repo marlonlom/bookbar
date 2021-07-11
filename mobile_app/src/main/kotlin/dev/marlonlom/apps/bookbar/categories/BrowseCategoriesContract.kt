@@ -127,8 +127,12 @@ interface BrowseCategoriesContract {
      */
     class LocalDataSource(private val appDatabase: AppDatabase) {
         fun listAll() = appDatabase.categoriesDao().listAll()
+        /*
+        @Suppress("unused")
         fun findByTag(tag: String) = appDatabase.categoriesDao().findByTag(tag)
+        @Suppress("unused")
         fun findByText(someText: String) = appDatabase.categoriesDao().findByText(someText)
+        */
         suspend fun deleteAll() = appDatabase.categoriesDao().deleteAll()
         suspend fun insertCategory(item: BookCategory) =
             appDatabase.categoriesDao().insert(item)
