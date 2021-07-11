@@ -19,7 +19,6 @@ package dev.marlonlom.apps.bookbar
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -38,6 +37,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val uiBinding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Bookbar)
         super.onCreate(savedInstanceState)
         Timber.d("onCreate")
         setupScreen()
