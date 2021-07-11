@@ -1,3 +1,19 @@
+<hr/>
+
+# Table of contents:
+- [Bookbar](#bookbar)
+  * [Getting Started](#getting-started)
+    + [IT Bookstore API url](#it-bookstore-api-url)
+    + [Screenshots](#screenshots)
+    + [Libraries Used](#libraries-used)
+    + [Android Studio IDE setup](#android-studio-ide-setup)
+  * [About the developer](#about-the-developer)
+    + [License](#license)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+<hr/>
+
 # Bookbar
 A book store app with some illustrating about Android development best practices with Android Jetpack.
 
