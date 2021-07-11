@@ -53,22 +53,27 @@ interface BookDetailsContract {
      */
     class ViewModel(private val repository: Repository) : androidx.lifecycle.ViewModel() {
 
-        private var _book: MutableStateFlow<BookDetail> =
-            MutableStateFlow(BookDetail.NONE)
+        private var _book: MutableStateFlow<BookDetail> = MutableStateFlow(BookDetail.NONE)
+        val book: StateFlow<BookDetail> get() = _book.asStateFlow()
+        private var _bookSaved: MutableStateFlow<Boolean> = MutableStateFlow(false)
+        val bookSaved: StateFlow<Boolean> get() = _bookSaved.asStateFlow()
 
-        private var _bookSaved: MutableStateFlow<Boolean> =
-            MutableStateFlow(false)
-
-        val book: StateFlow<BookDetail> = _book.asStateFlow()
-        val bookSaved: StateFlow<Boolean> = _bookSaved.asStateFlow()
+        /**
+         * Clears the ui state.
+         */
+        fun clearState() = viewModelScope.launch {
+            _book.value = BookDetail.NONE
+            _bookSaved.value = false
+        }
 
         /**
          * Retrieves released books from remote data source.
          */
         fun retrieveBook(isbn: String) = viewModelScope.launch {
             repository.findBook(isbn).collect {
-                _book.value = it.getOrDefault(BookDetail.NONE)
-                _bookSaved.value = false
+                val bookDetail = it.getOrDefault(BookDetail.NONE)
+                _book.value = bookDetail
+                _bookSaved.value = bookDetail.saved!!
             }
         }
 
@@ -82,6 +87,7 @@ interface BookDetailsContract {
             repository.toggleSaved(isbn, isSaved)
             _bookSaved.value = isSaved
         }
+
     }
 
     /**
@@ -169,7 +175,6 @@ interface BookDetailsContract {
         suspend fun findBook(isbn: String): Flow<Result<BookDetailApiResponse>> = flow {
             val apiResult: Result<BookDetailApiResponse> = try {
                 val foundBook = bookStoreApi.getBookDetail(isbn)
-                Timber.d("findBook('$isbn').result(remote)=$foundBook")
                 if (foundBook.error == "0") Result.success(foundBook)
                 else Result.failure(Exception(errorMessage))
             } catch (exception: Exception) {

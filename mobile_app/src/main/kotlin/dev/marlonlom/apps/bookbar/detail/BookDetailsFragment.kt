@@ -94,11 +94,11 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
         setupScreen()
-        obtainSelectedBook()
+        obtainBookInformation()
     }
 
-    private fun obtainSelectedBook() {
-        Timber.d("obtainSelectedBook")
+    private fun obtainBookInformation() {
+        Timber.d("obtaining book information for isbn=${args.bookIsbn}")
         uiViewModel.retrieveBook(args.bookIsbn)
     }
 
@@ -148,6 +148,7 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
             textDetailDescription.text = ""
             detailRatingValue.rating = 0.toFloat()
 
+            uiViewModel.clearState()
         }
     }
 
