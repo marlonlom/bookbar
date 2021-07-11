@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Bookbar" parent="Base.Theme.Bookbar">
+        <!-- Brand colors -->
+        <item name="colorPrimary">@color/brand_granny_apple</item>
+        <item name="colorPrimaryVariant">@color/brand_ziggurat</item>
+        <item name="colorSecondary">@color/brand_old_lace</item>
+        <item name="colorSecondaryVariant">@color/brand_old_lace</item>
+        <item name="android:colorBackground">@color/brand_black</item>
+        <item name="colorSurface">@color/brand_cod_gray</item>
+        <item name="colorError">@color/brand_charm</item>
+        <item name="colorOnPrimary">@color/brand_black</item>
+        <item name="colorOnSecondary">@color/brand_black</item>
+        <item name="colorOnBackground">@color/brand_white</item>
+        <item name="colorOnSurface">@color/brand_white</item>
+        <item name="colorOnError">@color/brand_black</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

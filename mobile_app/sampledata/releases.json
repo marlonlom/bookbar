@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "title": "TypeScript Notes for Professionals",
+      "subtitle": "",
+      "isbn13": "1001622115721",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001622115721.png",
+      "url": "https://itbook.store/books/1001622115721"
+    },
+    {
+      "title": "Python Notes for Professionals",
+      "subtitle": "",
+      "isbn13": "1001621860589",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001621860589.png",
+      "url": "https://itbook.store/books/1001621860589"
+    },
+    {
+      "title": "Seeing Theory",
+      "subtitle": "A Visual Introduction to Probability and Statistics",
+      "isbn13": "1001620981541",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001620981541.png",
+      "url": "https://itbook.store/books/1001620981541"
+    },
+    {
+      "title": "MySQL Notes for Professionals",
+      "subtitle": "",
+      "isbn13": "1001620983366",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001620983366.png",
+      "url": "https://itbook.store/books/1001620983366"
+    },
+    {
+      "title": "The Vue.js Handbook",
+      "subtitle": "",
+      "isbn13": "1001615902053",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001615902053.png",
+      "url": "https://itbook.store/books/1001615902053"
+    },
+    {
+      "title": "The Node.js Handbook",
+      "subtitle": "",
+      "isbn13": "1001614599609",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001614599609.png",
+      "url": "https://itbook.store/books/1001614599609"
+    },
+    {
+      "title": "Azure Tips and Tricks",
+      "subtitle": "",
+      "isbn13": "9781732704121",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/9781732704121.png",
+      "url": "https://itbook.store/books/9781732704121"
+    },
+    {
+      "title": "Learn Programming",
+      "subtitle": "Your Guided Tour Through the Programming Jungle",
+      "isbn13": "9781722834920",
+      "price": "$16.83",
+      "image": "https://itbook.store/img/books/9781722834920.png",
+      "url": "https://itbook.store/books/9781722834920"
+    },
+    {
+      "title": "Graph Databases For Beginners",
+      "subtitle": "The #1 Platform for Connected Data",
+      "isbn13": "1001606307637",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001606307637.png",
+      "url": "https://itbook.store/books/1001606307637"
+    },
+    {
+      "title": "Elementary Algorithms",
+      "subtitle": "",
+      "isbn13": "1001606307729",
+      "price": "Free",
+      "image": "https://itbook.store/img/books/1001606307729.png",
+      "url": "https://itbook.store/books/1001606307729"
+    }
+  ]
+}

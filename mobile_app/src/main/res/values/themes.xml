@@ -1,0 +1,80 @@
+<!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Application theme -->
+    <style name="Theme.Bookbar" parent="Base.Theme.Bookbar" />
+    <!-- Base application theme -->
+    <style name="Base.Theme.Bookbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Material Brand colors -->
+        <item name="colorPrimary">@color/brand_ming</item>
+        <item name="colorPrimaryVariant">@color/brand_astronaut_blue</item>
+        <item name="colorOnPrimary">@color/brand_white</item>
+        <item name="colorSecondary">@color/brand_tacao</item>
+        <item name="colorSecondaryVariant">@color/brand_twine</item>
+        <item name="colorOnSecondary">@color/brand_black</item>
+        <item name="android:colorBackground">@color/brand_white</item>
+        <item name="colorSurface">@color/brand_white</item>
+        <item name="colorError">@color/brand_carmine</item>
+        <item name="colorOnBackground">@color/brand_black</item>
+        <item name="colorOnSurface">@color/brand_black</item>
+        <item name="colorOnError">@color/brand_white</item>
+
+        <!-- Fonts -->
+        <item name="fontFamily">@font/pt_sans</item>
+        <item name="android:fontFamily">@font/pt_sans</item>
+
+        <!--Material type attributes -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Bookbar.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Bookbar.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Bookbar.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Bookbar.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Bookbar.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Bookbar.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Bookbar.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Bookbar.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Bookbar.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Bookbar.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Bookbar.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Bookbar.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.Bookbar.Overline</item>
+
+        <!--Material shape attributes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Bookbar.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Bookbar.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Bookbar.LargeComponent
+        </item>
+
+        <!--Component styles -->
+        <item name="materialAlertDialogTheme">
+            @style/ThemeOverlay.MaterialComponents.Dialog.Alert
+        </item>
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+
+        <!-- Customize your theme here -->
+        <item name="android:statusBarColor" tools:ignore="NewApi">?colorPrimaryVariant</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">false</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">
+            ?android:attr/colorBackground
+        </item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            ?attr/colorControlHighlight
+        </item>
+    </style>
+</resources>

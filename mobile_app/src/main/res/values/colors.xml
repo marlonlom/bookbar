@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+
+    <!-- Brand color for (Not night) theme: Ming, used as ?colorPrimary -->
+    <color name="brand_ming">#3B6978</color>
+    <!-- Brand color for (Not night) theme: Astronaut Blue, used as ?colorPrimaryVariant -->
+    <color name="brand_astronaut_blue">#204051</color>
+    <!-- Brand color for (Not night) theme: Tacao, used as ?colorSecondary -->
+    <color name="brand_tacao">#F9B384</color>
+    <!-- Brand color for (Not night) theme: Twine, used as ?colorSecondaryVariant -->
+    <color name="brand_twine">#C48357</color>
+    <!-- Brand color for (Not night) theme: Carmine, used as ?colorError -->
+    <color name="brand_carmine">#B00020</color>
+
+    <!-- Brand color for (Night) theme: Granny Apple, used as ?colorPrimary -->
+    <color name="brand_granny_apple">#CAE8D5</color>
+    <!-- Brand color for (Night) theme: Ziggurat, used as ?colorPrimaryVariant -->
+    <color name="brand_ziggurat">#84A9AC</color>
+    <!-- Brand color for (Night) theme: Old Lace, used as ?colorSecondary, ?colorSecondaryVariant -->
+    <color name="brand_old_lace">#FDE8DA</color>
+    <!-- Brand color for (Night) theme: Charm, used as ?colorError -->
+    <color name="brand_charm">#CF6679</color>
+    <!-- Brand color for (Night) theme: Cod gray, used as ?colorSurface -->
+    <color name="brand_cod_gray">#121212</color>
+
+    <!--
+        Brand general color Black, used as:
+        (Not night) theme: ?colorOnSecondary, ?colorOnBackground, ?colorOnSurface
+        (Night) theme: ?android:colorBackground, ?colorOnPrimary, ?colorOnSecondary, ?colorOnError
+     -->
+    <color name="brand_black">#000000</color>
+
+    <!--
+        Brand general color White, used as:
+        (Not night) theme: ?android:colorBackground, ?colorSurface, ?colorOnPrimary, ?colorOnError
+        (Night) theme: White, used as ?colorOnBackground, ?colorOnSurface
+     -->
+    <color name="brand_white">#FFFFFF</color>
+    <!-- Brand color White, with alpha of 50%, used as color background in home screen, search box -->
+    <color name="brand_white_50">#50FFFFFF</color>
+
+</resources>

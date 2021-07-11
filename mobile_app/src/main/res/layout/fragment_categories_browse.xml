@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimarySurface"
+    tools:context="dev.marlonlom.apps.bookbar.categories.CategoriesBrowseFragment">
+
+    <!-- 01. screen title -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_screen_back"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_general_back"
+        app:iconSize="24dp"
+        app:iconTint="?colorOnPrimarySurface"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/guideline_content_top" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_screen_overline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_16dp"
+        android:text="@string/label_categories_browse_screen_overline"
+        android:textAppearance="@style/TextAppearance.Bookbar.Caption"
+        android:textColor="?colorOnPrimarySurface"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/btn_screen_back" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/label_screen_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:text="@string/label_categories_browse_screen_title"
+        android:textAppearance="@style/TextAppearance.Bookbar.Headline5"
+        android:textColor="?colorOnPrimarySurface"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/label_screen_overline" />
+
+    <!-- 02. search box -->
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/autocomplete_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_32dp"
+        android:background="@drawable/bg_home_search_box"
+        android:drawableStart="@drawable/ic_home_search"
+        android:drawablePadding="@dimen/dimen_8dp"
+        android:drawableTint="?colorOnPrimarySurface"
+        android:hint="@string/hint_categories_browse_autocomplete_search"
+        android:iconifiedByDefault="false"
+        android:inputType="textAutoCorrect"
+        android:lines="1"
+        android:padding="@dimen/dimen_20dp"
+        android:textColor="?colorOnPrimarySurface"
+        android:textColorHint="?colorOnPrimarySurface"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/label_screen_title" />
+
+    <!-- 03. select category from list section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        app:contentPadding="@dimen/dimen_20dp"
+        app:contentPaddingBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/autocomplete_search"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Bookbar.ContentsCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/label_categories_browse_explore"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_home_explore_categories"
+                android:textAppearance="?textAppearanceHeadline6"
+                android:textColor="?colorOnSurface"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_released_books"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_marginBottom="72dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_categories_browse_explore"
+                tools:itemCount="15"
+                tools:listitem="@layout/item_categories_browse_row" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/dimen_20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dimen_20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dimen_20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

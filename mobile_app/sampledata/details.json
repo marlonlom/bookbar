@@ -1,0 +1,19 @@
+{
+  "comment": "Sample book detail from api",
+  "data": {
+    "title": "Learning Kotlin by building Android Applications",
+    "subtitle": "Explore the fundamentals of Kotlin by building real-world Android applications",
+    "authors": "Eunice Adutwumwaa Obugyei, Natarajan Raman",
+    "publisher": "Packt Publishing",
+    "language": "English",
+    "isbn10": "1788474643",
+    "isbn13": "9781788474641",
+    "pages": "316",
+    "year": "2018",
+    "rating": "4",
+    "desc": "Today Kotlin is an official programming language for Android development and is widely adopted. Kotlin is expressive, concise, and powerful. It also ensures seamless interoperability with existing Android languages like JAVA and C++, which means that it's even easier for developers to use.This book ...",
+    "price": "$35.99",
+    "image": "https://itbook.store/img/books/9781788474641.png",
+    "url": "https://itbook.store/books/9781788474641"
+  }
+}

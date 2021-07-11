@@ -1,0 +1,123 @@
+/*
+ * Copyright (c) 2021 marlonlom.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlinx-serialization"
+    id "kotlin-kapt"
+    id "androidx.navigation.safeargs.kotlin"
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        applicationId "dev.marlonlom.apps.bookbar"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            buildConfigField("String", "API_BASE_URL", ITBOOKSTORE_API_URL)
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        debug {
+            buildConfigField("String", "API_BASE_URL", ITBOOKSTORE_API_URL)
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    sourceSets.all {
+        java.srcDir("src/$name/kotlin")
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    viewBinding {
+        android.buildFeatures.viewBinding = true
+    }
+    bundle {
+        language {
+            enableSplit = true
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    implementation project(":lib_model_database")
+    implementation project(":lib_model_network")
+
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "androidx.activity:activity-ktx:1.2.3"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.room:room-runtime:2.3.0"
+    implementation "androidx.room:room-ktx:2.3.0"
+    implementation "com.google.android.material:material:1.4.0"
+    implementation "io.coil-kt:coil:1.2.2"
+    implementation "com.jakewharton.timber:timber:4.7.1"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.20"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
+
+    kapt "androidx.room:room-compiler:2.3.0"
+
+    testImplementation "junit:junit:4.13.2"
+    testImplementation "org.mockito:mockito-core:3.11.2"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0-native-mt"
+
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test:rules:1.4.0"
+    androidTestImplementation "androidx.test:runner:1.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:3.4.0"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:3.4.0"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
+}

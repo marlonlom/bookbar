@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimarySurface"
+    tools:context="dev.marlonlom.apps.bookbar.detail.BookDetailsFragment">
+
+    <!-- 01. screen title -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_screen_back"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_general_back"
+        app:iconSize="24dp"
+        app:iconTint="?colorOnPrimarySurface"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/guideline_content_top" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_book_share"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_detail_share"
+        app:iconSize="24dp"
+        app:iconTint="?colorOnPrimarySurface"
+        app:layout_constraintEnd_toStartOf="@id/btn_book_save"
+        app:layout_constraintTop_toBottomOf="@id/guideline_content_top" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_book_save"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_detail_bookmark"
+        app:iconSize="24dp"
+        app:iconTint="?colorOnPrimarySurface"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintTop_toBottomOf="@id/guideline_content_top" />
+
+    <ImageView
+        android:id="@+id/image_detail_poster"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:contentDescription="@string/content_description_image_book_cover"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="6:7"
+        app:layout_constraintStart_toEndOf="@id/guideline_content_start"
+        app:layout_constraintTop_toBottomOf="@id/btn_screen_back"
+        tools:src="@sample/poster" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_detail_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="3"
+        android:textAppearance="?textAppearanceHeadline6"
+        android:textColor="?colorOnPrimarySurface"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/text_detail_subtitle"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintStart_toEndOf="@id/image_detail_poster"
+        app:layout_constraintTop_toTopOf="@id/image_detail_poster"
+        tools:text="@sample/details.json/data/title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_detail_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceSubtitle2"
+        android:textColor="?colorOnPrimarySurface"
+        app:layout_constraintBottom_toBottomOf="@id/image_detail_poster"
+        app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+        app:layout_constraintStart_toEndOf="@id/image_detail_poster"
+        app:layout_constraintTop_toBottomOf="@id/text_detail_title"
+        tools:text="@sample/details.json/data/subtitle" />
+
+    <!-- 02. book details content section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_search_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimen_32dp"
+        app:contentPadding="@dimen/dimen_20dp"
+        app:contentPaddingBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom_title"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Bookbar.ContentsCard">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- book detail rating -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_rating"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/detail_rating_value"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    tools:rating="@sample/details.json/data/rating" />
+
+                <!-- book detail price -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_price"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody1"
+                    android:textColor="?colorError"
+                    tools:text="@sample/details.json/data/price" />
+
+                <!-- book detail language -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_pages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_pages"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_pages"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody1"
+                    tools:text="@sample/details.json/data/pages" />
+
+                <!-- book detail language -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:minWidth="80dp"
+                    android:text="@string/label_detail_language"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_language"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:textAlignment="center"
+                    android:textAppearance="?textAppearanceBody1"
+                    tools:text="@sample/details.json/data/language" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/flow_detail_contents_top"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="label_detail_rating,label_detail_price,label_detail_language,label_detail_pages,detail_rating_value,text_detail_price,text_detail_language,text_detail_pages"
+                    app:flow_firstHorizontalStyle="packed"
+                    app:flow_horizontalGap="@dimen/dimen_10dp"
+                    app:flow_horizontalStyle="spread"
+                    app:flow_lastHorizontalStyle="packed"
+                    app:flow_maxElementsWrap="4"
+                    app:flow_verticalGap="@dimen/dimen_4dp"
+                    app:flow_wrapMode="aligned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider_detail_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:background="?colorControlActivated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/flow_detail_contents_top" />
+
+                <!-- book publication details -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_about"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="@string/label_detail_about"
+                    android:textAppearance="?textAppearanceHeadline6"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_detail_01" />
+
+                <!-- book detail publisher -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_publisher"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_publisher"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="@sample/details.json/data/publisher" />
+
+                <!-- book detail published year -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_published"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_published"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_published"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="@sample/details.json/data/year" />
+
+                <!-- book detail isbn10 -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_isbn10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_isbn10"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_isbn10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="@sample/details.json/data/isbn10" />
+
+                <!-- book detail isbn13 -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_isbn13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_isbn13"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_isbn13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="@sample/details.json/data/isbn13" />
+
+                <!-- book detail authors -->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_authors"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_detail_authors"
+                    android:textAppearance="?textAppearanceBody2"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_authors"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAppearance="?textAppearanceBody2"
+                    tools:text="@sample/details.json/data/authors" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/flow_detail_publish"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:paddingBottom="@dimen/dimen_10dp"
+                    app:constraint_referenced_ids="label_detail_publisher,text_detail_publisher,label_detail_published,text_detail_published,label_detail_isbn10,text_detail_isbn10,label_detail_isbn13,text_detail_isbn13,label_detail_authors,text_detail_authors"
+                    app:flow_firstHorizontalStyle="packed"
+                    app:flow_horizontalAlign="start"
+                    app:flow_horizontalGap="@dimen/dimen_10dp"
+                    app:flow_horizontalStyle="spread"
+                    app:flow_lastHorizontalStyle="packed"
+                    app:flow_maxElementsWrap="2"
+                    app:flow_verticalAlign="top"
+                    app:flow_verticalGap="@dimen/dimen_10dp"
+                    app:flow_wrapMode="aligned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_detail_about" />
+
+                <View
+                    android:id="@+id/divider_detail_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:background="?colorControlActivated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/flow_detail_publish" />
+
+                <!-- book detail description -->
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/label_detail_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_16dp"
+                    android:text="@string/label_detail_description"
+                    android:textAppearance="?textAppearanceHeadline6"
+                    android:textColor="?colorOnSurface"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_detail_02" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/text_detail_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:textAppearance="?textAppearanceBody2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_detail_description"
+                    tools:text="@sample/details.json/data/desc" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/dimen_20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dimen_20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_content_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/dimen_20dp" />
+
+    <!-- barriers -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_bottom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="text_detail_subtitle,image_detail_poster" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

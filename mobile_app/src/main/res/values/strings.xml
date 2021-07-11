@@ -1,0 +1,66 @@
+<!--
+  ~ Copyright (c) 2021 marlonlom.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name" translatable="false">Bookbar</string>
+    <!-- 00. destination labels / navigation graph -->
+    <string name="destination_label_home">Home</string>
+    <string name="destination_label_categories_browse">Categories browse</string>
+    <string name="destination_label_book_details">Book details</string>
+    <string name="destination_label_settings">Settings</string>
+    <!-- 00. texts / bottom navigation -->
+    <string name="bottom_menu_title_home">Home</string>
+    <string name="bottom_menu_title_settings">Settings</string>
+    <string name="bottom_menu_title_bookmarks">Bookmarks</string>
+    <!-- 01. texts / home screen -->
+    <string name="label_home_screen_overline">Hello, book reader</string>
+    <string name="label_home_screen_title">Let’s explore some IT books …</string>
+    <!-- 01. texts / home screen / book search form -->
+    <string name="hint_home_autocomplete_search">Search a book</string>
+    <!-- 01. texts / home screen / sample book categories -->
+    <string name="label_home_explore_categories">Explore categories</string>
+    <string name="btn_home_see_all_categories">See all</string>
+    <string name="label_chip_sample_category_01" translatable="false">Android</string>
+    <string name="label_chip_sample_category_02" translatable="false">Business</string>
+    <string name="label_chip_sample_category_03" translatable="false">Design</string>
+    <string name="label_chip_sample_category_04" translatable="false">Machine Learning</string>
+    <string name="label_chip_sample_category_05" translatable="false">Optimization</string>
+    <string name="tag_chip_sample_category_01" translatable="false">android</string>
+    <string name="tag_chip_sample_category_02" translatable="false">business</string>
+    <string name="tag_chip_sample_category_03" translatable="false">design</string>
+    <string name="tag_chip_sample_category_04" translatable="false">machine-learning</string>
+    <string name="tag_chip_sample_category_05" translatable="false">optimization</string>
+    <!-- 01. texts / home screen / released books list item -->
+    <string name="label_home_released_books">Released books</string>
+    <string name="content_description_image_book_cover">image that contains a book cover</string>
+    <!-- 02. texts / categories browse screen -->
+    <string name="label_categories_browse_screen_overline">Hello, book reader</string>
+    <string name="label_categories_browse_screen_title">Select a category for book search …</string>
+    <!-- 02. texts / categories browse screen / book search form -->
+    <string name="hint_categories_browse_autocomplete_search">Search a category</string>
+    <!-- 03. texts / book details screen -->
+    <string name="label_detail_description">Book description</string>
+    <string name="label_detail_authors">Authors</string>
+    <string name="label_detail_rating">Rating</string>
+    <string name="label_detail_price">Price</string>
+    <string name="label_detail_language">Language</string>
+    <string name="label_detail_pages">Pages</string>
+    <string name="label_detail_about">About the book</string>
+    <string name="label_detail_publisher">Publisher</string>
+    <string name="label_detail_published">Published</string>
+    <string name="label_detail_isbn10">ISBN-10</string>
+    <string name="label_detail_isbn13">ISBN-13</string>
+</resources>
