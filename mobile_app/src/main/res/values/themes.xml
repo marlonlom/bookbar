@@ -16,9 +16,8 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Application splash theme -->
-    <style name="Theme.Bookbar.Splash" >
-        <item name="android:background">@drawable/bg_splash_contents</item>
-        <item name="android:windowFullscreen">true</item>
+    <style name="Theme.Bookbar.Splash">
+        <item name="android:windowBackground">@drawable/bg_splash_contents</item>
     </style>
     <!-- Application theme -->
     <style name="Theme.Bookbar" parent="Base.Theme.Bookbar" />
