@@ -26,8 +26,6 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-private const val errorMessage = "Book information not found."
-
 /**
  * MVVM Contract for book details query.
  *
@@ -96,6 +94,8 @@ interface BookDetailsContract {
         private val remoteDataSource: RemoteDataSource
     ) {
 
+        private val errorMessage = "Book information not found."
+
         /**
          * Toggles the saved stated for selected book.
          *
@@ -158,6 +158,8 @@ interface BookDetailsContract {
      */
     class RemoteDataSource(private val bookStoreApi: BookStoreApi) {
 
+        private val errorMessage = "Book information not found."
+
         /**
          * Find book details from api using the requested ISBN.
          *
@@ -174,7 +176,6 @@ interface BookDetailsContract {
             emit(apiResult)
         }
     }
-
 
     /**
      * Local data source for book details query.
