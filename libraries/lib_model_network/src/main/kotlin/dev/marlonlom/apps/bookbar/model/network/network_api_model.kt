@@ -50,7 +50,7 @@ data class BookListItem(
      * @return the price value, or 'free'
      */
     val priceValue
-        get() = if (price == "\$0.00") "free" else price
+        get() = if (price == "\$0.00") "Free" else price
 
     /**
      * Return true/false if contents of two instances of book list item class are the same.
