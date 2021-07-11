@@ -85,20 +85,18 @@ interface ReleasedBooksContract {
          *
          * @return flow with released books query result
          */
-        @Suppress("LiftReturnOrAssignment")
-        suspend fun retrieveNewBooks(): Flow<Result<List<ReleasedBook>>> = flow {
-            val apiResult: Result<List<ReleasedBook>>? =
-                try {
-                    val localResults: List<ReleasedBook> = localDataSource.listAll().first()
-                    when {
-                        localResults.isNullOrEmpty() -> retrieveNewBooksRemote()
-                        else -> Result.success(localResults)
-                    }
-                } catch (exception: Exception) {
-                    Result.failure(Exception(errorMessage, exception))
-                }
 
-            emit(apiResult ?: Result.failure(Exception(errorMessage)))
+        suspend fun retrieveNewBooks(): Flow<Result<List<ReleasedBook>>> = flow {
+            val apiResult: Result<List<ReleasedBook>> = try {
+                val localResults: List<ReleasedBook> = localDataSource.listAll().first()
+                when {
+                    localResults.isNullOrEmpty() -> retrieveNewBooksRemote()
+                    else -> Result.success(localResults)
+                }
+            } catch (exception: Exception) {
+                Result.failure(Exception(errorMessage, exception))
+            }
+            emit(apiResult)
         }
 
         private suspend fun retrieveNewBooksRemote(): Result<List<ReleasedBook>> {
@@ -137,18 +135,17 @@ interface ReleasedBooksContract {
          *
          * @return flow with released books query result
          */
-        @Suppress("LiftReturnOrAssignment")
+
         suspend fun retrieveNewBooks(): Flow<Result<List<BookListItem>>> = flow {
-            val apiResult: Result<List<BookListItem>>? =
-                try {
-                    val newBooks = bookStoreApi.getNewBooks()
-                    val isSuccess = newBooks.error == "0" && newBooks.books.isNotEmpty()
-                    if (isSuccess) Result.success(newBooks.books)
-                    else Result.failure(Exception(errorMessage))
-                } catch (exception: Exception) {
-                    Result.failure(Exception(errorMessage, exception))
-                }
-            emit(apiResult ?: Result.failure(Exception(errorMessage)))
+            val apiResult: Result<List<BookListItem>> = try {
+                val newBooks = bookStoreApi.getNewBooks()
+                val isSuccess = newBooks.error == "0" && newBooks.books.isNotEmpty()
+                if (isSuccess) Result.success(newBooks.books)
+                else Result.failure(Exception(errorMessage))
+            } catch (exception: Exception) {
+                Result.failure(Exception(errorMessage, exception))
+            }
+            emit(apiResult)
         }
     }
 

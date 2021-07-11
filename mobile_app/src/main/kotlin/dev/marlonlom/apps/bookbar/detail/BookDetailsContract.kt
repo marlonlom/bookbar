@@ -112,9 +112,8 @@ interface BookDetailsContract {
          *
          * @return flow with book details query result
          */
-        @Suppress("LiftReturnOrAssignment")
         suspend fun findBook(isbn: String): Flow<Result<BookDetail>> = flow {
-            val apiResult: Result<BookDetail>? =
+            val apiResult: Result<BookDetail> =
                 try {
                     val localResults = localDataSource.findSingle(isbn).first()
                     when {
@@ -124,7 +123,7 @@ interface BookDetailsContract {
                 } catch (exception: Exception) {
                     Result.failure(Exception(errorMessage, exception))
                 }
-            emit(apiResult ?: Result.failure(Exception(errorMessage)))
+            emit(apiResult)
         }
 
         private suspend fun findBookRemote(isbn: String): Result<BookDetail> {
@@ -164,17 +163,15 @@ interface BookDetailsContract {
          *
          * @return flow with book details query result
          */
-        @Suppress("LiftReturnOrAssignment")
         suspend fun findBook(isbn: String): Flow<Result<BookDetailApiResponse>> = flow {
-            val apiResult: Result<BookDetailApiResponse>? =
-                try {
-                    val foundBook = bookStoreApi.getBookDetail(isbn)
-                    if (foundBook.error == "0") Result.success(foundBook)
-                    else Result.failure(Exception(errorMessage))
-                } catch (exception: Exception) {
-                    Result.failure(Exception(errorMessage, exception))
-                }
-            emit(apiResult ?: Result.failure(Exception(errorMessage)))
+            val apiResult: Result<BookDetailApiResponse> = try {
+                val foundBook = bookStoreApi.getBookDetail(isbn)
+                if (foundBook.error == "0") Result.success(foundBook)
+                else Result.failure(Exception(errorMessage))
+            } catch (exception: Exception) {
+                Result.failure(Exception(errorMessage, exception))
+            }
+            emit(apiResult)
         }
     }
 
