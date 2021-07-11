@@ -93,6 +93,6 @@ data class BookDetailApiResponse(
      * @return the price value, or 'free'
      */
     val priceValue
-        get() = if (price == "\$0.00") "free" else price
+        get() = if (price == "\$0.00") "Free" else price
 
 }

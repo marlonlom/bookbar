@@ -45,11 +45,13 @@ interface BookStoreApi {
 
     @ExperimentalSerializationApi
     object Service {
+        private val json = Json { ignoreUnknownKeys = true }
+
         fun newService(httpUrl: HttpUrl): BookStoreApi {
             val contentType = "application/json".toMediaType()
 
             return Retrofit.Builder()
-                .addConverterFactory(Json.asConverterFactory(contentType))
+                .addConverterFactory(json.asConverterFactory(contentType))
                 .baseUrl(httpUrl)
                 .build().create(BookStoreApi::class.java)
         }
