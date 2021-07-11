@@ -32,6 +32,7 @@ import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.book_detail.BookDetail
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.viewbindings.viewBinding
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -47,7 +48,11 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
 
     private val uiBinding by viewBinding(FragmentBookDetailsBinding::bind)
     private val uiViewModel: BookDetailsContract.ViewModel by navGraphViewModels(R.id.navigation_bookstore) { newViewModelFactory() }
+
     private val args: BookDetailsFragmentArgs by navArgs()
+
+    private lateinit var foundBookJob: Job
+    private lateinit var savedBookFlagJob: Job
 
     private fun newViewModelFactory(): BookDetailsContract.ViewModelFactory {
         Timber.w("Getting new ViewModel using network api and local database for book detail listing ...")
@@ -59,26 +64,41 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
         return BookDetailsContract.ViewModelFactory(repository)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Timber.d("onViewCreated")
-        setupScreen()
-        obtainReleasedBooks()
-    }
-
-    private fun obtainReleasedBooks() {
-        Timber.d("obtainReleasedBooks")
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            Timber.i("launchWhenStarted >> obtaining book detail using isbn")
+    override fun onStart() {
+        super.onStart()
+        savedBookFlagJob = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            Timber.i("launchWhenStarted >> obtaining book saved flag")
             uiViewModel.bookSaved.collect { isBookSaved ->
                 handleSavedBookFlag(isBookSaved)
             }
+        }
+        foundBookJob = viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            Timber.i("launchWhenStarted >> obtaining book detail using isbn")
             uiViewModel.book.collect { book ->
-                if (book != BookDetail.NONE) {
+                val isOtherThanNone = book != BookDetail.NONE
+                Timber.d("isOtherThanNone=$isOtherThanNone")
+                if (isOtherThanNone) {
                     processFoundBook(book)
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        savedBookFlagJob.cancel()
+        foundBookJob.cancel()
+        super.onStop()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated")
+        setupScreen()
+        obtainSelectedBook()
+    }
+
+    private fun obtainSelectedBook() {
+        Timber.d("obtainSelectedBook")
         uiViewModel.retrieveBook(args.bookIsbn)
     }
 
@@ -101,11 +121,33 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
         Timber.d("setupScreen")
         uiBinding.apply {
             btnScreenBack.setOnClickListener {
+                clearScreenContents()
                 findNavController().popBackStack()
             }
             btnBookSave.setOnClickListener {
                 uiViewModel.toggleSaved(args.bookIsbn)
             }
+        }
+    }
+
+    private fun clearScreenContents() {
+        uiBinding.apply {
+            imageDetailPoster.load(R.drawable.img_book_placeholder) {
+                crossfade(true)
+            }
+            textDetailTitle.text = ""
+            textDetailSubtitle.text = ""
+            textDetailAuthors.text = ""
+            textDetailPrice.text = ""
+            textDetailPublisher.text = ""
+            textDetailPublished.text = ""
+            textDetailPages.text = ""
+            textDetailLanguage.text = ""
+            textDetailIsbn10.text = ""
+            textDetailIsbn13.text = ""
+            textDetailDescription.text = ""
+            detailRatingValue.rating = 0.toFloat()
+
         }
     }
 

@@ -127,6 +127,7 @@ interface BookDetailsContract {
         }
 
         private suspend fun findBookRemote(isbn: String): Result<BookDetail> {
+            Timber.d("findBookRemote('$isbn')")
             val remoteResult = remoteDataSource.findBook(isbn).first()
             saveBookDetailIfSuccess(remoteResult)
             return when {
@@ -168,9 +169,11 @@ interface BookDetailsContract {
         suspend fun findBook(isbn: String): Flow<Result<BookDetailApiResponse>> = flow {
             val apiResult: Result<BookDetailApiResponse> = try {
                 val foundBook = bookStoreApi.getBookDetail(isbn)
+                Timber.d("findBook('$isbn').result(remote)=$foundBook")
                 if (foundBook.error == "0") Result.success(foundBook)
                 else Result.failure(Exception(errorMessage))
             } catch (exception: Exception) {
+                Timber.e(exception)
                 Result.failure(Exception(errorMessage, exception))
             }
             emit(apiResult)
