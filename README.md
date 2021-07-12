@@ -7,8 +7,8 @@
     + [Screenshots](#screenshots)
     + [Libraries Used](#libraries-used)
     + [Android Studio IDE setup](#android-studio-ide-setup)
-  * [About the developer](#about-the-developer)
-    + [License](#license)
+- [About the developer](#about-the-developer)
+- [License](#license)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -49,13 +49,13 @@ TBD
 For development, the latest version of Android Studio is required. The latest version can be downloaded from [here](https://developer.android.com/studio/).
 
 
-## About the developer
+# About the developer
 
  - Follow me on **Twitter**: [**@Marlonlom**](https://twitter.com/marlonlom)
  - Contact me on **LinkedIn**: [**Marlonlom**](https://co.linkedin.com/in/marlonlom)
 
 
-### License
+# License
 
 ```
 Copyright 2021 marlonlom
