@@ -1,4 +1,17 @@
-<hr/>
+
+<br>
+<p align="center">
+  <img alt="GitHub" src="https://img.shields.io/github/license/marlonlom/bookbar">
+  <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/marlonlom/bookbar">
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/marlonlom/bookbar">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/marlonlom/bookbar">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/marlonlom/bookbar">
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr-raw/marlonlom/bookbar">
+  
+</p>
+
+# Bookbar
+A book store app with some illustrating about Android development best practices with Android Jetpack.
 
 # Table of contents:
 - [Bookbar](#bookbar)
@@ -13,9 +26,6 @@
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 <hr/>
-
-# Bookbar
-A book store app with some illustrating about Android development best practices with Android Jetpack.
 
 ## Getting Started
 This project uses the Gradle build system. To build this project, use the `gradlew build` command or use "Import Project" in Android Studio.
