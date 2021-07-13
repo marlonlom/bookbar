@@ -25,7 +25,7 @@ A book store app with some illustrating about Android development best practices
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-<hr/>
+<br>
 
 ## Getting Started
 This project uses the Gradle build system. To build this project, use the `gradlew build` command or use "Import Project" in Android Studio.
