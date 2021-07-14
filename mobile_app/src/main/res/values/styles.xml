@@ -24,4 +24,6 @@
         <item name="chipSurfaceColor">?colorSecondary</item>
     </style>
 
+    <style name="Widget.Bookbar.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" />
+
 </resources>

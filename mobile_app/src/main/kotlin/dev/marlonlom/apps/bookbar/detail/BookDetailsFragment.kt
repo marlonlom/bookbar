@@ -103,7 +103,7 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            clearScreenContents()
+            handleBackNavigation()
         }
     }
 
@@ -131,13 +131,17 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
         Timber.d("setupScreen")
         uiBinding.apply {
             btnScreenBack.setOnClickListener {
-                clearScreenContents()
-                findNavController().popBackStack()
+                handleBackNavigation()
             }
             btnBookSave.setOnClickListener {
                 uiViewModel.toggleSaved(args.bookIsbn)
             }
         }
+    }
+
+    private fun handleBackNavigation() {
+        clearScreenContents()
+        findNavController().popBackStack()
     }
 
     private fun clearScreenContents() {
@@ -157,6 +161,8 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
             textDetailIsbn13.text = ""
             textDetailDescription.text = ""
             detailRatingValue.rating = 0.toFloat()
+
+            btnBookBuyOrDownload.visibility = View.GONE
 
             uiViewModel.clearState()
         }
@@ -204,6 +210,7 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
             setOnClickListener {
                 handleBookBuyOrDownloadClick(book)
             }
+            visibility = View.VISIBLE
         }
     }
 

@@ -32,6 +32,7 @@ import dev.marlonlom.apps.bookbar.model.database.released_books.ReleasedBook
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.viewbindings.viewBinding
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import timber.log.Timber
@@ -73,8 +74,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun obtainReleasedBooks() {
         Timber.d("obtainReleasedBooks")
-        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
-            Timber.i("launchWhenStarted >> obtaining released books")
+        viewLifecycleOwner.lifecycleScope.launch {
+            Timber.i("launch >> obtaining released books")
             uiViewModel.books.collect { books ->
                 processFoundBooks(books)
             }

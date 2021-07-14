@@ -17,6 +17,7 @@
 package dev.marlonlom.apps.bookbar
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -56,8 +57,27 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             Timber.d("DestinationChanged: ${destination.label}, args: $arguments")
             val topDestinations =
                 setOf(R.id.screen_home, R.id.screen_bookmarks, R.id.screen_settings)
-            uiBinding.bottomNav.visibility =
-                if (topDestinations.contains(destination.id)) View.VISIBLE else View.GONE
+
+            uiBinding.apply {
+                val containsTopDestinations = topDestinations.contains(destination.id)
+                bottomNav.visibility =
+                    if (containsTopDestinations) View.VISIBLE else View.GONE
+
+                val paddingBottomValue = if (containsTopDestinations) actionBarSize else 0
+                fragmentContainer.setPadding(0, 0, 0, paddingBottomValue)
+            }
         }
     }
+
+    private val actionBarSize: Int
+        get() {
+            val typedValue = TypedValue()
+            return when (theme.resolveAttribute(android.R.attr.actionBarSize, typedValue, true)) {
+                true -> TypedValue.complexToDimensionPixelSize(
+                    typedValue.data, resources.displayMetrics
+                )
+                else -> 0
+            }
+        }
+
 }
