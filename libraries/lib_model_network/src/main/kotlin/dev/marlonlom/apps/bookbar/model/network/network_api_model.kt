@@ -16,6 +16,7 @@
 
 package dev.marlonlom.apps.bookbar.model.network
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -86,7 +87,8 @@ data class BookDetailApiResponse(
     val subtitle: String? = null,
     val title: String? = null,
     val url: String? = null,
-    val year: String? = null
+    val year: String? = null,
+    val pdf: Pdf? = null
 ) {
     /**
      * Returns if price is greater than zero, the price value, instead, 'free'.
@@ -95,4 +97,21 @@ data class BookDetailApiResponse(
     val priceValue
         get() = if (price == "\$0.00") "Free" else price
 
+}
+
+/**
+ * Data class for holding pdf information about the book.
+ * @author marlonlom
+ */
+@Serializable
+data class Pdf(
+    @SerialName("Free eBook")
+    val freeEBook: String? = "none"
+) {
+    /**
+     * Indicates if pdf information includes free ebook.
+     *
+     * @return true/false
+     */
+    val hasFreeEBook get() = !freeEBook?.equals("none")!!
 }

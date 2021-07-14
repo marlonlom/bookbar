@@ -42,7 +42,7 @@ class BookListItemTest : TestCase() {
     @Test
     fun `Should return free if book price is zero`() {
         val firstItem = RemoteData.newBooksApiResponse.books[0]
-        assertEquals("free", firstItem.priceValue)
+        assertEquals("Free", firstItem.priceValue)
     }
 
     @Test

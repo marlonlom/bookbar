@@ -25,6 +25,8 @@ object SampleDataDispatcher {
 
     private val newBooksJson = RemoteData.newBooks
     private val singleBookJson = RemoteData.singleBook
+    private val singleFreeBookJson = RemoteData.singleFreeBook
+    private val samplePagesFreeBookJson = RemoteData.samplePagesFreeBook
     private val singleBookNotFoundJson = RemoteData.singleBookNotFound
     private const val errorJson = "{\"error\": \"[api] Not found\"}"
 
@@ -39,6 +41,8 @@ object SampleDataDispatcher {
             return when (request.path) {
                 "/new" -> newMockResponse(newBooksJson)
                 "/books/9781484266823" -> newMockResponse(singleBookJson)
+                "/books/1001622115721" -> newMockResponse(singleFreeBookJson)
+                "/books/9781617294136" -> newMockResponse(samplePagesFreeBookJson)
                 "/books/0000000000005" -> newMockResponse(singleBookNotFoundJson)
                 else -> newMockResponse(errorJson)
             }

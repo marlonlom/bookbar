@@ -31,6 +31,12 @@ object RemoteData {
     val singleBook: String
         get() = readJsonFileText("json/single_book_detail.json")
 
+    val singleFreeBook: String
+        get() = readJsonFileText("json/free_book_detail.json")
+
+    val samplePagesFreeBook: String
+        get() = readJsonFileText("json/sample_pages_book_detail.json")
+
     val singleBookNotFound: String
         get() = readJsonFileText("json/no_book_detail.json")
 

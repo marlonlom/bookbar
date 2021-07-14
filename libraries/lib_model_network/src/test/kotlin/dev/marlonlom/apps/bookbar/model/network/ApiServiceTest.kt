@@ -66,7 +66,7 @@ class ApiServiceTest : TestCase() {
                     assertEquals("", bookListItem.subtitle)
                     assertEquals("1001622115721", bookListItem.isbn13)
                     assertEquals("$0.00", bookListItem.price)
-                    assertEquals("free", bookListItem.priceValue)
+                    assertEquals("Free", bookListItem.priceValue)
                     assertEquals(
                         "https://itbook.store/img/books/1001622115721.png",
                         bookListItem.image
@@ -114,6 +114,71 @@ class ApiServiceTest : TestCase() {
                 assertEquals("$37.24", this.priceValue)
                 assertEquals("https://itbook.store/img/books/9781484266823.png", this.image)
                 assertEquals("https://itbook.store/books/9781484266823", this.url)
+            }
+        }
+    }
+
+    @Test
+    fun `Should return a free book using a ISBN`() {
+        runBlocking {
+            mockApiService.getBookDetail("1001622115721").apply {
+                assertNotNull(this)
+                assertEquals("0", this.error)
+                assertEquals("TypeScript Notes for Professionals", this.title)
+                assertEquals("", this.subtitle)
+                assertEquals("Stack Overflow Community", this.authors)
+                assertEquals("Self-publishing", this.publisher)
+                assertEquals("English", this.language)
+                assertEquals("1622115724", this.isbn10)
+                assertEquals("1001622115721", this.isbn13)
+                assertEquals("96", this.pages)
+                assertEquals("2018", this.year)
+                assertEquals("0", this.rating)
+                assertEquals(
+                    "The TypeScript Notes for Professionals book is compiled from Stack Overflow Documentation, the content is written by the beautiful people at Stack Overflow....",
+                    this.desc
+                )
+                assertEquals("$0.00", this.price)
+                assertEquals("Free", this.priceValue)
+                assertEquals("https://itbook.store/img/books/1001622115721.png", this.image)
+                assertEquals("https://itbook.store/books/1001622115721", this.url)
+                assertNotNull(this.pdf)
+                assertTrue(this.pdf!!.hasFreeEBook)
+                assertEquals(
+                    "https://www.dbooks.org/d/5592544360-1622115253-9bbc1cd0a894d0c9/",
+                    this.pdf!!.freeEBook!!
+                )
+            }
+        }
+    }
+
+    @Test
+    fun `Should return a free book with sample pages using a ISBN`() {
+        runBlocking {
+            mockApiService.getBookDetail("9781617294136").apply {
+                assertNotNull(this)
+                assertEquals("0", this.error)
+                assertEquals("Securing DevOps", this.title)
+                assertEquals("Security in the Cloud", this.subtitle)
+                assertEquals("Julien Vehent", this.authors)
+                assertEquals("Manning", this.publisher)
+                assertEquals("English", this.language)
+                assertEquals("1617294136", this.isbn10)
+                assertEquals("9781617294136", this.isbn13)
+                assertEquals("384", this.pages)
+                assertEquals("2018", this.year)
+                assertEquals("5", this.rating)
+                assertEquals(
+                    "An application running in the cloud can benefit from incredible efficiencies, but they come with unique security threats too. A DevOps team's highest priority is understanding those risks and hardening the system against them.Securing DevOps teaches you the essential techniques to secure your cloud ...",
+                    this.desc
+                )
+                assertEquals("$39.65", this.price)
+                assertEquals("$39.65", this.priceValue)
+                assertEquals("https://itbook.store/img/books/9781617294136.png", this.image)
+                assertEquals("https://itbook.store/books/9781617294136", this.url)
+                assertNotNull(this.pdf)
+                assertFalse(this.pdf!!.hasFreeEBook)
+                assertEquals("none", this.pdf!!.freeEBook!!)
             }
         }
     }
