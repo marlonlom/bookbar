@@ -62,7 +62,9 @@ data class BookDetail(
     val desc: String,
     val image: String,
     val url: String,
-    val saved: Boolean? = false
+    val saved: Boolean? = false,
+    val isFree: Boolean? = false,
+    val freePdfUrl: String? = ""
 ) {
     companion object {
 
