@@ -29,7 +29,7 @@ import dev.marlonlom.apps.bookbar.model.database.released_books.ReleasedBooksDao
 
 @Database(
     entities = [ReleasedBook::class, BookCategory::class, BookDetail::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
