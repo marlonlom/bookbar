@@ -30,9 +30,7 @@
         android:theme="@style/Theme.Bookbar.Splash"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <activity
-            android:name="dev.marlonlom.apps.bookbar.MainActivity"
-            android:exported="true">
+        <activity android:name="dev.marlonlom.apps.bookbar.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -16,8 +16,11 @@
 
 package dev.marlonlom.apps.bookbar.detail
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -93,8 +96,15 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
+        handleOnBackPressed()
         setupScreen()
         obtainBookInformation()
+    }
+
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            clearScreenContents()
+        }
     }
 
     private fun obtainBookInformation() {
@@ -171,10 +181,42 @@ class BookDetailsFragment : Fragment(R.layout.fragment_book_details) {
             textDetailIsbn13.text = book.isbn13
             textDetailDescription.text = book.desc
             detailRatingValue.rating = book.rating.let { if (it.isEmpty()) "0" else it }.toFloat()
-
+            setupBookBuyOrDownloadButton(book)
             btnBookShare.setOnClickListener {
                 performBookSharing(book)
             }
+        }
+    }
+
+    private fun setupBookBuyOrDownloadButton(book: BookDetail) {
+        Timber.d("setupBookBuyOrDownloadButton")
+        uiBinding.btnBookBuyOrDownload.apply {
+            val selectedBtnText = when (book.isFree) {
+                true -> R.string.btn_label_detail_download_book
+                else -> R.string.btn_label_detail_buy_book
+            }
+            val selectedBtnIcon = when (book.isFree) {
+                true -> R.drawable.ic_detail_download_free
+                else -> R.drawable.ic_detail_buy
+            }
+            text = requireContext().getString(selectedBtnText)
+            icon = ResourcesCompat.getDrawable(resources, selectedBtnIcon, null)
+            setOnClickListener {
+                handleBookBuyOrDownloadClick(book)
+            }
+        }
+    }
+
+    private fun handleBookBuyOrDownloadClick(book: BookDetail) {
+        val isFreeEbook = book.isFree
+        Timber.d("handleBookBuyOrDownloadClick ... book.isFree=$isFreeEbook")
+        if (!isFreeEbook!!) {
+            val buyUrl = requireContext().getString(R.string.url_detail_buy_book, book.isbn13)
+            Timber.d("handle external navigation for buying process: \"$buyUrl\"")
+            val customTab = CustomTabsIntent.Builder().build()
+            customTab.launchUrl(requireContext(), Uri.parse(buyUrl))
+        } else {
+            Timber.d("handle external navigation for download free pdf process: \"${book.freePdfUrl}\" ")
         }
     }
 

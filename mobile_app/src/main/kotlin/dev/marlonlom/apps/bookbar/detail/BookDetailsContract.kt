@@ -151,9 +151,12 @@ interface BookDetailsContract {
         }
 
         private fun toBookDetailEntity(item: BookDetailApiResponse) = BookDetail(
-            item.isbn13!!, item.isbn10!!, item.title!!, item.subtitle!!, item.rating!!,
-            item.priceValue!!, item.language!!, item.pages!!, item.publisher!!, item.year!!,
-            item.authors!!, item.desc!!, item.image!!, item.url!!
+            isbn13 = item.isbn13!!, isbn10 = item.isbn10!!, title = item.title!!,
+            subtitle = item.subtitle!!, rating = item.rating!!, price = item.priceValue!!,
+            language = item.language!!, pages = item.pages!!, publisher = item.publisher!!,
+            year = item.year!!, authors = item.authors!!, desc = item.desc!!,
+            image = item.image!!, url = item.url!!, saved = false,
+            isFree = item.pdf?.hasFreeEBook, freePdfUrl = item.pdf?.freeEBook
         )
 
     }

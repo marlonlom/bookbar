@@ -63,4 +63,7 @@
     <string name="label_detail_published">Published</string>
     <string name="label_detail_isbn10">ISBN-10</string>
     <string name="label_detail_isbn13">ISBN-13</string>
+    <string name="btn_label_detail_buy_book">Buy book</string>
+    <string name="btn_label_detail_download_book">Download book</string>
+    <string name="url_detail_buy_book" translatable="false">https://itbook.store/go/buy/%1$s</string>
 </resources>
