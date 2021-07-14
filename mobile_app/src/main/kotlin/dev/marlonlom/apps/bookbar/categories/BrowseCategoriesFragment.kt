@@ -19,7 +19,9 @@ package dev.marlonlom.apps.bookbar.categories
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -29,6 +31,8 @@ import dev.marlonlom.apps.bookbar.databinding.FragmentCategoriesBrowseBinding
 import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import dev.marlonlom.apps.bookbar.viewbindings.viewBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -51,12 +55,36 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
+        handleOnBackPressed()
         setupScreen()
+        obtainAvailableCategories()
+    }
+
+    private fun obtainAvailableCategories() {
+        Timber.d("obtainAvailableCategories")
+        viewLifecycleOwner.lifecycleScope.launch {
+            Timber.i("launch >> obtaining book categories")
+            uiViewModel.categories.collect { items ->
+                processFoundCategories(items)
+            }
+        }
+        uiViewModel.populateList(resources.openRawResource(R.raw.book_categories))
+    }
+
+    private fun processFoundCategories(items: List<BookCategory>) {
+        Timber.d("processFoundCategories")
+        (uiBinding.listCategories.adapter as BookCategoriesListAdapter).submitList(items)
+    }
+
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setupScreen() {
         Timber.d("setupScreen")
-        uiViewModel.populateList(resources.openRawResource(R.raw.book_categories))
+
         uiBinding.apply {
             btnScreenBack.setOnClickListener {
                 findNavController().popBackStack()
@@ -77,9 +105,7 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
 
     private val handleBookCategoriesListItemClicked: (BookCategory) -> Unit = { category ->
         Timber.d("handleBookCategoriesListItemClicked: $category")
-        Toast.makeText(
-            requireContext(), "Selected category: $category", Toast.LENGTH_LONG
-        ).show()
+        Toast.makeText(requireContext(), "Selected category: $category", Toast.LENGTH_LONG).show()
     }
 
 }

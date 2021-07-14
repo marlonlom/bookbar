@@ -23,6 +23,7 @@ import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.json.JSONArray
+import timber.log.Timber
 import java.io.InputStream
 
 /**
@@ -71,6 +72,7 @@ interface BrowseCategoriesContract {
          * @param inputStream json content of book categories as a Stream.
          */
         fun populateList(inputStream: InputStream) = viewModelScope.launch {
+            Timber.d("populateList from ViewModel")
             repository.populateList(inputStream)
             fetchCategories()
         }
@@ -96,6 +98,7 @@ interface BrowseCategoriesContract {
         }
 
         suspend fun populateList(inputStream: InputStream) {
+            Timber.d("populateList from Repository")
             localDataSource.deleteAll()
             val categories: String = inputStream.bufferedReader().use { it.readText() }
             val list = convertToList(categories)
@@ -127,6 +130,7 @@ interface BrowseCategoriesContract {
      */
     class LocalDataSource(private val appDatabase: AppDatabase) {
         fun listAll() = appDatabase.categoriesDao().listAll()
+
         /*
         @Suppress("unused")
         fun findByTag(tag: String) = appDatabase.categoriesDao().findByTag(tag)
