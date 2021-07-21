@@ -114,6 +114,7 @@ class ApiServiceTest : TestCase() {
                 assertEquals("$37.24", this.priceValue)
                 assertEquals("https://itbook.store/img/books/9781484266823.png", this.image)
                 assertEquals("https://itbook.store/books/9781484266823", this.url)
+                assertNull(this.pdf)
             }
         }
     }
