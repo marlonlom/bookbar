@@ -37,6 +37,18 @@ object RemoteData {
     val samplePagesFreeBook: String
         get() = readJsonFileText("json/sample_pages_book_detail.json")
 
+    val bookSearchFailed: String
+        get() = readJsonFileText("json/book_search_failed.json")
+
+    val bookSearchKotlinPage01: String
+        get() = readJsonFileText("json/book_search_kotlin_page01.json")
+
+    val bookSearchKotlinPage03: String
+        get() = readJsonFileText("json/book_search_kotlin_page03.json")
+
+    val bookSearchSpanishPage01: String
+        get() = readJsonFileText("json/book_search_spanish_page01.json")
+
     val singleBookNotFound: String
         get() = readJsonFileText("json/no_book_detail.json")
 

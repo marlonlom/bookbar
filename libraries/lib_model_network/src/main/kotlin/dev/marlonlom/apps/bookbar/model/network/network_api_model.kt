@@ -115,3 +115,21 @@ data class Pdf(
      */
     val hasFreeEBook get() = !freeEBook?.equals("none")!!
 }
+
+/**
+ * Data class that represents searched books list api response.
+ *
+ * @author marlonlom
+ */
+@Serializable
+data class BookSearchApiResponse(
+    val books: List<BookListItem>? = emptyList(),
+    val error: String? = "0",
+    var total: String? = "0",
+    var page: String? = "1"
+) {
+    companion object {
+        val EMPTY_RESPONSE: BookSearchApiResponse
+            get() = BookSearchApiResponse(emptyList(), "0", "0")
+    }
+}

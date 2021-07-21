@@ -43,6 +43,12 @@ interface BookStoreApi {
     @GET("books/{isbn13}")
     suspend fun getBookDetail(@Path("isbn13") isbn: String): BookDetailApiResponse
 
+    @GET("search/{query}/{page}")
+    suspend fun search(
+        @Path("query") query: String,
+        @Path("page") page: String? = "1"
+    ): BookSearchApiResponse
+
     @ExperimentalSerializationApi
     object Service {
         private val json = Json { ignoreUnknownKeys = true }

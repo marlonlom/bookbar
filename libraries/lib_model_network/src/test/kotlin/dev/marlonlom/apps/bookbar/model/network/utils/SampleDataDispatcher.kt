@@ -28,6 +28,10 @@ object SampleDataDispatcher {
     private val singleFreeBookJson = RemoteData.singleFreeBook
     private val samplePagesFreeBookJson = RemoteData.samplePagesFreeBook
     private val singleBookNotFoundJson = RemoteData.singleBookNotFound
+    private val bookSearchFailedJson = RemoteData.bookSearchFailed
+    private val bookSearchKotlinPage01Json = RemoteData.bookSearchKotlinPage01
+    private val bookSearchKotlinPage03Json = RemoteData.bookSearchKotlinPage03
+    private val bookSearchSpanishPage01Json = RemoteData.bookSearchSpanishPage01
     private const val errorJson = "{\"error\": \"[api] Not found\"}"
 
     private fun newMockResponse(jsonString: String) = MockResponse()
@@ -44,6 +48,10 @@ object SampleDataDispatcher {
                 "/books/1001622115721" -> newMockResponse(singleFreeBookJson)
                 "/books/9781617294136" -> newMockResponse(samplePagesFreeBookJson)
                 "/books/0000000000005" -> newMockResponse(singleBookNotFoundJson)
+                "/search//1" -> newMockResponse(bookSearchFailedJson)
+                "/search/kotlin/1" -> newMockResponse(bookSearchKotlinPage01Json)
+                "/search/kotlin/3" -> newMockResponse(bookSearchKotlinPage03Json)
+                "/search/spanish/1" -> newMockResponse(bookSearchSpanishPage01Json)
                 else -> newMockResponse(errorJson)
             }
         }

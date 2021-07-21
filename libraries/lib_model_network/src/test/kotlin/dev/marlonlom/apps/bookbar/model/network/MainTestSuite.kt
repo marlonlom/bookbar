@@ -26,6 +26,7 @@ import org.junit.runners.Suite
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
     BookListItemTest::class,
-    ApiServiceTest::class
+    ApiServiceTest::class,
+    BookSearchApiServiceTest::class
 )
 class MainTestSuite
