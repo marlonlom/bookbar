@@ -2,7 +2,7 @@
 <p align="left" style="margin: 5px 0;">
   <img alt="GitHub" src="https://img.shields.io/github/license/marlonlom/bookbar">
   <img alt="GitHub contributors" src="https://img.shields.io/github/contributors/marlonlom/bookbar">
-  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/marlonlom/bookbar">
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/marlonlom/bookbar">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/marlonlom/bookbar">
   <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/marlonlom/bookbar">
   <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr-raw/marlonlom/bookbar">  
