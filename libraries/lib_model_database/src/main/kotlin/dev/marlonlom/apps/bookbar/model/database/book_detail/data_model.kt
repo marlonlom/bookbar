@@ -20,7 +20,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for book details database operations.
+ * DAO for book title database operations.
  *
  * @author marlonlom
  */
@@ -38,10 +38,13 @@ interface BookDetailsDao {
     @Query("SELECT * FROM book_details bdt WHERE bdt.isbn13 = :isbn")
     fun findByIsbn(isbn: String): Flow<List<BookDetail>>
 
+    @Query("SELECT * FROM book_details bdt WHERE bdt.saved = 1")
+    fun listSaved(): Flow<List<BookDetail>>
+
 }
 
 /**
- * Database entity class for book details.
+ * Database entity class for book title.
  *
  * @author marlonlom
  */

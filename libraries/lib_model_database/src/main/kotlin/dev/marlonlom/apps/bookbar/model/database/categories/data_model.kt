@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoriesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: BookCategory)
+    suspend fun insertCategories(items: List<BookCategory>)
 
     @Query("DELETE FROM book_categories")
     suspend fun deleteAll()
@@ -30,17 +30,15 @@ interface CategoriesDao {
     @Query("SELECT * FROM book_categories")
     fun listAll(): Flow<List<BookCategory>>
 
-/*    @Query("SELECT * FROM book_categories bc WHERE bc.tag = :categoryTag")
-    fun findByTag(categoryTag: String): Flow<List<BookCategory>>
-
-    @Query("SELECT * FROM book_categories bc WHERE bc.title LIKE '%:someText%'")
-    fun findByText(someText: String): Flow<List<BookCategory>>
-*/
+    @Query("SELECT * FROM book_categories WHERE book_categories MATCH :query")
+    fun search(query: String): Flow<List<BookCategory>>
 }
 
 @Entity(tableName = "book_categories")
+@Fts4
 data class BookCategory(
     @PrimaryKey
+    @ColumnInfo(name = "rowid") val id: Int?,
     val tag: String,
     val title: String
 )

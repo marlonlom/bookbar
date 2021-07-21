@@ -33,6 +33,7 @@ object SampleData {
                 result.add(
                     jsonArray.getJSONObject(pos).let { jsonObject ->
                         BookCategory(
+                            ,
                             tag = jsonObject.getString("tag"),
                             title = jsonObject.getString("title")
                         )
