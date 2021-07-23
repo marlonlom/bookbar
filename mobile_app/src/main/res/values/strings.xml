@@ -20,11 +20,13 @@
     <string name="destination_label_home">Home</string>
     <string name="destination_label_categories_browse">Categories browse</string>
     <string name="destination_label_book_details">Book details</string>
+    <string name="destination_label_book_search">Book search</string>
+    <string name="destination_label_saved_books">Saved books</string>
     <string name="destination_label_settings">Settings</string>
     <!-- 00. texts / bottom navigation -->
     <string name="bottom_menu_title_home">Home</string>
     <string name="bottom_menu_title_settings">Settings</string>
-    <string name="bottom_menu_title_bookmarks">Bookmarks</string>
+    <string name="bottom_menu_title_saved">Saved</string>
     <!-- 01. texts / home screen -->
     <string name="label_home_screen_overline">Hello, book reader</string>
     <string name="label_home_screen_title">Let’s explore some IT books …</string>
@@ -50,8 +52,8 @@
     <string name="label_categories_browse_screen_overline">Hello, book reader</string>
     <string name="label_categories_browse_screen_title">Select a category for book search …</string>
     <!-- 02. texts / categories browse screen / book search form -->
-    <string name="hint_categories_browse_autocomplete_search">Search a category</string>
-    <!-- 03. texts / book details screen -->
+    <string name="hint_categories_browse_edittext_search">Search a category</string>
+    <!-- 03. texts / book title screen -->
     <string name="label_detail_description">Book description</string>
     <string name="label_detail_authors">Authors</string>
     <string name="label_detail_rating">Rating</string>
@@ -66,4 +68,16 @@
     <string name="btn_label_detail_buy_book">Buy book</string>
     <string name="btn_label_detail_download_book">Download book</string>
     <string name="url_detail_buy_book" translatable="false">https://itbook.store/go/buy/%1$s</string>
+    <!-- 03. texts / book search screen -->
+    <string name="label_book_search_screen_overline">Hello, book reader</string>
+    <string name="label_book_search_screen_title">Explore books by search</string>
+    <string name="hint_book_search_edittext">Search</string>
+    <string name="label_book_search_results">Search results</string>
+    <!-- 04. texts / saved books listing screen -->
+    <string name="label_saved_books_screen_title">Explore saved books</string>
+    <string name="label_saved_books_screen_overline">Hello, book reader</string>
+    <string name="hint_saved_books_edittext">Filter by title</string>
+    <string name="label_saved_books_results">Saved books</string>
+    <string name="text_saved_books_unsaved">Book unsaved</string>
+    <string name="label_saved_books_undo_delete">Undo</string>
 </resources>
