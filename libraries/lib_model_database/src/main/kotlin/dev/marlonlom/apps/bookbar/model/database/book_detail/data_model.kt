@@ -41,6 +41,9 @@ interface BookDetailsDao {
     @Query("SELECT * FROM book_details bdt WHERE bdt.saved = 1")
     fun listSaved(): Flow<List<BookDetail>>
 
+    @Query("SELECT * FROM book_details bdt WHERE book_details MATCH :query AND bdt.saved = 1")
+    fun searchSaved(query: String): Flow<List<BookDetail>>
+
 }
 
 /**
@@ -49,8 +52,10 @@ interface BookDetailsDao {
  * @author marlonlom
  */
 @Entity(tableName = "book_details")
+@Fts4
 data class BookDetail(
     @PrimaryKey
+    @ColumnInfo(name = "rowid") val id: Int?,
     val isbn13: String,
     val isbn10: String,
     val title: String,
@@ -73,7 +78,7 @@ data class BookDetail(
 
         val NONE: BookDetail
             get() = BookDetail(
-                "none", "", "", "", "",
+                -1,"none", "", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", false
             )
