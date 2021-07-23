@@ -100,8 +100,11 @@ interface ReleasedBooksContract {
         private suspend fun retrieveNewBooksRemote(): Result<List<ReleasedBook>> {
             val remoteResult = remoteDataSource.retrieveNewBooks().first()
             return when {
-                remoteResult.isSuccess -> Result.success(
-                    remoteResult.getOrThrow().map { toReleasedBook(it) })
+                remoteResult.isSuccess -> {
+                    val listFromRemote = remoteResult.getOrThrow()
+                    submitList(listFromRemote)
+                    Result.success(listFromRemote.map { toReleasedBook(it) })
+                }
                 else -> Result.failure(Exception(errorMessage))
             }
         }
@@ -111,8 +114,7 @@ interface ReleasedBooksContract {
                 item.isbn13, item.title, item.subtitle, item.priceValue, item.image, item.url
             )
 
-        @Suppress("unused")
-        suspend fun submitList(anotherList: List<BookListItem>) {
+        private suspend fun submitList(anotherList: List<BookListItem>) {
             Timber.d("submitList")
             localDataSource.deleteAll()
             anotherList.forEach {

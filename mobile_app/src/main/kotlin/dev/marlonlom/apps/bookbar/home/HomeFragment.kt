@@ -156,7 +156,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val handleReleasedBookListItemClicked: (ReleasedBook) -> Unit = { bookListItem ->
         Timber.d("handleBookItemClicked: $bookListItem")
-        findNavController().navigate(HomeFragmentDirections.gotoBookDetails(bookListItem.isbn13))
+        findNavController().navigate(HomeFragmentDirections.gotoReleasedBookDetails(bookListItem.isbn13))
     }
 
 }
