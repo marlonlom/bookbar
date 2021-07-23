@@ -53,7 +53,7 @@
     <string name="label_categories_browse_screen_title">Select a category for book search …</string>
     <!-- 02. texts / categories browse screen / book search form -->
     <string name="hint_categories_browse_edittext_search">Search a category</string>
-    <!-- 03. texts / book title screen -->
+    <!-- 03. texts / book details screen -->
     <string name="label_detail_description">Book description</string>
     <string name="label_detail_authors">Authors</string>
     <string name="label_detail_rating">Rating</string>
@@ -68,12 +68,12 @@
     <string name="btn_label_detail_buy_book">Buy book</string>
     <string name="btn_label_detail_download_book">Download book</string>
     <string name="url_detail_buy_book" translatable="false">https://itbook.store/go/buy/%1$s</string>
-    <!-- 03. texts / book search screen -->
+    <!-- 04. texts / book search screen -->
     <string name="label_book_search_screen_overline">Hello, book reader</string>
     <string name="label_book_search_screen_title">Explore books by search</string>
     <string name="hint_book_search_edittext">Search</string>
     <string name="label_book_search_results">Search results</string>
-    <!-- 04. texts / saved books listing screen -->
+    <!-- 05. texts / saved books listing screen -->
     <string name="label_saved_books_screen_title">Explore saved books</string>
     <string name="label_saved_books_screen_overline">Hello, book reader</string>
     <string name="hint_saved_books_edittext">Filter by title</string>
