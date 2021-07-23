@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "title": "Learning Android Game Programming",
+      "subtitle": "A Hands-On Guide to Building Your First Android Game",
+      "isbn13": "9780321769626",
+      "price": "$8.40",
+      "image": "https://itbook.store/img/books/9780321769626.png",
+      "url": "https://itbook.store/books/9780321769626"
+    },
+    {
+      "title": "Learning Android Application Programming for the Kindle Fire",
+      "subtitle": "A Hands-On Guide to Building Your First Android Application",
+      "isbn13": "9780321833976",
+      "price": "$11.96",
+      "image": "https://itbook.store/img/books/9780321833976.png",
+      "url": "https://itbook.store/books/9780321833976"
+    },
+    {
+      "title": "The Android Developer's Cookbook, 2nd Edition",
+      "subtitle": "Building Applications with the Android SDK",
+      "isbn13": "9780321897534",
+      "price": "$33.21",
+      "image": "https://itbook.store/img/books/9780321897534.png",
+      "url": "https://itbook.store/books/9780321897534"
+    },
+    {
+      "title": "Introduction to Android Application Development, 4th Edition",
+      "subtitle": "Android Essentials",
+      "isbn13": "9780321940261",
+      "price": "$2.43",
+      "image": "https://itbook.store/img/books/9780321940261.png",
+      "url": "https://itbook.store/books/9780321940261"
+    },
+    {
+      "title": "Enterprise Android",
+      "subtitle": "Programming Android Database Applications for the Enterprise",
+      "isbn13": "9781118183496",
+      "price": "$4.39",
+      "image": "https://itbook.store/img/books/9781118183496.png",
+      "url": "https://itbook.store/books/9781118183496"
+    },
+    {
+      "title": "Pro Android Web Apps",
+      "subtitle": "Develop for Android using HTML5, CSS3 & JavaScript",
+      "isbn13": "9781430232766",
+      "price": "$34.99",
+      "image": "https://itbook.store/img/books/9781430232766.png",
+      "url": "https://itbook.store/books/9781430232766"
+    },
+    {
+      "title": "Beginning Android Web Apps Development",
+      "subtitle": "Develop for Android using HTML5, CSS3, and JavaScript",
+      "isbn13": "9781430239574",
+      "price": "$34.99",
+      "image": "https://itbook.store/img/books/9781430239574.png",
+      "url": "https://itbook.store/books/9781430239574"
+    },
+    {
+      "title": "Beginning Android, 5th edition",
+      "subtitle": "Get started building apps for the Android platform",
+      "isbn13": "9781430246862",
+      "price": "$33.21",
+      "image": "https://itbook.store/img/books/9781430246862.png",
+      "url": "https://itbook.store/books/9781430246862"
+    },
+    {
+      "title": "Learn Android Studio",
+      "subtitle": "Build Android Apps Quickly and Effectively",
+      "isbn13": "9781430266013",
+      "price": "$24.95",
+      "image": "https://itbook.store/img/books/9781430266013.png",
+      "url": "https://itbook.store/books/9781430266013"
+    },
+    {
+      "title": "Developing Android Applications with Flex 4.5",
+      "subtitle": "Building Android Applications with ActionScript",
+      "isbn13": "9781449305376",
+      "price": "$16.99",
+      "image": "https://itbook.store/img/books/9781449305376.png",
+      "url": "https://itbook.store/books/9781449305376"
+    }
+  ]
+}
