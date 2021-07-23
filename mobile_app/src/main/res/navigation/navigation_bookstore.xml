@@ -29,15 +29,46 @@
             android:id="@+id/goto_categories_browse"
             app:destination="@id/screen_categories_browse" />
         <action
-            android:id="@+id/goto_book_details"
+            android:id="@+id/goto_released_book_details"
             app:destination="@id/screen_book_details" />
+        <action
+            android:id="@+id/goto_book_search"
+            app:destination="@id/screen_searched_books" />
     </fragment>
 
     <fragment
         android:id="@+id/screen_categories_browse"
         android:name="dev.marlonlom.apps.bookbar.categories.BrowseCategoriesFragment"
         android:label="@string/destination_label_categories_browse"
-        tools:layout="@layout/fragment_categories_browse" />
+        tools:layout="@layout/fragment_categories_browse">
+        <action
+            android:id="@+id/goto_book_category_search"
+            app:destination="@id/screen_searched_books" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen_searched_books"
+        android:name="dev.marlonlom.apps.bookbar.search.BooksSearchFragment"
+        android:label="@string/destination_label_book_search"
+        tools:layout="@layout/fragment_books_search">
+        <argument
+            android:name="book_text"
+            android:defaultValue="none"
+            app:argType="string" />
+        <action
+            android:id="@+id/goto_searched_book_details"
+            app:destination="@id/screen_book_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/screen_saved_books"
+        android:name="dev.marlonlom.apps.bookbar.saved.SavedBooksFragment"
+        android:label="@string/destination_label_saved_books"
+        tools:layout="@layout/fragment_books_saved">
+        <action
+            android:id="@+id/goto_saved_book_details"
+            app:destination="@id/screen_book_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/screen_book_details"
