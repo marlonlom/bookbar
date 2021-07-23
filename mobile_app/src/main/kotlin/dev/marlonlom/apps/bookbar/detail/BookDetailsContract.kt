@@ -27,14 +27,14 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * MVVM Contract for book details query.
+ * MVVM Contract for book title query.
  *
  * @author marlonlom
  */
 interface BookDetailsContract {
 
     /**
-     * ViewModel factory for instantiating book details query view model component.
+     * ViewModel factory for instantiating book title query view model component.
      *
      * @author marlonlom
      */
@@ -47,7 +47,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * ViewModel for book details query.
+     * ViewModel for book title query.
      *
      * @author marlonlom
      */
@@ -91,7 +91,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Repository for book details query.
+     * Repository for book title query.
      *
      * @author marlonlom
      */
@@ -116,7 +116,7 @@ interface BookDetailsContract {
          *
          * @param isbn book ISBN
          *
-         * @return flow with book details query result
+         * @return flow with book title query result
          */
         suspend fun findBook(isbn: String): Flow<Result<BookDetail>> = flow {
             val apiResult: Result<BookDetail> =
@@ -162,7 +162,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Remote data source for book details query.
+     * Remote data source for book title query.
      *
      * @author marlonlom
      */
@@ -171,9 +171,9 @@ interface BookDetailsContract {
         private val errorMessage = "Book information not found."
 
         /**
-         * Find book details from api using the requested ISBN.
+         * Find book title from api using the requested ISBN.
          *
-         * @return flow with book details query result
+         * @return flow with book title query result
          */
         suspend fun findBook(isbn: String): Flow<Result<BookDetailApiResponse>> = flow {
             val apiResult: Result<BookDetailApiResponse> = try {
@@ -189,7 +189,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Local data source for book details query.
+     * Local data source for book title query.
      *
      * @author marlonlom
      */

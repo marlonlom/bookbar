@@ -96,7 +96,7 @@
         app:layout_constraintTop_toBottomOf="@id/text_detail_title"
         tools:text="@sample/details.json/data/subtitle" />
 
-    <!-- 02. book details content section -->
+    <!-- 02. book title content section -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_search_results"
         android:layout_width="0dp"
@@ -220,7 +220,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/flow_detail_contents_top" />
 
-                <!-- book publication details -->
+                <!-- book publication title -->
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/label_detail_about"
                     android:layout_width="0dp"

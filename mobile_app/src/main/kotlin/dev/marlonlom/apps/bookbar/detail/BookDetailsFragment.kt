@@ -42,7 +42,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import timber.log.Timber
 
 /**
- * Book details fragment class.
+ * Book title fragment class.
  *
  * @author marlonlom
  */
