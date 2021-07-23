@@ -20,8 +20,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorPrimarySurface"
-    android:clipToPadding="false"
     android:fitsSystemWindows="true"
+    android:id="@+id/coordinator_container"
+    android:clipToPadding="true"
     tools:context="dev.marlonlom.apps.bookbar.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
