@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController.addOnDestinationChangedListener { _, destination, arguments ->
             Timber.d("DestinationChanged: ${destination.label}, args: $arguments")
             val topDestinations =
-                setOf(R.id.screen_home, R.id.screen_bookmarks, R.id.screen_settings)
+                setOf(R.id.screen_home, R.id.screen_saved_books, R.id.screen_settings)
 
             uiBinding.apply {
                 val containsTopDestinations = topDestinations.contains(destination.id)
