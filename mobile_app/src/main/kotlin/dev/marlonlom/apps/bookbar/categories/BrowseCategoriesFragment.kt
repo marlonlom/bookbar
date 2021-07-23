@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -37,10 +38,11 @@ import timber.log.Timber
 
 /**
  * Fragment class for browse categories screen.
+
  * @author marlonlom
- *
  */
 class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
+
     private val uiBinding by viewBinding(FragmentCategoriesBrowseBinding::bind)
     private val uiViewModel: BrowseCategoriesContract.ViewModel by navGraphViewModels(R.id.navigation_bookstore) { newViewModelFactory() }
 
@@ -68,6 +70,19 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
                 processFoundCategories(items)
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            Timber.i("launch >> obtaining book filtered categories")
+            uiViewModel.filteredCategories.collect { items ->
+                Timber.i("launch >> non empty list of categories? :${items.isNotEmpty()}")
+                if (items.isNotEmpty()) {
+                    processFoundCategories(items)
+                }
+            }
+        }
+        fetchInitialcategoriesList()
+    }
+
+    private fun fetchInitialcategoriesList() {
         uiViewModel.populateList(resources.openRawResource(R.raw.book_categories))
     }
 
@@ -78,16 +93,15 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().popBackStack()
+            performBackNavigation()
         }
     }
 
     private fun setupScreen() {
         Timber.d("setupScreen")
-
         uiBinding.apply {
             btnScreenBack.setOnClickListener {
-                findNavController().popBackStack()
+                performBackNavigation()
             }
             listCategories.apply {
                 setHasFixedSize(true)
@@ -100,6 +114,26 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
                     )
                 )
             }
+            editTextSearchCategory.apply {
+                addTextChangedListener {
+                    handleCategoryTextSearch(it.toString())
+                }
+            }
+        }
+    }
+
+    private fun performBackNavigation() {
+        uiViewModel.clearFilteredResults()
+        uiBinding.editTextSearchCategory.text = null
+        findNavController().popBackStack()
+    }
+
+    private fun handleCategoryTextSearch(textForSearch: String) {
+        Timber.d("handleCategoryTextSearch, text: $textForSearch")
+        if (textForSearch.isNotEmpty()) {
+            uiViewModel.searchCategories(textForSearch)
+        } else {
+            fetchInitialcategoriesList()
         }
     }
 

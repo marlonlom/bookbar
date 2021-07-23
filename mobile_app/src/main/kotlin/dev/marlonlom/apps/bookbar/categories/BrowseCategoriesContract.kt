@@ -58,8 +58,11 @@ interface BrowseCategoriesContract {
 
         private var _categories: MutableStateFlow<List<BookCategory>> =
             MutableStateFlow(emptyList())
-
         val categories: StateFlow<List<BookCategory>> = _categories.asStateFlow()
+
+        private var _filteredCategories: MutableStateFlow<List<BookCategory>> =
+            MutableStateFlow(emptyList())
+        val filteredCategories: StateFlow<List<BookCategory>> = _filteredCategories.asStateFlow()
 
         init {
             viewModelScope.launch {
@@ -83,6 +86,22 @@ interface BrowseCategoriesContract {
             }
         }
 
+        fun searchCategories(query: String) = viewModelScope.launch {
+            val defaultValues = _categories.value
+            if (query.isNotEmpty()) {
+                repository.search("*$query*").collect { list ->
+                    _filteredCategories.value = list.getOrDefault(defaultValues)
+                }
+            } else {
+                fetchCategories()
+            }
+        }
+
+        fun clearFilteredResults() {
+            _filteredCategories.value = emptyList()
+            _categories.value = emptyList()
+        }
+
     }
 
     /**
@@ -97,29 +116,37 @@ interface BrowseCategoriesContract {
             emit(Result.success(list))
         }
 
+        fun search(query: String): Flow<Result<List<BookCategory>>> = flow {
+            val list = localDataSource.search(query).first()
+            if (list.isEmpty()) {
+                val defaultList = localDataSource.listAll().first()
+                emit(Result.success(defaultList))
+            } else {
+                emit(Result.success(list))
+            }
+        }
+
         suspend fun populateList(inputStream: InputStream) {
             Timber.d("populateList from Repository")
             localDataSource.deleteAll()
             val categories: String = inputStream.bufferedReader().use { it.readText() }
             val list = convertToList(categories)
-            list.forEach { bookCategory ->
-                localDataSource.insertCategory(bookCategory)
-            }
+            localDataSource.insertCategories(list)
         }
 
         private fun convertToList(jsonContents: String): List<BookCategory> = jsonContents.let {
-            val jsonArray = JSONArray(it)
-            val result = mutableListOf<BookCategory>()
-            for (pos in 0 until jsonArray.length()) {
-                result.add(
-                    jsonArray.getJSONObject(pos).let { jsonObject ->
+            return mutableListOf<BookCategory>().apply {
+                val jsonArray = JSONArray(it)
+                for (pos in 0 until jsonArray.length()) {
+                    this.add(jsonArray.getJSONObject(pos).let { jsonObject ->
                         BookCategory(
+                            id = pos + 1,
                             tag = jsonObject.getString("tag"),
                             title = jsonObject.getString("title")
                         )
                     })
+                }
             }
-            result
         }
     }
 
@@ -130,16 +157,10 @@ interface BrowseCategoriesContract {
      */
     class LocalDataSource(private val appDatabase: AppDatabase) {
         fun listAll() = appDatabase.categoriesDao().listAll()
-
-        /*
-        @Suppress("unused")
-        fun findByTag(tag: String) = appDatabase.categoriesDao().findByTag(tag)
-        @Suppress("unused")
-        fun findByText(someText: String) = appDatabase.categoriesDao().findByText(someText)
-        */
+        fun search(query: String) = appDatabase.categoriesDao().search(query)
         suspend fun deleteAll() = appDatabase.categoriesDao().deleteAll()
-        suspend fun insertCategory(item: BookCategory) =
-            appDatabase.categoriesDao().insert(item)
+        suspend fun insertCategories(items: List<BookCategory>) =
+            appDatabase.categoriesDao().insertCategories(items)
     }
 
 }

@@ -35,10 +35,7 @@ import timber.log.Timber
 class BookCategoriesListAdapter(private val onClickItem: (BookCategory) -> Unit) :
     ListAdapter<BookCategory, BookCategoriesListAdapter.ViewHolder>(DiffCallback()) {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder = ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         ItemCategoriesBrowseRowBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
