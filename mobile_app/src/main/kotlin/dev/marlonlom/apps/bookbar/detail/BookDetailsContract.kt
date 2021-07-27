@@ -127,6 +127,7 @@ interface BookDetailsContract {
                         else -> Result.success(localResults[0])
                     }
                 } catch (exception: Exception) {
+                    Timber.e(exception)
                     Result.failure(Exception(errorMessage, exception))
                 }
             emit(apiResult)
@@ -151,6 +152,7 @@ interface BookDetailsContract {
         }
 
         private fun toBookDetailEntity(item: BookDetailApiResponse) = BookDetail(
+            id = item.isbn10!!.toInt(),
             isbn13 = item.isbn13!!, isbn10 = item.isbn10!!, title = item.title!!,
             subtitle = item.subtitle!!, rating = item.rating!!, price = item.priceValue!!,
             language = item.language!!, pages = item.pages!!, publisher = item.publisher!!,
