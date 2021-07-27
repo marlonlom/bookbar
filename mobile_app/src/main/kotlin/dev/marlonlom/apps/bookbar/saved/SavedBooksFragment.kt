@@ -16,13 +16,9 @@
 
 package dev.marlonlom.apps.bookbar.saved
 
-import android.app.Activity
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -71,9 +67,18 @@ class SavedBooksFragment : Fragment(R.layout.fragment_books_saved) {
     private fun obtainSavedBooks() {
         Timber.d("obtainSavedBooks")
         viewLifecycleOwner.lifecycleScope.launch {
-            Timber.i("launch >> obtaining released books")
+            Timber.i("launch >> obtaining saved books")
             uiViewModel.books.collect { books ->
                 processFoundBooks(books)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            Timber.i("launch >> obtaining book filtered saved books")
+            uiViewModel.filteredBooks.collect { items ->
+                Timber.i("launch >> non empty list of saved books? :${items.isNotEmpty()}")
+                if (items.isNotEmpty()) {
+                    processFoundBooks(items)
+                }
             }
         }
         uiViewModel.retrieveSavedBooks()
@@ -102,22 +107,8 @@ class SavedBooksFragment : Fragment(R.layout.fragment_books_saved) {
                 itemTouchHelper.attachToRecyclerView(this)
             }
             editTextSearchSaved.apply {
-                setOnEditorActionListener { editText: TextView, actionId, keyEvent ->
-                    Timber.d("setOnEditorActionListener: editText: ${editText.text}, actionId: $actionId, event: $keyEvent")
-                    val hideKeyboard: () -> Unit = {
-                        val imm: InputMethodManager =
-                            requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-                    }
-                    hideKeyboard()
-                    editText.clearFocus()
-                    val textChangedCondition = (actionId == EditorInfo.IME_ACTION_SEARCH
-                            || actionId == EditorInfo.IME_ACTION_DONE || keyEvent == null
-                            || keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)
-                    if (textChangedCondition) {
-                        filterSavedBookByText(editText.text.toString())
-                    }
-                    textChangedCondition
+                addTextChangedListener {
+                    filterSavedBookByText(it.toString())
                 }
             }
         }
@@ -125,6 +116,11 @@ class SavedBooksFragment : Fragment(R.layout.fragment_books_saved) {
 
     private fun filterSavedBookByText(textToFilter: String) {
         Timber.d("filterSavedBookByText: $textToFilter")
+        if (textToFilter.isNotEmpty()) {
+            uiViewModel.searchSavedBooks(textToFilter)
+        } else {
+            uiViewModel.retrieveSavedBooks()
+        }
     }
 
     private val handleSavedBookListItemClicked: (BookDetail) -> Unit = { book ->
@@ -138,7 +134,7 @@ class SavedBooksFragment : Fragment(R.layout.fragment_books_saved) {
             uiViewModel.toggleSaved(book.isbn13, false)
             Snackbar.make(
                 requireActivity().window.decorView,
-                "Book unsaved",
+                R.string.text_saved_books_unsaved,
                 Snackbar.LENGTH_LONG
             ).apply {
                 setAction(R.string.label_saved_books_undo_delete) {

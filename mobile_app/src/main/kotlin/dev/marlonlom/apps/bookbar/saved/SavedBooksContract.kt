@@ -22,6 +22,7 @@ import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.book_detail.BookDetail
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * MVVM Contract for saved books listing query.
@@ -54,8 +55,10 @@ interface SavedBooksContract {
 
         private var _books: MutableStateFlow<List<BookDetail>> =
             MutableStateFlow(emptyList())
-
         val books: StateFlow<List<BookDetail>> = _books.asStateFlow()
+        private var _filteredBooks: MutableStateFlow<List<BookDetail>> =
+            MutableStateFlow(emptyList())
+        val filteredBooks: StateFlow<List<BookDetail>> = _filteredBooks.asStateFlow()
 
         /**
          * Retrieves saved books from remote data source.
@@ -74,6 +77,18 @@ interface SavedBooksContract {
          */
         fun toggleSaved(isbn: String, isSaved: Boolean) = viewModelScope.launch {
             repository.toggleSaved(isbn, isSaved)
+        }
+
+        fun searchSavedBooks(query: String) = viewModelScope.launch {
+            Timber.d("searchSavedBooks($query)")
+            val defaultValues = _books.value
+            if (query.isNotEmpty()) {
+                repository.search("*$query*").collect { list ->
+                    _filteredBooks.value = list.getOrDefault(defaultValues)
+                }
+            } else {
+                retrieveSavedBooks()
+            }
         }
     }
 
@@ -106,6 +121,19 @@ interface SavedBooksContract {
 
         suspend fun toggleSaved(isbn: String, isSaved: Boolean) =
             localDataSource.toggleSaved(isbn, isSaved)
+
+        fun search(query: String): Flow<Result<List<BookDetail>>> = flow {
+            val list = localDataSource.searchSaved(query).first()
+            val searchResults = when {
+                list.isEmpty() -> {
+                    val defaultList = localDataSource.listSaved().first()
+                    Result.success(defaultList)
+                }
+                else -> Result.success(list)
+            }
+            emit(searchResults)
+        }
+
     }
 
     /**
@@ -115,6 +143,7 @@ interface SavedBooksContract {
      */
     class LocalDataSource(private val appDatabase: AppDatabase) {
         fun listSaved(): Flow<List<BookDetail>> = appDatabase.bookDetailsDao().listSaved()
+        fun searchSaved(query: String) = appDatabase.bookDetailsDao().searchSaved(query)
         suspend fun toggleSaved(isbn: String, isSaved: Boolean) =
             appDatabase.bookDetailsDao().toggleSaved(isbn, isSaved)
     }
