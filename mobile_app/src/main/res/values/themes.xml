@@ -19,6 +19,12 @@
     <style name="Theme.Bookbar.Splash">
         <item name="android:windowBackground">@drawable/bg_splash_contents</item>
     </style>
+    <!-- Preferences theme -->
+    <style name="Theme.Bookbar.AppPreferences" parent="PreferenceThemeOverlay">
+        <item name="preferenceFragmentCompatStyle">
+            @style/AppPreferenceFragmentCompatStyle
+        </item>
+    </style>
     <!-- Application theme -->
     <style name="Theme.Bookbar" parent="Base.Theme.Bookbar" />
     <!-- Base application theme -->
@@ -69,6 +75,7 @@
             @style/ThemeOverlay.MaterialComponents.Dialog.Alert
         </item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="preferenceTheme">@style/Theme.Bookbar.AppPreferences</item>
 
         <!-- Customize your theme here -->
         <item name="android:statusBarColor" tools:ignore="NewApi">?colorPrimaryVariant</item>

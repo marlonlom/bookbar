@@ -80,4 +80,8 @@
             app:argType="string" />
     </fragment>
 
+    <fragment
+        android:id="@+id/screen_settings"
+        android:name="dev.marlonlom.apps.bookbar.settings.SettingsFragment"
+        android:label="@string/destination_label_settings" />
 </navigation>

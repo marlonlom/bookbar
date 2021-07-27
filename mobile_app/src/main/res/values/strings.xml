@@ -80,4 +80,5 @@
     <string name="label_saved_books_results">Saved books</string>
     <string name="text_saved_books_unsaved">Book unsaved</string>
     <string name="label_saved_books_undo_delete">Undo</string>
+    <string name="label_settings_screen_title">Settings</string>
 </resources>
