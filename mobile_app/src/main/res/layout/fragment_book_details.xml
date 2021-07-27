@@ -377,6 +377,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/btn_label_detail_buy_book"
+                    android:visibility="gone"
                     app:icon="@drawable/ic_detail_buy"
                     app:iconSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
