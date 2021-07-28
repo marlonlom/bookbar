@@ -1,9 +1,9 @@
 # Application theme
-Boookbar is a book store app that uses Material Design components and Material Theming to create an on-brand and content-focused experience.
+Bookbar is a book store app that uses Material Design components and Material Theming to create an on-brand and content-focused experience.
 
 
 ## About Bookbar
-Boookbar allows users to browse IT books grouped by many categories and topics like technologies, programming languages, and more. It's brand and app are designed to be approachable, direct, and delightfully surprising.
+Bookbar allows users to browse IT books grouped by many categories and topics like technologies, programming languages, and more. It's brand and app are designed to be approachable, direct, and delightfully surprising.
 
 
 ## Product architecture
@@ -41,7 +41,7 @@ PT Sans was developed for the project "Public Types of Russian Federation". PT S
 
 
 ## Iconography
-Boookbar uses the two-tone icons from [Material Icons](https://material.io/design/iconography/system-icons.html#icon-themes).
+Bookbar uses the two-tone icons from [Material Icons](https://material.io/design/iconography/system-icons.html#icon-themes).
 
 
 ## Shape

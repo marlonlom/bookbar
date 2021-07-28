@@ -1,4 +1,4 @@
-# Appplication features / modules
+# Application features / modules
 Bookbar includes a set of modules that facilities the functionality of the application, the features.
 
 1. List released books
@@ -24,7 +24,7 @@ Bookbar includes a set of libraries that facilities the network and database mod
 | Database   | lib_model_database  | dev.marlonlom.apps.bookbar.model.database    | &#x2714; | &#x2714;  | &#x268A;    | &#x270E;  |
 | Network    | lib_model_network   | dev.marlonlom.apps.bookbar.model.network     | &#x2714; | &#x2714;  | &#x2714;    | &#x268A;  | 
 
-Where (&#x268A;) indicates that the item is not aplicable, (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed.
+Where (&#x268A;) indicates that the item is not applicable, (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed.
 
 
 ## Application features
@@ -43,7 +43,7 @@ The following shows a table with the defined features that contains the Bookbar 
 | List saved books       | dfm_books_saved       | dev.marlonlom.apps.bookbar.saved      | &#x2714; | &#x2714;  |             |           |             |
 | Configure app settings | dfm_settings          | dev.marlonlom.apps.bookbar.settings   | &#x2714; | &#x2714;  |             |           | &#x268A;    |
 
-Where (&#x268A;) indicates that the item is not aplicable, (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed.
+Where (&#x268A;) indicates that the item is not applicable, (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed.
 
 
 <br>

@@ -1,5 +1,5 @@
 # Application navigation flows
-Boookbar handles a common master-detail navigation pattern-like, which enforces the fetching flow of it books by searching using category names or text.
+Bookbar handles a common master-detail navigation pattern-like, which enforces the fetching flow of it books by searching using category names or text.
 
 According to the screens defined, for each of them there is a navigation flow, which makes the application navigable in order to obtain information from IT books and thus provide a good user experience.
 
@@ -26,13 +26,13 @@ Using the previous table, the following activity diagram is conceived, which des
 
 Bookbar uses the [Jetpack's Navigation component](https://developer.android.com/guide/navigation) for handling everything needed for in-app navigation.
 
-Using the activity diagram, the nagivagion graph is created and it includes all of the content areas within the app, as well as the possible paths that a user can take through your app.
+Using the activity diagram, the navigation graph is created and it includes all of the content areas within the app, as well as the possible paths that a user can take through your app.
 
-The nagivagion graph is located at the following location.
+The navigation graph is located at the following location.
 
 > [:mobile_app]/src/main/res/navigation/navigation_bookstore.xml
 
-While using Android studio for editing the navigation resouece file, you can see the screens/destinations and the connections between them, as describe in the following image.
+While using Android studio for editing the navigation resource file, you can see the screens/destinations and the connections between them, as describe in the following image.
 
 ![bookbar navigation graph](../assets/bookbar_navigation_graph.diagrams.png)
 
