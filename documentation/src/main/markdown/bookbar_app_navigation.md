@@ -1,3 +1,10 @@
+# Table of contents
+
+- [Application navigation flows](#application-navigation-flows)
+  - [Navigation design](#navigation-design)
+  - [Navigation implementation (navigation graph)](#navigation-implementation-navigation-graph)
+
+  
 # Application navigation flows
 Bookbar handles a common master-detail navigation pattern-like, which enforces the fetching flow of it books by searching using category names or text.
 
@@ -21,6 +28,8 @@ Where (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicate
 Using the previous table, the following activity diagram is conceived, which describes a first visual of the connections between the application screens and the direction of each relationship or navigation action.
 
 ![activity navigation flows](../assets/activity_navigation_flows.diagrams.png)
+<br>*navigation flows as flow diagram*
+
 
 ## Navigation implementation (navigation graph)
 
@@ -35,5 +44,6 @@ The navigation graph is located at the following location.
 While using Android studio for editing the navigation resource file, you can see the screens/destinations and the connections between them, as describe in the following image.
 
 ![bookbar navigation graph](../assets/bookbar_navigation_graph.diagrams.png)
+<br>*navigation flows as graph*
 
 <br>

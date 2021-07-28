@@ -1,3 +1,21 @@
+# Table of contents
+
+- [Application theme](#application-theme)
+  - [About Bookbar](#about-bookbar)
+  - [Product architecture](#product-architecture)
+    - [Search](#search)
+  - [Color](#color)
+  - [Typography](#typography)
+    - [Typefaces](#typefaces)
+      - [PT Sans](#pt-sans)
+  - [Iconography](#iconography)
+  - [Shape](#shape)
+  - [Components](#components)
+    - [Chips](#chips)
+    - [Text fields (Search field)](#text-fields-search-field)
+    - [Lists](#lists)
+
+
 # Application theme
 Bookbar is a book store app that uses Material Design components and Material Theming to create an on-brand and content-focused experience.
 

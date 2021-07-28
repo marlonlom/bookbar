@@ -1,3 +1,11 @@
+# Table of contents
+
+- [Application features / modules](#application-features--modules)
+  - [Library features](#library-features)
+  - [Application features](#application-features)
+    - [Features development status](#features-development-status)
+
+
 # Application features / modules
 Bookbar includes a set of modules that facilities the functionality of the application, the features.
 
@@ -9,11 +17,13 @@ Bookbar includes a set of modules that facilities the functionality of the appli
 
 The features above are self-descriptive, and are organized in the following diagram, the module/library name are specified in the following sections of this document:
 
-![activity navigation flows](../assets/app_screens_organization.diagram.png)
+![screens organization](../assets/app_screens_organization.diagram.png)
+<br>*screens_organization as custom diagram*
 
 As the application is using the [android app bundle](https://developer.android.com/guide/app-bundle) and [dynamic features](https://developer.android.com/guide/playcore/feature-delivery) specification for creating the android project and the modules, its clear that the app must be configured using app bundles and as such, the interaction between this features and the library dependencies are described as follows:
 
 ![component diagram](../assets/components.diagram.png)
+<br>*modules interaction as component diagram*
 
 
 ## Library features
