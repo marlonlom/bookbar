@@ -10,11 +10,11 @@ The following table describes the navigation flows described before, identifying
 | Navigation type | Destination          | Navigation action           | Target destination | Status    |
 |-----------------|----------------------|-----------------------------|--------------------|-----------|
 | Primary         | List released books  | goto_categories_browse      | Browse categories  | &#x2714;  |
-| Primary         | List released books  | goto_book_search            | Book search        | &#x270E;  |
+| Primary         | List released books  | goto_book_search            | Book search        | &#x2714;  |
 | Primary         | List released books  | goto_released_book_details  | Show book detail   | &#x2714;  |
-| Secondary       | Browse categories    | goto_book_category_search   | Book search        | &#x270E;  |
-| Secondary       | Book search          | goto_searched_book_details  | Show book detail   | &#x270E;  |
-| Primary         | List saved books     | goto_saved_book_details     | Show book detail   |           |
+| Secondary       | Browse categories    | goto_book_category_search   | Book search        | &#x2714;  |
+| Secondary       | Book search          | goto_searched_book_details  | Show book detail   | &#x2714;  |
+| Primary         | List saved books     | goto_saved_book_details     | Show book detail   | &#x2714;  |
 
 Where (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed. These navigation actions are implemented in the navigation graph.
 
@@ -33,5 +33,7 @@ The nagivagion graph is located at the following location.
 > [:mobile_app]/src/main/res/navigation/navigation_bookstore.xml
 
 While using Android studio for editing the navigation resouece file, you can see the screens/destinations and the connections between them, as describe in the following image.
+
+![bookbar navigation graph](../assets/bookbar_navigation_graph.diagrams.png)
 
 <br>
