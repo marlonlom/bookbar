@@ -78,9 +78,9 @@ data class BookDetail(
 
         val NONE: BookDetail
             get() = BookDetail(
-                -1,"none", "", "", "", "",
-                "", "", "", "", "",
-                "", "", "", "", false
+                id = -1, isbn13 = "none", isbn10 = "", title = "", subtitle = "", rating = "",
+                price = "", language = "", pages = "", publisher = "", year = "",
+                authors = "", desc = "", image = "", url = "", saved = false
             )
     }
 }
