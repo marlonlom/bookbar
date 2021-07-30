@@ -16,9 +16,11 @@
 
 package dev.marlonlom.apps.bookbar.model.database.common
 
+import dev.marlonlom.apps.bookbar.model.database.book_detail.BookDetail
 import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import dev.marlonlom.apps.bookbar.model.database.released_books.ReleasedBook
 import org.json.JSONArray
+import org.json.JSONObject
 
 object SampleData {
 
@@ -33,7 +35,7 @@ object SampleData {
                 result.add(
                     jsonArray.getJSONObject(pos).let { jsonObject ->
                         BookCategory(
-                            ,
+                            id = pos + 1,
                             tag = jsonObject.getString("tag"),
                             title = jsonObject.getString("title")
                         )
@@ -59,6 +61,29 @@ object SampleData {
                         )
                     })
             }
+            result
+        }
+
+    val singleBookDetail: BookDetail
+        get() = readJsonFileText("json/book_details.json").let {
+            val jsonObject = JSONObject(it)
+            val result = BookDetail(
+                id = jsonObject.getString("isbn10").toInt(),
+                isbn13 = jsonObject.getString("isbn13"),
+                isbn10 = jsonObject.getString("isbn10"),
+                title = jsonObject.getString("title"),
+                subtitle = jsonObject.getString("subtitle"),
+                rating = jsonObject.getString("rating"),
+                price = jsonObject.getString("price"),
+                language = jsonObject.getString("language"),
+                pages = jsonObject.getString("pages"),
+                publisher = jsonObject.getString("publisher"),
+                year = jsonObject.getString("year"),
+                authors = jsonObject.getString("authors"),
+                desc = jsonObject.getString("desc"),
+                image = jsonObject.getString("image"),
+                url = jsonObject.getString("url")
+            )
             result
         }
 

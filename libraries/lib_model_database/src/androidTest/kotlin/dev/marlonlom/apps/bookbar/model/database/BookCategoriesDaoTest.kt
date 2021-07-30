@@ -16,47 +16,73 @@
 
 package dev.marlonlom.apps.bookbar.model.database
 
-import android.content.Context
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import dev.marlonlom.apps.bookbar.model.database.common.CoroutineTestRule
+import dev.marlonlom.apps.bookbar.model.database.common.CommonDaoTest
+import dev.marlonlom.apps.bookbar.model.database.common.SampleData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.junit.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class BookCategoriesDaoTest {
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
-
-    private lateinit var db: AppDatabase
-
-    @Before
-    fun createDatabase() {
-        val applicationContext = ApplicationProvider.getApplicationContext<Context>()
-        db = Room.inMemoryDatabaseBuilder(applicationContext, AppDatabase::class.java)
-            .setTransactionExecutor(coroutineTestRule.testDispatcher.asExecutor())
-            .setQueryExecutor(coroutineTestRule.testDispatcher.asExecutor())
-            .allowMainThreadQueries().build()
-    }
-
-    @After
-    @Throws(IOException::class)
-    fun closeDb() {
-        db.close()
-    }
+class BookCategoriesDaoTest : CommonDaoTest() {
 
     @Test
     fun testSuccessCategoriesListIsEmpty() {
         coroutineTestRule.testScope.launch {
+            val list = db.categoriesDao().listAll().first()
+            assertTrue(list.isEmpty())
+        }
+    }
+
+    @Test
+    fun testSuccessCategoriesListIsNotEmptyAfterInsertingData() {
+        coroutineTestRule.testScope.launch {
+            val items = SampleData.bookCategoriesList
+            db.categoriesDao().insertCategories(items)
             val singleStats = db.categoriesDao().listAll().first()
-            Assert.assertTrue(singleStats.isEmpty())
+            assertTrue(singleStats.isNotEmpty())
+            assertEquals(items.size, singleStats.size)
+        }
+    }
+
+    @Test
+    fun testSuccessCategoriesListContainsSearchedTerm() {
+        coroutineTestRule.testScope.launch {
+            val items = SampleData.bookCategoriesList
+            db.categoriesDao().insertCategories(items)
+            val list = db.categoriesDao().search("*android*").first()
+            assertTrue(list.isNotEmpty())
+            assertEquals("android", list[0].tag)
+            assertEquals("Android", list[0].title)
+        }
+    }
+
+    @Test
+    fun testFailedCategoriesListNotContainsSearchedTerm() {
+        coroutineTestRule.testScope.launch {
+            val items = SampleData.bookCategoriesList
+            db.categoriesDao().insertCategories(items)
+            val list = db.categoriesDao().search("*spanish*").first()
+            assertTrue(list.isNullOrEmpty())
+        }
+    }
+
+    @Test
+    fun testSuccessCategoriesListIsEmptyAfterDeletingData() {
+        coroutineTestRule.testScope.launch {
+            val items = SampleData.bookCategoriesList
+            with(db.categoriesDao()) {
+                insertCategories(items)
+                deleteAll()
+            }
+            val list = db.categoriesDao().listAll().first()
+            assertTrue(list.isNotEmpty())
+            assertEquals(items.size, list.size)
         }
     }
 }

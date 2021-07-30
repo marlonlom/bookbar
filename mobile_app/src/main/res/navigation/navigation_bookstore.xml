@@ -83,5 +83,7 @@
     <fragment
         android:id="@+id/screen_settings"
         android:name="dev.marlonlom.apps.bookbar.settings.SettingsFragment"
-        android:label="@string/destination_label_settings" />
+        android:label="@string/destination_label_settings"
+        tools:layout="@layout/layout_preferences" />
+
 </navigation>
