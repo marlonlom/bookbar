@@ -31,7 +31,7 @@ Bookbar includes a set of libraries that facilities the network and database mod
 
 | Component  | Library name        | Base package                                 | Designed | Developed | Unit tested | UI tested | 
 |------------|---------------------|----------------------------------------------|----------|-----------|-------------|-----------|
-| Database   | lib_model_database  | dev.marlonlom.apps.bookbar.model.database    | &#x2714; | &#x2714;  | &#x268A;    | &#x270E;  |
+| Database   | lib_model_database  | dev.marlonlom.apps.bookbar.model.database    | &#x2714; | &#x2714;  | &#x268A;    | &#x2714;  |
 | Network    | lib_model_network   | dev.marlonlom.apps.bookbar.model.network     | &#x2714; | &#x2714;  | &#x2714;    | &#x268A;  | 
 
 Where (&#x268A;) indicates that the item is not applicable, (&#x270E;) indicates that the item is in progress, and (&#x2714;) indicates that the item is in completed.
