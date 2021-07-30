@@ -20,7 +20,7 @@ import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 /**
- * DAO for book title database operations.
+ * DAO definition for book details database operations.
  *
  * @author marlonlom
  */
@@ -47,7 +47,7 @@ interface BookDetailsDao {
 }
 
 /**
- * Database entity class for book title.
+ * Database entity class for book detailed information.
  *
  * @author marlonlom
  */
