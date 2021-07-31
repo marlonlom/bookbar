@@ -18,40 +18,41 @@
 
 package dev.marlonlom.apps.bookbar.utils
 
+import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import dev.marlonlom.apps.bookbar.model.network.BooksListApiResponse
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import java.io.InputStream
 
 object RemoteData {
 
     private fun readJsonFileText(filePath: String): String =
         this::class.java.classLoader!!.getResource(filePath).readText()
 
-    /*
-    val singleBook: String
-        get() = readJsonFileText("json/single_book_detail.json")
-
-    val singleFreeBook: String
-        get() = readJsonFileText("json/free_book_detail.json")
-
-    val samplePagesFreeBook: String
-        get() = readJsonFileText("json/sample_pages_book_detail.json")
-
-    val bookSearchFailed: String
-        get() = readJsonFileText("json/book_search_failed.json")
-
-    val bookSearchKotlinPage01: String
-        get() = readJsonFileText("json/book_search_kotlin_page01.json")
-
-    val bookSearchKotlinPage03: String
-        get() = readJsonFileText("json/book_search_kotlin_page03.json")
-
-    val bookSearchSpanishPage01: String
-        get() = readJsonFileText("json/book_search_spanish_page01.json")
-
-     */
+    private fun readJsonFileStream(filePath: String): InputStream =
+        this::class.java.classLoader!!.getResourceAsStream(filePath)
 
     val releasedBooksApiResponse: BooksListApiResponse
         get() = Json.decodeFromString(readJsonFileText("json/new_books.json"))
+
+    val bookCategoriesStream: InputStream = readJsonFileStream("json/book_categories.txt")
+
+    val bookCategoriesList: List<BookCategory>
+        get() = readJsonFileStream("json/book_categories.txt").let {
+            val result = mutableListOf<BookCategory>()
+            it.bufferedReader().useLines { lines ->
+                lines.forEachIndexed { index, line ->
+                    val categoryPart = line.split(";")
+                    result.add(
+                        BookCategory(
+                            id = index + 1,
+                            tag = categoryPart[1],
+                            title = categoryPart[0]
+                        )
+                    )
+                }
+            }
+            result
+        }
 
 }

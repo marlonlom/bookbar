@@ -22,7 +22,6 @@ import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.json.JSONArray
 import timber.log.Timber
 import java.io.InputStream
 
@@ -63,12 +62,6 @@ interface BrowseCategoriesContract {
         private var _filteredCategories: MutableStateFlow<List<BookCategory>> =
             MutableStateFlow(emptyList())
         val filteredCategories: StateFlow<List<BookCategory>> = _filteredCategories.asStateFlow()
-
-        init {
-            viewModelScope.launch {
-                fetchCategories()
-            }
-        }
 
         /**
          * Populates categories list from input stream.
@@ -129,25 +122,27 @@ interface BrowseCategoriesContract {
         suspend fun populateList(inputStream: InputStream) {
             Timber.d("populateList from Repository")
             localDataSource.deleteAll()
-            val categories: String = inputStream.bufferedReader().use { it.readText() }
-            val list = convertToList(categories)
+            val list = convertToList(inputStream)
             localDataSource.insertCategories(list)
         }
 
-        private fun convertToList(jsonContents: String): List<BookCategory> = jsonContents.let {
-            return mutableListOf<BookCategory>().apply {
-                val jsonArray = JSONArray(it)
-                for (pos in 0 until jsonArray.length()) {
-                    this.add(jsonArray.getJSONObject(pos).let { jsonObject ->
-                        BookCategory(
-                            id = pos + 1,
-                            tag = jsonObject.getString("tag"),
-                            title = jsonObject.getString("title")
-                        )
-                    })
+        private fun convertToList(jsonContents: InputStream): List<BookCategory> =
+            jsonContents.let {
+                return mutableListOf<BookCategory>().apply {
+                    it.bufferedReader().useLines { lines ->
+                        lines.forEachIndexed { index, line ->
+                            val categoryPart = line.split(";")
+                            this.add(
+                                BookCategory(
+                                    id = index + 1,
+                                    tag = categoryPart[1],
+                                    title = categoryPart[0]
+                                )
+                            )
+                        }
+                    }
                 }
             }
-        }
     }
 
     /**

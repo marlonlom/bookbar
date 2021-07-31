@@ -1,0 +1,209 @@
+.NET Framework;.net
+3D;3d
+ActionScript;actionscript
+Active Directory;active-directory
+Administration;administration
+Agile;agile
+Ajax;ajax
+Amazon Kindle Fire;kindle-fire
+Analytics;analytics
+Android;android
+Angular;angular
+AngularJS;angularjs
+Ansible;ansible
+Apache;apache
+Apache Camel;camel
+Apache Cassandra;cassandra
+Apache Kafka;kafka
+Apache Spark;spark
+API;api
+App Store;app-store
+Arduino;arduino
+ASP;asp
+ASP.NET;asp.net
+Audio;audio
+AutoCAD;autocad
+AWS;aws
+Backbone;backbone
+bash;bash
+Basic;basic
+Big Data;big-data
+Bitcoin;bitcoin
+Blockchain;blockchain
+Bootstrap;bootstrap
+BSD;bsd
+Business;business
+C#;csharp
+C++;cpp
+Cisco;cisco
+Citrix;citrix
+Clojure;clojure
+Cloud;cloud
+Cocoa;cocoa
+Cocos2D;cocos2d
+CouchDB;couchdb
+CSS;css
+CSS3;css3
+Cucumber;cucumber
+Dart;dart
+Database;database
+Delphi;delphi
+Design;design
+Django;django
+Docker;docker
+Dojo;dojo
+DOM;dom
+Drupal;drupal
+Eclipse;eclipse
+EJB;ejb
+Erlang;erlang
+Ethereum;ethereum
+F#;fsharp
+Facebook;facebook
+Fedora;fedora
+Firebug;firebug
+Flash;flash
+Flex;flex
+Fonts;fonts
+For Dummies;for-dummies
+Framework;framework
+FreeBSD;freebsd
+Games Development;games
+GIMP;gimp
+GIS;gis
+Git;git
+Google;google
+Grails Framework;grails
+Graph;graph
+Groovy;groovy
+Hack;hack
+Hacking;hacking
+Hadoop;hadoop
+Haskell;haskell
+Head First;head-first
+Hibernate;hibernate
+Hive;hive
+HTML;html
+HTML5;html5
+Hyper-V;hyper-v
+IaaS;iaas
+IBM;ibm
+IDE;ide
+IIS;iis
+In Action;in-action
+InDesign;indesign
+iOS;ios
+iPad;ipad
+iPhone;iphone
+Java;java
+JavaFX;javafx
+JavaScript;javascript
+JIRA;jira
+Joomla;joomla
+jQuery;jquery
+JSON;json
+Juniper;juniper
+Knockout;knockout
+LEGO;lego
+Linux;linux
+Lisp;lisp
+Lua;lua
+Mac;mac
+Machine Learning;machine-learning
+MapReduce;mapreduce
+MariaDB;mariadb
+MATLAB;matlab
+Media;media
+Microsoft;microsoft
+Microsoft Access;access
+Microsoft Azure;azure
+Microsoft Excel;excel
+Microsoft Office;office
+Microsoft Word;word
+Mobile;mobile
+MongoDB;mongodb
+Munin;munin
+MVC;mvc
+MySQL;mysql
+Nagios;nagios
+NetBeans;netbeans
+Network;network
+Neural Networks;neural-networks
+Node;node
+Node.js;node.js
+NoSQL;nosql
+NumPy;numpy
+Nutshell;nutshell
+Objective-C;objective-c
+OpenBSD;openbsd
+OpenGL;opengl
+Optimization;optimization
+Oracle;oracle
+Outlook;outlook
+PaaS;paas
+Panda3D;panda3d
+Patterns;patterns
+Perl;perl
+Phone Development;phone
+PhoneGap;phonegap
+Photoshop;photoshop
+PHP;php
+PlayStation;playstation
+PostgreSQL;postgresql
+PowerShell;powershell
+Programming;programming
+Project;project
+Python;python
+Rails;rails
+Raspberry Pi;raspberry-pi
+Redmine;redmine
+Regular Expressions;regular-expressions
+Ruby;ruby
+Rust;rust
+Sams Teach Yourself;sams-teach-yourself
+SAP;sap
+Sass;sass
+Scala;scala
+SDK;sdk
+Security;security
+SEO;seo
+Server;server
+SharePoint;sharepoint
+Shell;shell
+Silverlight;silverlight
+SOA;soa
+SOAP;soap
+Software;software
+Solaris;solaris
+Sphinx;sphinx
+Splunk;splunk
+Spring;spring
+SQL;sql
+Subversion;subversion
+TensorFlow;tensorflow
+Testing;testing
+Titanium;titanium
+Training Kit;training-kit
+Tuning;tuning
+Twitter;twitter
+Ubuntu;ubuntu
+UML;uml
+Unity;unity
+VB;vb
+VBA;vba
+Visual Basic;visual-basic
+Visual Studio;visual-studio
+Visualization;visualization
+VMM;vmm
+WebGL;webgl
+WebSocket;websocket
+Wi-Fi;wi-fi
+Wii;wii
+Windows;windows
+WordPress;wordpress
+WPF;wpf
+XAML;xaml
+Xbox;xbox
+Xcode;xcode
+XML;xml
+Yahoo;yahoo
