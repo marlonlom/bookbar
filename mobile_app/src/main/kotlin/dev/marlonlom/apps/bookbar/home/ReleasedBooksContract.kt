@@ -137,7 +137,6 @@ interface ReleasedBooksContract {
          *
          * @return flow with released books query result
          */
-
         suspend fun retrieveNewBooks(): Flow<Result<List<BookListItem>>> = flow {
             val apiResult: Result<List<BookListItem>> = try {
                 val newBooks = bookStoreApi.getNewBooks()
