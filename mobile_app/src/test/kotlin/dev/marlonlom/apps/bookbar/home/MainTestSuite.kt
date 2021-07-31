@@ -16,6 +16,7 @@
 
 package dev.marlonlom.apps.bookbar.home
 
+import dev.marlonlom.apps.bookbar.categories.LocalDataSourceTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.runner.RunWith
@@ -32,4 +33,4 @@ import org.junit.runners.Suite
     ViewModelFactoryTest::class,
     ListAdapterDiffCallbackTest::class
 )
-class HomeTestSuite
+class MainTestSuite
