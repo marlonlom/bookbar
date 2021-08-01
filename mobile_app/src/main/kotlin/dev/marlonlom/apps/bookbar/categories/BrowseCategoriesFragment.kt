@@ -79,10 +79,10 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
                 }
             }
         }
-        fetchInitialcategoriesList()
+        fetchInitialCategoriesList()
     }
 
-    private fun fetchInitialcategoriesList() {
+    private fun fetchInitialCategoriesList() {
         uiViewModel.populateList(resources.openRawResource(R.raw.book_categories))
     }
 
@@ -133,7 +133,7 @@ class BrowseCategoriesFragment : Fragment(R.layout.fragment_categories_browse) {
         if (textForSearch.isNotEmpty()) {
             uiViewModel.searchCategories(textForSearch)
         } else {
-            fetchInitialcategoriesList()
+            fetchInitialCategoriesList()
         }
     }
 

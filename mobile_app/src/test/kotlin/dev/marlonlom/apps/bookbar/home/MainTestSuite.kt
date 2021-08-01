@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-package dev.marlonlom.apps.bookbar
+package dev.marlonlom.apps.bookbar.home
 
-import org.junit.Test
+import dev.marlonlom.apps.bookbar.categories.LocalDataSourceTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.serialization.ExperimentalSerializationApi
+import org.junit.runner.RunWith
+import org.junit.runners.Suite
 
-import org.junit.Assert.*
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
-}
+@ExperimentalSerializationApi
+@ExperimentalCoroutinesApi
+@RunWith(Suite::class)
+@Suite.SuiteClasses(
+    LocalDataSourceTest::class,
+    RemoteDataSourceTest::class,
+    RepositoryTest::class,
+    ViewModelTest::class,
+    ViewModelFactoryTest::class,
+    ListAdapterDiffCallbackTest::class
+)
+class MainTestSuite
