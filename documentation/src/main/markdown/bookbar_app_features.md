@@ -48,7 +48,7 @@ The following shows a table with the defined features that contains the Bookbar 
 |------------------------|-----------------------|---------------------------------------|----------|-----------|-------------|-----------|-------------|
 | List released books    | mobile_app            | dev.marlonlom.apps.bookbar            | &#x2714; | &#x2714;  | &#x2714;    |           | &#x2714;    |
 | Browse categories      | dfm_categories_browse | dev.marlonlom.apps.bookbar.categories | &#x2714; | &#x2714;  | &#x2714;    |           |             |
-| Show book detail       | dfm_book_detail       | dev.marlonlom.apps.bookbar.detail     | &#x2714; | &#x2714;  | &#x270E;    |           |             |
+| Show book detail       | dfm_book_detail       | dev.marlonlom.apps.bookbar.detail     | &#x2714; | &#x2714;  | &#x2714;    |           |             |
 | Book search            | dfm_books_search      | dev.marlonlom.apps.bookbar.search     | &#x2714; | &#x2714;  | &#x270E;    |           |             |
 | List saved books       | dfm_books_saved       | dev.marlonlom.apps.bookbar.saved      | &#x2714; | &#x2714;  | &#x270E;    |           |             |
 | Configure app settings | dfm_settings          | dev.marlonlom.apps.bookbar.settings   | &#x2714; | &#x2714;  | &#x268A;    |           | &#x268A;    |
