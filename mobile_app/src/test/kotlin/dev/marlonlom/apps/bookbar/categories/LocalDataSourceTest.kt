@@ -24,6 +24,7 @@ import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,7 +49,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return empty list of categories`() {
-        runBlocking {
+        runBlockingTest {
             `when`(categoriesDao.listAll()).thenReturn(flowOf(emptyList()))
             val dataSourceResponse = dataSource.listAll().first()
             assertNotNull(dataSourceResponse)
@@ -58,7 +59,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return a list of categories`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(bookCategoriesList)
             `when`(categoriesDao.listAll()).thenReturn(resultsFlow)
             val dataSourceResponse = dataSource.listAll().first()
@@ -70,7 +71,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should find a category using search`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(bookCategoriesList.filter { it.title == "Android" })
             `when`(categoriesDao.search(anyString())).thenReturn(resultsFlow)
             val dataSourceResponse = dataSource.search("*android*").first()
@@ -82,7 +83,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should not find a category using search`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(bookCategoriesList.filter { it.title == "Llorem ipsum" })
             `when`(categoriesDao.search(anyString())).thenReturn(resultsFlow)
             val dataSourceResponse = dataSource.search("*lorem ipsum*").first()
@@ -92,7 +93,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should delete a previously inserted category`() {
-        runBlocking {
+        runBlockingTest {
             `when`(categoriesDao.listAll()).thenReturn(flowOf(emptyList()))
             with(dataSource) {
                 insertCategories(bookCategoriesList)

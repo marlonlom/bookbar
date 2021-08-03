@@ -19,15 +19,17 @@ package dev.marlonlom.apps.bookbar.detail
 import dev.marlonlom.apps.bookbar.detail.BookDetailsContract.*
 import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class RepositoryTest : TestCase() {
 
@@ -44,21 +46,21 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should save book detail state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             repository.toggleSaved("1001622115721", true)
         }
     }
 
     @Test
     fun `Should unsave book detail state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             repository.toggleSaved("1001622115721", false)
         }
     }
 
     @Test
     fun `Should not return book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.findSingle(anyString())).thenReturn(flowOf(emptyList()))
             `when`(remoteDataSource.findBook(anyString()))
                 .thenReturn(flowOf(Result.failure(Exception("Book information not found."))))
@@ -72,7 +74,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return free book detail from local data source using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.freeBookApiResponse
             `when`(localDataSource.findSingle(anyString()))
                 .thenReturn(flowOf(listOf(toBookDetailEntity(bookItem))))
@@ -101,7 +103,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return free book detail from remote data source using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.freeBookApiResponse
             `when`(localDataSource.findSingle(anyString())).thenReturn(flowOf(emptyList()))
             `when`(remoteDataSource.findBook(anyString())).thenReturn(
@@ -136,7 +138,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return purchasable book detail from local data source using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.purchasableBookApiResponse
             `when`(localDataSource.findSingle(anyString()))
                 .thenReturn(flowOf(listOf(toBookDetailEntity(bookItem))))
@@ -165,7 +167,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return purchasable book detail from remote data source using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.purchasableBookApiResponse
             `when`(localDataSource.findSingle(anyString())).thenReturn(flowOf(emptyList()))
             `when`(remoteDataSource.findBook(anyString())).thenReturn(flowOf(Result.success(bookItem)))

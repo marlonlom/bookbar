@@ -16,13 +16,13 @@
 
 package dev.marlonlom.apps.bookbar.home
 
-import dev.marlonlom.apps.bookbar.utils.RemoteData
 import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.released_books.ReleasedBooksDao
+import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,7 +48,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return empty list of released books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(releasedBooksDao.listAll()).thenReturn(flowOf(emptyList()))
             val dataSourceResponse = dataSource.listAll().first()
             assertNotNull(dataSourceResponse)
@@ -58,7 +58,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return a list of released books`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow =
                 flowOf(RemoteData.releasedBooksApiResponse.books.map { toReleasedBook(it) })
             `when`(releasedBooksDao.listAll()).thenReturn(resultsFlow)

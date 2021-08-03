@@ -21,9 +21,10 @@ import dev.marlonlom.apps.bookbar.categories.BrowseCategoriesContract.Repository
 import dev.marlonlom.apps.bookbar.utils.RemoteData
 import dev.marlonlom.apps.bookbar.utils.RemoteData.bookCategoriesList
 import junit.framework.TestCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,6 +32,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class RepositoryTest : TestCase() {
 
@@ -45,7 +47,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return empty list of categories`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll()).thenReturn(flowOf(emptyList()))
 
             val response = repository.listAll().first()
@@ -57,7 +59,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return a list of categories`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll()).thenReturn(flowOf(bookCategoriesList))
             val response = repository.listAll().first()
             assertNotNull(response)
@@ -69,7 +71,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should find a category using search`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(bookCategoriesList.filter { it.title == "Android" })
             `when`(localDataSource.search(Mockito.anyString())).thenReturn(resultsFlow)
             val response = repository.search("*android*").first()
@@ -82,7 +84,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return complete categories list after not finding search results`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.search(Mockito.anyString())).thenReturn(flowOf(emptyList()))
             `when`(localDataSource.listAll()).thenReturn(flowOf(bookCategoriesList))
             val response = repository.search("*lorem ipsum*").first()
@@ -94,7 +96,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return categories list after inserting data`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll()).thenReturn(flowOf(bookCategoriesList))
             repository.populateList(RemoteData.bookCategoriesStream)
             val response = repository.listAll().first()

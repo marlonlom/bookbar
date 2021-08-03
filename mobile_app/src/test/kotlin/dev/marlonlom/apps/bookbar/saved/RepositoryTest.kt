@@ -22,9 +22,10 @@ import dev.marlonlom.apps.bookbar.saved.SavedBooksContract.LocalDataSource
 import dev.marlonlom.apps.bookbar.saved.SavedBooksContract.Repository
 import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,6 +34,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class RepositoryTest : TestCase() {
 
@@ -52,7 +54,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return empty list of saved books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listSaved()).thenReturn(flowOf(emptyList()))
             val response = repository.retrieveSavedBooks().first()
             assertNotNull(response)
@@ -63,7 +65,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return a list of saved books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listSaved()).thenReturn(flowOf(savedBooksList))
             val response = repository.retrieveSavedBooks().first()
             assertNotNull(response)
@@ -75,7 +77,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should find a saved book using search`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(savedBooksList.filter { it.title.startsWith("Kotlin") })
             `when`(localDataSource.searchSaved(Mockito.anyString())).thenReturn(resultsFlow)
             val response = repository.search("*kotlin*").first()
@@ -88,7 +90,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return complete saved books list after not finding search results`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.searchSaved(Mockito.anyString())).thenReturn(flowOf(emptyList()))
             `when`(localDataSource.listSaved()).thenReturn(flowOf(savedBooksList))
             val response = repository.search("*lorem ipsum*").first()
@@ -100,14 +102,14 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should save book state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             repository.toggleSaved("1001622115721", true)
         }
     }
 
     @Test
     fun `Should unsave book state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             repository.toggleSaved("1001622115721", false)
         }
     }

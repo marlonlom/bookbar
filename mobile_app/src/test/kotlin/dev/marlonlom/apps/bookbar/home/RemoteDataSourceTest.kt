@@ -16,12 +16,12 @@
 
 package dev.marlonlom.apps.bookbar.home
 
-import dev.marlonlom.apps.bookbar.utils.RemoteData
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.model.network.BooksListApiResponse
+import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -44,18 +44,21 @@ class RemoteDataSourceTest : TestCase() {
 
     @Test
     fun `Should return empty list of released books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(api.getNewBooks()).thenReturn(BooksListApiResponse(emptyList(), "0", "0"))
             val dataSourceResponse = dataSource.retrieveNewBooks().first()
             assertNotNull(dataSourceResponse)
             assertTrue(dataSourceResponse.isFailure)
-            assertEquals("Released books not found.", dataSourceResponse.exceptionOrNull()!!.message)
+            assertEquals(
+                "Released books not found.",
+                dataSourceResponse.exceptionOrNull()!!.message
+            )
         }
     }
 
     @Test
     fun `Should return a list of released books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(api.getNewBooks()).thenReturn(RemoteData.releasedBooksApiResponse)
             val dataSourceResponse = dataSource.retrieveNewBooks().first()
             assertNotNull(dataSourceResponse)
