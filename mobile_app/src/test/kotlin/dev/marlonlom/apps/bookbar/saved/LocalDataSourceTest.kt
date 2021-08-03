@@ -20,12 +20,11 @@ import dev.marlonlom.apps.bookbar.detail.toBookDetailEntity
 import dev.marlonlom.apps.bookbar.model.database.AppDatabase
 import dev.marlonlom.apps.bookbar.model.database.book_detail.BookDetailsDao
 import dev.marlonlom.apps.bookbar.saved.SavedBooksContract.LocalDataSource
-import dev.marlonlom.apps.bookbar.utils.RemoteData.bookCategoriesList
 import dev.marlonlom.apps.bookbar.utils.RemoteData.savedBooksApiResponse
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,7 +50,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return empty list of saved books`() {
-        runBlocking {
+        runBlockingTest {
             `when`(bookDetailsDao.listSaved()).thenReturn(flowOf(emptyList()))
             val dataSourceResponse = dataSource.listSaved().first()
             assertNotNull(dataSourceResponse)
@@ -61,7 +60,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return a list of saved books`() {
-        runBlocking {
+        runBlockingTest {
             val resultsFlow = flowOf(savedBooksApiResponse.books.map { toBookDetailEntity(it) })
             `when`(bookDetailsDao.listSaved()).thenReturn(resultsFlow)
             val dataSourceResponse = dataSource.listSaved().first()
@@ -73,14 +72,14 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should save book state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             dataSource.toggleSaved("1001622115721", true)
         }
     }
 
     @Test
     fun `Should unsave book state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             dataSource.toggleSaved("1001622115721", false)
         }
     }

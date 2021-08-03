@@ -18,9 +18,10 @@ package dev.marlonlom.apps.bookbar.home
 
 import dev.marlonlom.apps.bookbar.utils.RemoteData.releasedBooksApiResponse
 import junit.framework.TestCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,6 +29,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
+@ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class RepositoryTest : TestCase() {
 
@@ -44,7 +46,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return empty list of released books from remote data source`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll()).thenReturn(flowOf(emptyList()))
             `when`(remoteDataSource.retrieveNewBooks())
                 .thenReturn(flowOf(Result.failure(Exception("Released books not found ."))))
@@ -58,7 +60,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return a list of released books from local data source`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll())
                 .thenReturn(flowOf(releasedBooksApiResponse.books.map { toReleasedBook(it) }))
 
@@ -71,7 +73,7 @@ class RepositoryTest : TestCase() {
 
     @Test
     fun `Should return a list of released books from remote data source`() {
-        runBlocking {
+        runBlockingTest {
             `when`(localDataSource.listAll()).thenReturn(flowOf(emptyList()))
             `when`(remoteDataSource.retrieveNewBooks())
                 .thenReturn(flowOf(Result.success(releasedBooksApiResponse.books)))

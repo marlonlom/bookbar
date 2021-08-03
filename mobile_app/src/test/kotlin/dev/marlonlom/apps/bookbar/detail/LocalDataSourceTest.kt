@@ -25,7 +25,7 @@ import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,21 +60,21 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should save book detail state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             dataSource.toggleSaved("1001622115721", true)
         }
     }
 
     @Test
     fun `Should unsave book detail state for selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             dataSource.toggleSaved("1001622115721", false)
         }
     }
 
     @Test
     fun `Should not return book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             `when`(bookDetailsDao.findByIsbn(anyString())).thenReturn(flowOf(emptyList()))
             val response = dataSource.findSingle("9781484266835").first()
             assertNotNull(response)
@@ -84,7 +84,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return free book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = toBookDetailEntity(RemoteData.freeBookApiResponse)
             val freeBookFlow = flowOf(listOf(bookItem))
             `when`(bookDetailsDao.findByIsbn(anyString())).thenReturn(freeBookFlow)
@@ -113,7 +113,7 @@ class LocalDataSourceTest : TestCase() {
 
     @Test
     fun `Should return purchasable book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = toBookDetailEntity(RemoteData.purchasableBookApiResponse)
             val purchasableBookFlow = flowOf(listOf(bookItem))
             `when`(bookDetailsDao.findByIsbn(anyString())).thenReturn(purchasableBookFlow)

@@ -19,11 +19,13 @@ package dev.marlonlom.apps.bookbar.search
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.Repository
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.ViewModelFactory
 import junit.framework.TestCase
+import kotlinx.coroutines.InternalCoroutinesApi
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
+@InternalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class ViewModelFactoryTest : TestCase() {
 

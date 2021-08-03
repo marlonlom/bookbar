@@ -16,19 +16,23 @@
 
 package dev.marlonlom.apps.bookbar.search
 
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
+import androidx.paging.PagingSource.LoadParams
+import androidx.paging.PagingSource.LoadResult.Error
+import androidx.paging.PagingSource.LoadResult.Page
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse.Companion.EMPTY_RESPONSE
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.RemoteDataSource
 import dev.marlonlom.apps.bookbar.utils.RemoteData.searchedKotlinBooksApiResponse
 import junit.framework.TestCase
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
+@InternalCoroutinesApi
 @Suppress("EXPERIMENTAL_API_USAGE")
 @RunWith(MockitoJUnitRunner::class)
 class RemoteDataSourceTest : TestCase() {
@@ -39,44 +43,52 @@ class RemoteDataSourceTest : TestCase() {
     @Before
     public override fun setUp() {
         api = mock(BookStoreApi::class.java)
-        dataSource = RemoteDataSource(api)
     }
 
     @Test
     fun `Should not return search results using text at page 1`() {
-        runBlocking {
+        runBlockingTest {
             `when`(api.search(anyString(), anyString()))
-                .thenReturn(BookSearchApiResponse.EMPTY_RESPONSE)
-            val response = dataSource.searchBooks("kotlin").first()
-            assertNotNull(response)
-            assertTrue(response.isSuccess)
-            assertTrue(response.getOrThrow().books!!.isNullOrEmpty())
-            assertEquals("1", response.getOrThrow().page)
-            assertEquals("0", response.getOrThrow().total)
-        }
-    }
-
-    @Test
-    fun `Should return search result error using text at page 1`() {
-        runBlocking {
-            `when`(api.search(anyString(), anyString())).thenReturn(null)
-            val response = dataSource.searchBooks("").first()
-            assertNotNull(response)
-            assertTrue(response.isFailure)
-            assertEquals("Searched books not found.", response.exceptionOrNull()!!.message)
+                .thenReturn(EMPTY_RESPONSE)
+            val params: LoadParams<Int> = LoadParams.Refresh(1, 20, false)
+            val expectedResult = Page(
+                data = EMPTY_RESPONSE.books!!,
+                prevKey = null,
+                nextKey = null
+            )
+            dataSource = RemoteDataSource(api, "anything")
+            val response = dataSource.load(params)
+            assertTrue(response is Page)
+            assertEquals(expectedResult, response)
         }
     }
 
     @Test
     fun `Should return search results using text at page 1`() {
-        runBlocking {
+        runBlockingTest {
             `when`(api.search(anyString(), anyString())).thenReturn(searchedKotlinBooksApiResponse)
-            val response = dataSource.searchBooks("kotlin").first()
-            assertNotNull(response)
-            assertTrue(response.isSuccess)
-            assertTrue(response.getOrThrow().books!!.isNotEmpty())
-            assertEquals("1", response.getOrThrow().page)
-            assertEquals("16", response.getOrThrow().total)
+            val params: LoadParams<Int> = LoadParams.Refresh(1, 20, false)
+            val expectedResult = Page(
+                data = searchedKotlinBooksApiResponse.books!!,
+                prevKey = null,
+                nextKey = 2
+            )
+            dataSource = RemoteDataSource(api, "kotlin")
+            val response = dataSource.load(params)
+            assertTrue(response is Page)
+            assertEquals(expectedResult, response)
+        }
+    }
+
+    @Test
+    fun `Should return search results error using text at page 1`() {
+        runBlockingTest {
+            `when`(api.search(anyString(), anyString()))
+                .thenReturn(EMPTY_RESPONSE.copy(books = null))
+            val params: LoadParams<Int> = LoadParams.Refresh(1, 20, false)
+            dataSource = RemoteDataSource(api, "kotlin")
+            val response = dataSource.load(params)
+            assertTrue(response is Error)
         }
     }
 

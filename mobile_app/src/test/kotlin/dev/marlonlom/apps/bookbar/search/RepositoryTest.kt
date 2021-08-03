@@ -16,71 +16,55 @@
 
 package dev.marlonlom.apps.bookbar.search
 
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
-import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.RemoteDataSource
+import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.Repository
-import dev.marlonlom.apps.bookbar.utils.RemoteData.searchedKotlinBooksApiResponse
 import junit.framework.TestCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
+@InternalCoroutinesApi
+@ExperimentalCoroutinesApi
 @Suppress("EXPERIMENTAL_dataSource_USAGE")
 @RunWith(MockitoJUnitRunner::class)
 class RepositoryTest : TestCase() {
 
-    private lateinit var dataSource: RemoteDataSource
     private lateinit var repository: Repository
+    private lateinit var api: BookStoreApi
 
     @Before
     public override fun setUp() {
-        dataSource = mock(RemoteDataSource::class.java)
-        repository = Repository(dataSource)
+        api = mock(BookStoreApi::class.java)
+        repository = Repository(api)
     }
 
     @Test
     fun `Should not return search results using text at page 1`() {
-        runBlocking {
-            `when`(dataSource.searchBooks(anyString(), anyInt()))
-                .thenReturn(flowOf(Result.success(BookSearchApiResponse.EMPTY_RESPONSE)))
+        runBlockingTest {
             val response = repository.searchBooks("kotlin").first()
             assertNotNull(response)
-            assertTrue(response.isSuccess)
-            assertTrue(response.getOrThrow().books!!.isNullOrEmpty())
-            assertEquals("1", response.getOrThrow().page)
-            assertEquals("0", response.getOrThrow().total)
         }
     }
 
     @Test
     fun `Should return search result error using text at page 1`() {
-        runBlocking {
-            `when`(dataSource.searchBooks(anyString(), anyInt()))
-                .thenReturn(flowOf(Result.failure(Exception("Searched books not found."))))
+        runBlockingTest {
             val response = repository.searchBooks("anything").first()
             assertNotNull(response)
-            assertTrue(response.isFailure)
-            assertEquals("Searched books not found.", response.exceptionOrNull()!!.message)
         }
     }
 
     @Test
     fun `Should return search results using text at page 1`() {
-        runBlocking {
-            `when`(dataSource.searchBooks(anyString(), anyInt())).thenReturn(
-                flowOf(Result.success(searchedKotlinBooksApiResponse))
-            )
-            val response = dataSource.searchBooks("kotlin").first()
+        runBlockingTest {
+            val response = repository.searchBooks("kotlin").first()
             assertNotNull(response)
-            assertTrue(response.isSuccess)
-            assertTrue(response.getOrThrow().books!!.isNotEmpty())
-            assertEquals("1", response.getOrThrow().page)
-            assertEquals("16", response.getOrThrow().total)
         }
     }
 

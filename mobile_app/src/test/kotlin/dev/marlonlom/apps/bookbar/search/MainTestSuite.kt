@@ -17,10 +17,12 @@
 package dev.marlonlom.apps.bookbar.search
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
+@InternalCoroutinesApi
 @ExperimentalSerializationApi
 @ExperimentalCoroutinesApi
 @RunWith(Suite::class)
@@ -28,7 +30,7 @@ import org.junit.runners.Suite
     RemoteDataSourceTest::class,
     RepositoryTest::class,
     ViewModelTest::class,
-    ViewModelFactoryTest::class
-    /*,ListAdapterDiffCallbackTest::class*/
+    ViewModelFactoryTest::class,
+    ListAdapterDiffCallbackTest::class
 )
 class MainTestSuite

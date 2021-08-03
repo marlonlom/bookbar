@@ -21,7 +21,7 @@ import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.utils.RemoteData
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +45,7 @@ class RemoteDataSourceTest : TestCase() {
 
     @Test
     fun `Should not return book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val errorApiResponse = RemoteData.freeBookApiResponse.copy(error = "999")
             `when`(api.getBookDetail(Mockito.anyString())).thenReturn(errorApiResponse)
             val response = dataSource.findBook("9781484266835").first()
@@ -57,7 +57,7 @@ class RemoteDataSourceTest : TestCase() {
 
     @Test
     fun `Should return free book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.freeBookApiResponse
             `when`(api.getBookDetail(Mockito.anyString())).thenReturn(bookItem)
             val response = dataSource.findBook(bookItem.isbn13!!).first()
@@ -86,7 +86,7 @@ class RemoteDataSourceTest : TestCase() {
 
     @Test
     fun `Should return purchasable book detail using selected isbn`() {
-        runBlocking {
+        runBlockingTest {
             val bookItem = RemoteData.purchasableBookApiResponse
             `when`(api.getBookDetail(Mockito.anyString())).thenReturn(bookItem)
             val response = dataSource.findBook(bookItem.isbn13!!).first()
