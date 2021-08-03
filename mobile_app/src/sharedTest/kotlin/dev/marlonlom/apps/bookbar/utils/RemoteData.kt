@@ -20,6 +20,7 @@ package dev.marlonlom.apps.bookbar.utils
 
 import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
 import dev.marlonlom.apps.bookbar.model.network.BookDetailApiResponse
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
 import dev.marlonlom.apps.bookbar.model.network.BooksListApiResponse
 import dev.marlonlom.apps.bookbar.model.network.SavedBooksListApiResponse
 import kotlinx.serialization.decodeFromString
@@ -47,6 +48,9 @@ object RemoteData {
 
     val savedBooksApiResponse: SavedBooksListApiResponse
         get() = json.decodeFromString(readJsonFileText("json/saved_books.json"))
+
+    val searchedKotlinBooksApiResponse: BookSearchApiResponse
+        get() = json.decodeFromString(readJsonFileText("json/book_search_kotlin_page01.json"))
 
     val bookCategoriesStream: InputStream = readJsonFileStream("json/book_categories.txt")
 
