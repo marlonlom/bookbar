@@ -19,6 +19,7 @@ package dev.marlonlom.apps.bookbar.search
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse.Companion.EMPTY_RESPONSE
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -52,17 +53,20 @@ interface SearchedBooksContract {
     class ViewModel(private val repository: Repository) :
         androidx.lifecycle.ViewModel() {
 
-        private var _books: MutableStateFlow<Result<BookSearchApiResponse>> =
-            MutableStateFlow(Result.success(BookSearchApiResponse.EMPTY_RESPONSE))
+        private var _books: MutableStateFlow<BookSearchApiResponse> =
+            MutableStateFlow(EMPTY_RESPONSE)
 
         val books = _books.asStateFlow()
 
         /**
          * Retrieves searched books from repository.
+         *
+         * @param query search text
+         * @param page contents page, or initial page (1)
          */
         fun searchBooks(query: String, page: Int? = 1) = viewModelScope.launch {
             repository.searchBooks(query, page).collect { result ->
-                _books.value = result
+                _books.value = result.getOrDefault(EMPTY_RESPONSE)
             }
         }
     }
@@ -106,7 +110,7 @@ interface SearchedBooksContract {
                 val newBooks = bookStoreApi.search(query, "$page")
                 val isSuccess = newBooks.error == "0" && newBooks.books!!.isNotEmpty()
                 if (isSuccess) Result.success(newBooks)
-                else Result.success(BookSearchApiResponse.EMPTY_RESPONSE)
+                else Result.success(EMPTY_RESPONSE)
             } catch (exception: Exception) {
                 Result.failure(Exception(errorMessage, exception))
             }

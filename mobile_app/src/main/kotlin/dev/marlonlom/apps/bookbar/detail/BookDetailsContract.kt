@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * MVVM Contract for book title query.
+ * MVVM Contract for book details query.
  *
  * @author marlonlom
  */
@@ -47,7 +47,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * ViewModel for book title query.
+     * ViewModel for book details query.
      *
      * @author marlonlom
      */
@@ -91,7 +91,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Repository for book title query.
+     * Repository for book details query.
      *
      * @author marlonlom
      */
@@ -152,7 +152,7 @@ interface BookDetailsContract {
         }
 
         private fun toBookDetailEntity(item: BookDetailApiResponse) = BookDetail(
-            id = item.isbn10!!.toInt(),
+            id = item.isbn13!!.substring(3).toInt(),
             isbn13 = item.isbn13!!, isbn10 = item.isbn10!!, title = item.title!!,
             subtitle = item.subtitle!!, rating = item.rating!!, price = item.priceValue!!,
             language = item.language!!, pages = item.pages!!, publisher = item.publisher!!,
@@ -164,7 +164,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Remote data source for book title query.
+     * Remote data source for book details query.
      *
      * @author marlonlom
      */
@@ -191,7 +191,7 @@ interface BookDetailsContract {
     }
 
     /**
-     * Local data source for book title query.
+     * Local data source for book details query.
      *
      * @author marlonlom
      */

@@ -88,6 +88,7 @@ interface SavedBooksContract {
                 }
             } else {
                 retrieveSavedBooks()
+                _filteredBooks.value = _books.value
             }
         }
     }

@@ -19,12 +19,17 @@
 package dev.marlonlom.apps.bookbar.utils
 
 import dev.marlonlom.apps.bookbar.model.database.categories.BookCategory
+import dev.marlonlom.apps.bookbar.model.network.BookDetailApiResponse
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
 import dev.marlonlom.apps.bookbar.model.network.BooksListApiResponse
+import dev.marlonlom.apps.bookbar.model.network.SavedBooksListApiResponse
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 
 object RemoteData {
+
+    private val json = Json { ignoreUnknownKeys = true }
 
     private fun readJsonFileText(filePath: String): String =
         this::class.java.classLoader!!.getResource(filePath).readText()
@@ -33,7 +38,19 @@ object RemoteData {
         this::class.java.classLoader!!.getResourceAsStream(filePath)
 
     val releasedBooksApiResponse: BooksListApiResponse
-        get() = Json.decodeFromString(readJsonFileText("json/new_books.json"))
+        get() = json.decodeFromString(readJsonFileText("json/new_books.json"))
+
+    val freeBookApiResponse: BookDetailApiResponse
+        get() = json.decodeFromString(readJsonFileText("json/free_book_detail.json"))
+
+    val purchasableBookApiResponse: BookDetailApiResponse
+        get() = json.decodeFromString(readJsonFileText("json/single_book_detail.json"))
+
+    val savedBooksApiResponse: SavedBooksListApiResponse
+        get() = json.decodeFromString(readJsonFileText("json/saved_books.json"))
+
+    val searchedKotlinBooksApiResponse: BookSearchApiResponse
+        get() = json.decodeFromString(readJsonFileText("json/book_search_kotlin_page01.json"))
 
     val bookCategoriesStream: InputStream = readJsonFileStream("json/book_categories.txt")
 

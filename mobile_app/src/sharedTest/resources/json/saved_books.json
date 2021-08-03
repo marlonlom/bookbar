@@ -1,0 +1,38 @@
+{
+  "books": [
+    {
+      "error": "0",
+      "title": "Kotlin for Enterprise Applications using Java EE",
+      "subtitle": "Develop, test, and troubleshoot enterprise applications and microservices with Kotlin and Java EE",
+      "authors": "Raghavendra Rao K",
+      "publisher": "Packt Publishing",
+      "language": "English",
+      "isbn10": "1788997271",
+      "isbn13": "9781788997270",
+      "pages": "388",
+      "year": "2018",
+      "rating": "0",
+      "desc": "Kotlin was developed with a view to solving programmers difficulties and operational challenges. This book guides you in making Kotlin and Java EE work in unison to build enterprise-grade applications. Together, they can be used to create services of any size with just a few lines of code and let yo...",
+      "price": "$43.86",
+      "image": "https://itbook.store/img/books/9781788997270.png",
+      "url": "https://itbook.store/books/9781788997270"
+    },
+    {
+      "error": "0",
+      "title": "Spring Boot: Up and Running",
+      "subtitle": "Building Cloud Native Java and Kotlin Applications",
+      "authors": "Mark Heckler",
+      "publisher": "O'Reilly Media",
+      "language": "English",
+      "isbn10": "1492076988",
+      "isbn13": "9781492076988",
+      "pages": "328",
+      "year": "2021",
+      "rating": "0",
+      "desc": "With over 75 million downloads per month, Spring Boot is the most widely used Java framework available. Its ease and power have revolutionized application development from monoliths to microservices. Yet Spring Boot's simplicity can also be confounding. How do developers learn enough to be productiv...",
+      "price": "$47.07",
+      "image": "https://itbook.store/img/books/9781492076988.png",
+      "url": "https://itbook.store/books/9781492076988"
+    }
+  ]
+}
