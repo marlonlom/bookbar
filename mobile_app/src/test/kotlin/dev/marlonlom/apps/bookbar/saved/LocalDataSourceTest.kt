@@ -67,7 +67,7 @@ class LocalDataSourceTest : TestCase() {
             val dataSourceResponse = dataSource.listSaved().first()
             assertNotNull(dataSourceResponse)
             assertTrue(dataSourceResponse.isNotEmpty())
-            assertEquals(bookCategoriesList.size, dataSourceResponse.size)
+            assertEquals(2, dataSourceResponse.size)
         }
     }
 
