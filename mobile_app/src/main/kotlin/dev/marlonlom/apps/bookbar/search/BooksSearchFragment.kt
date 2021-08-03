@@ -18,21 +18,22 @@ package dev.marlonlom.apps.bookbar.search
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import dev.marlonlom.apps.bookbar.BuildConfig.API_BASE_URL
 import dev.marlonlom.apps.bookbar.R
-import dev.marlonlom.apps.bookbar.databinding.FragmentBooksSavedBinding
-import dev.marlonlom.apps.bookbar.databinding.FragmentHomeBinding
-import dev.marlonlom.apps.bookbar.model.database.AppDatabase
-import dev.marlonlom.apps.bookbar.model.database.released_books.ReleasedBook
+import dev.marlonlom.apps.bookbar.databinding.FragmentBooksSearchBinding
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.viewbindings.viewBinding
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -43,116 +44,64 @@ import timber.log.Timber
  *
  * @author marlonlom
  */
+@InternalCoroutinesApi
 @ExperimentalSerializationApi
-class BooksSearchFragment : Fragment(R.layout.fragment_books_saved) {
+class BooksSearchFragment : Fragment(R.layout.fragment_books_search) {
 
-    private val uiBinding by viewBinding(FragmentBooksSavedBinding::bind)
-    /*private val uiViewModel: ReleasedBooksContract.ViewModel by navGraphViewModels(R.id.navigation_bookstore) { newViewModelFactory() }
+    private val uiBinding by viewBinding(FragmentBooksSearchBinding::bind)
+    private val uiViewModel: SearchedBooksContract.ViewModel by navGraphViewModels(R.id.navigation_bookstore) { newViewModelFactory() }
+    private val args: BooksSearchFragmentArgs by navArgs()
 
-    private fun newViewModelFactory(): ReleasedBooksContract.ViewModelFactory {
-        Timber.w("Getting new ViewModel using network api and local database for released books listing ...")
+    private fun newViewModelFactory(): SearchedBooksContract.ViewModelFactory {
+        Timber.w("Getting new ViewModel using network api ...")
         val apiService = BookStoreApi.Service.newService(API_BASE_URL.toHttpUrl())
-        val appDatabase = AppDatabase.getDatabase(requireContext())
-        val localDataSource = ReleasedBooksContract.LocalDataSource(appDatabase)
-        val remoteDataSource = ReleasedBooksContract.RemoteDataSource(apiService)
-        val repository = ReleasedBooksContract.Repository(localDataSource, remoteDataSource)
-        return ReleasedBooksContract.ViewModelFactory(repository)
-    }*/
+        val repository = SearchedBooksContract.Repository(apiService)
+        return SearchedBooksContract.ViewModelFactory(repository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated")
-        /*setupCategoriesSection()
-        setupReleasedBooksListingSection()
-        obtainReleasedBooks()*/
+        setupScreen()
+        obtainSearchedBooks(args.bookText)
     }
 
-    /*
-    private fun obtainReleasedBooks() {
-        Timber.d("obtainReleasedBooks")
-        viewLifecycleOwner.lifecycleScope.launch {
-            Timber.i("launch >> obtaining released books")
-            uiViewModel.books.collect { books ->
-                processFoundBooks(books)
+    private fun obtainSearchedBooks(bookText: String) {
+        lifecycleScope.launch {
+            uiViewModel.searchBooks(bookText).distinctUntilChanged().collectLatest { pagingData ->
+                (uiBinding.listSearchedBooks.adapter as SearchedBooksListAdapter).submitData(
+                    pagingData
+                )
             }
         }
-        uiViewModel.retrieveNewBooks()
     }
 
-    private fun processFoundBooks(books: List<ReleasedBook>) {
-        Timber.d("processFoundBooks")
-        if (books.isNotEmpty()) {
-            (uiBinding.listReleasedBooks.adapter as ReleasedBooksListAdapter).submitList(books)
-        } else {
-            Timber.d("Empty list... display empty list info")
-            Toast.makeText(
-                requireContext(),
-                "Empty list... display empty list info",
-                Toast.LENGTH_LONG
-            ).show()
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            handleBackNavigation()
         }
     }
 
-    private fun setupCategoriesSection() {
-        Timber.d("setupCategoriesSection")
+    private fun handleBackNavigation() {
+        findNavController().popBackStack()
+    }
+
+    private fun setupScreen() {
+        Timber.d("setupScreen")
         uiBinding.apply {
-            btnGotoCategoriesBrowse.setOnClickListener {
-                Timber.d("goto categories browsing destination.")
-                findNavController().navigate(HomeFragmentDirections.gotoCategoriesBrowse())
+            btnScreenBack.apply {
+                handleOnBackPressed()
             }
-            chipSampleCategory01.setOnClickListener {
-                val selectedTag =
-                    requireContext().getString(R.string.tag_chip_sample_category_01)
-                handleSampleCategoryItemClicked(selectedTag)
-            }
-            chipSampleCategory02.setOnClickListener {
-                val selectedTag =
-                    requireContext().getString(R.string.tag_chip_sample_category_02)
-                handleSampleCategoryItemClicked(selectedTag)
-            }
-            chipSampleCategory03.setOnClickListener {
-                val selectedTag =
-                    requireContext().getString(R.string.tag_chip_sample_category_03)
-                handleSampleCategoryItemClicked(selectedTag)
-            }
-            chipSampleCategory04.setOnClickListener {
-                val selectedTag =
-                    requireContext().getString(R.string.tag_chip_sample_category_04)
-                handleSampleCategoryItemClicked(selectedTag)
-            }
-            chipSampleCategory05.setOnClickListener {
-                val selectedTag =
-                    requireContext().getString(R.string.tag_chip_sample_category_05)
-                handleSampleCategoryItemClicked(selectedTag)
-            }
-        }
-    }
-
-    private val handleSampleCategoryItemClicked: (String) -> Unit = { category ->
-        Timber.d("handleSampleCategoryItemClicked: $category")
-        Toast.makeText(
-            requireContext(),
-            "handleSampleCategoryItemClicked: $category",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-
-    private fun setupReleasedBooksListingSection() {
-        Timber.d("setupReleasedBooksListingSection")
-        uiBinding.apply {
-            listReleasedBooks.apply {
+            listSearchedBooks.apply {
                 setHasFixedSize(true)
+                adapter = SearchedBooksListAdapter()
                 layoutManager =
-                    GridLayoutManager(requireContext(), 3, GridLayoutManager.VERTICAL, false)
-                adapter = ReleasedBooksListAdapter(handleReleasedBookListItemClicked)
+                    GridLayoutManager(requireContext(), 1, GridLayoutManager.VERTICAL, false)
+            }
+            editTextSearchSaved.addTextChangedListener {
+                obtainSearchedBooks(it.toString())
             }
         }
     }
 
-    private val handleReleasedBookListItemClicked: (ReleasedBook) -> Unit = { bookListItem ->
-        Timber.d("handleBookItemClicked: $bookListItem")
-        findNavController().navigate(HomeFragmentDirections.gotoBookDetails(bookListItem.isbn13))
-    }
-    */
 }

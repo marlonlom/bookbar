@@ -16,13 +16,15 @@
 
 package dev.marlonlom.apps.bookbar.search
 
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
+import androidx.paging.PagingData
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse.Companion.EMPTY_RESPONSE
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.Repository
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.ViewModel
-import dev.marlonlom.apps.bookbar.utils.RemoteData
+import dev.marlonlom.apps.bookbar.utils.RemoteData.searchedKotlinBooksApiResponse
 import dev.marlonlom.apps.bookbar.utils.TestCoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
@@ -34,6 +36,7 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
 
+@InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class ViewModelTest : TestCase() {
@@ -54,40 +57,32 @@ class ViewModelTest : TestCase() {
     @Test
     fun `Should not return search results using text at page 1`() =
         testCoroutineRule.runBlockingTest {
-            `when`(repository.searchBooks(Mockito.anyString(), Mockito.anyInt()))
-                .thenReturn(flowOf(Result.success(BookSearchApiResponse.EMPTY_RESPONSE)))
+            `when`(repository.searchBooks(Mockito.anyString()))
+                .thenReturn(flowOf(PagingData.from(EMPTY_RESPONSE.books!!)))
             viewModel.searchBooks("kotlin")
             val response = viewModel.books.first()
             assertNotNull(response)
-            assertTrue(response.books!!.isNullOrEmpty())
-            assertEquals("1", response.page)
-            assertEquals("0", response.total)
         }
 
     @Test
     fun `Should return search result error using text at page 1`() =
         testCoroutineRule.runBlockingTest {
-            `when`(repository.searchBooks(Mockito.anyString(), Mockito.anyInt()))
-                .thenReturn(flowOf(Result.failure(Exception("Searched books not found."))))
+            `when`(repository.searchBooks(Mockito.anyString()))
+                .thenReturn(flowOf(PagingData.empty()))
             viewModel.searchBooks("anything")
             val response = viewModel.books.first()
             assertNotNull(response)
-            assertTrue(response.books!!.isNullOrEmpty())
-            assertEquals("1", response.page)
-            assertEquals("0", response.total)
         }
 
     @Test
     fun `Should return search results using text at page 1`() =
         testCoroutineRule.runBlockingTest {
-            `when`(repository.searchBooks(Mockito.anyString(), Mockito.anyInt())).thenReturn(
-                flowOf(Result.success(RemoteData.searchedKotlinBooksApiResponse))
+            `when`(repository.searchBooks(Mockito.anyString())).thenReturn(
+                flowOf(PagingData.from(searchedKotlinBooksApiResponse.books!!))
             )
             viewModel.searchBooks("kotlin")
             val response = viewModel.books.first()
             assertNotNull(response)
-            assertTrue(response.books!!.isNotEmpty())
-            assertEquals("1", response.page)
-            assertEquals("16", response.total)
         }
+
 }

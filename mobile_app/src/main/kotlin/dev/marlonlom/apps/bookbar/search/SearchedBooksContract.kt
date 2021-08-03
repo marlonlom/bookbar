@@ -18,17 +18,18 @@ package dev.marlonlom.apps.bookbar.search
 
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse.Companion.EMPTY_RESPONSE
+import androidx.paging.*
+import dev.marlonlom.apps.bookbar.model.network.BookListItem
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 
 /**
  * MVVM Contract for searched books listing query.
  *
  * @author marlonlom
  */
+@InternalCoroutinesApi
 interface SearchedBooksContract {
 
     /**
@@ -53,22 +54,13 @@ interface SearchedBooksContract {
     class ViewModel(private val repository: Repository) :
         androidx.lifecycle.ViewModel() {
 
-        private var _books: MutableStateFlow<BookSearchApiResponse> =
-            MutableStateFlow(EMPTY_RESPONSE)
-
-        val books = _books.asStateFlow()
-
         /**
          * Retrieves searched books from repository.
          *
-         * @param query search text
-         * @param page contents page, or initial page (1)
+         * @param queryText search text
          */
-        fun searchBooks(query: String, page: Int? = 1) = viewModelScope.launch {
-            repository.searchBooks(query, page).collect { result ->
-                _books.value = result.getOrDefault(EMPTY_RESPONSE)
-            }
-        }
+        fun searchBooks(queryText: String): Flow<PagingData<BookListItem>> =
+            repository.searchBooks(queryText).cachedIn(viewModelScope)
     }
 
     /**
@@ -76,18 +68,18 @@ interface SearchedBooksContract {
      *
      * @author marlonlom
      */
-    class Repository(private val remoteDataSource: RemoteDataSource) {
+    class Repository(private val bookStoreApi: BookStoreApi) {
 
         /**
          * Retrieves searched books from remote data source.
          *
          * @return flow with searched books query result
          */
-        fun searchBooks(query: String, page: Int? = 1)
-                : Flow<Result<BookSearchApiResponse>> = flow {
-            val value = remoteDataSource.searchBooks(query, page).first()
-            emit(value)
-        }
+        fun searchBooks(queryText: String): Flow<PagingData<BookListItem>> = Pager(
+            pagingSourceFactory = { RemoteDataSource(bookStoreApi, queryText) },
+            config = PagingConfig(pageSize = 10, enablePlaceholders = false)
+        ).flow
+
     }
 
     /**
@@ -95,26 +87,25 @@ interface SearchedBooksContract {
      *
      * @author marlonlom
      */
-    class RemoteDataSource(private val bookStoreApi: BookStoreApi) {
+    class RemoteDataSource(private val bookStoreApi: BookStoreApi, private val queryText: String) :
+        PagingSource<Int, BookListItem>() {
 
-        private val errorMessage = "Searched books not found."
-
-        /**
-         * Retrieves released books from api.
-         *
-         * @return flow with released books query result
-         */
-        suspend fun searchBooks(query: String, page: Int? = 1)
-                : Flow<Result<BookSearchApiResponse>> = flow {
-            val apiResult: Result<BookSearchApiResponse> = try {
-                val newBooks = bookStoreApi.search(query, "$page")
-                val isSuccess = newBooks.error == "0" && newBooks.books!!.isNotEmpty()
-                if (isSuccess) Result.success(newBooks)
-                else Result.success(EMPTY_RESPONSE)
-            } catch (exception: Exception) {
-                Result.failure(Exception(errorMessage, exception))
+        override fun getRefreshKey(state: PagingState<Int, BookListItem>): Int? =
+            state.anchorPosition?.let { anchorPosition ->
+                state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                    ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
             }
-            emit(apiResult)
+
+        override suspend fun load(params: LoadParams<Int>): LoadResult<Int, BookListItem> = try {
+            val page = params.key ?: 1
+            val response = bookStoreApi.search(queryText, "$page")
+            LoadResult.Page(
+                data = response.books!!,
+                prevKey = if (page == 1) null else page - 1,
+                nextKey = if (response.books!!.isEmpty()) null else page + 1
+            )
+        } catch (exception: Exception) {
+            LoadResult.Error(exception)
         }
     }
 }
