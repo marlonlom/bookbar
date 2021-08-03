@@ -25,6 +25,7 @@ import dev.marlonlom.apps.bookbar.utils.TestCoroutineRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
@@ -59,8 +60,7 @@ class ViewModelTest : TestCase() {
         testCoroutineRule.runBlockingTest {
             `when`(repository.searchBooks(Mockito.anyString()))
                 .thenReturn(flowOf(PagingData.from(EMPTY_RESPONSE.books!!)))
-            viewModel.searchBooks("kotlin")
-            val response = viewModel.books.first()
+            val response = viewModel.searchBooks("kotlin").distinctUntilChanged().first()
             assertNotNull(response)
         }
 
@@ -69,8 +69,7 @@ class ViewModelTest : TestCase() {
         testCoroutineRule.runBlockingTest {
             `when`(repository.searchBooks(Mockito.anyString()))
                 .thenReturn(flowOf(PagingData.empty()))
-            viewModel.searchBooks("anything")
-            val response = viewModel.books.first()
+            val response = viewModel.searchBooks("anything").distinctUntilChanged().first()
             assertNotNull(response)
         }
 
@@ -80,8 +79,7 @@ class ViewModelTest : TestCase() {
             `when`(repository.searchBooks(Mockito.anyString())).thenReturn(
                 flowOf(PagingData.from(searchedKotlinBooksApiResponse.books!!))
             )
-            viewModel.searchBooks("kotlin")
-            val response = viewModel.books.first()
+            val response = viewModel.searchBooks("kotlin").distinctUntilChanged().first()
             assertNotNull(response)
         }
 

@@ -19,13 +19,12 @@ package dev.marlonlom.apps.bookbar.search
 import androidx.paging.PagingSource.LoadParams
 import androidx.paging.PagingSource.LoadResult.Error
 import androidx.paging.PagingSource.LoadResult.Page
-import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse
+import dev.marlonlom.apps.bookbar.model.network.BookSearchApiResponse.Companion.EMPTY_RESPONSE
 import dev.marlonlom.apps.bookbar.model.network.BookStoreApi
 import dev.marlonlom.apps.bookbar.search.SearchedBooksContract.RemoteDataSource
 import dev.marlonlom.apps.bookbar.utils.RemoteData.searchedKotlinBooksApiResponse
 import junit.framework.TestCase
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
@@ -50,10 +49,10 @@ class RemoteDataSourceTest : TestCase() {
     fun `Should not return search results using text at page 1`() {
         runBlockingTest {
             `when`(api.search(anyString(), anyString()))
-                .thenReturn(BookSearchApiResponse.EMPTY_RESPONSE)
+                .thenReturn(EMPTY_RESPONSE)
             val params: LoadParams<Int> = LoadParams.Refresh(1, 20, false)
             val expectedResult = Page(
-                data = BookSearchApiResponse.EMPTY_RESPONSE.books!!,
+                data = EMPTY_RESPONSE.books!!,
                 prevKey = null,
                 nextKey = null
             )
@@ -85,7 +84,7 @@ class RemoteDataSourceTest : TestCase() {
     fun `Should return search results error using text at page 1`() {
         runBlockingTest {
             `when`(api.search(anyString(), anyString()))
-                .thenReturn(BookSearchApiResponse.EMPTY_RESPONSE.copy(books = null))
+                .thenReturn(EMPTY_RESPONSE.copy(books = null))
             val params: LoadParams<Int> = LoadParams.Refresh(1, 20, false)
             dataSource = RemoteDataSource(api, "kotlin")
             val response = dataSource.load(params)
