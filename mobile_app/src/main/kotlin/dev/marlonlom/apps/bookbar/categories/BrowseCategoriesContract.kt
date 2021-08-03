@@ -87,6 +87,7 @@ interface BrowseCategoriesContract {
                 }
             } else {
                 fetchCategories()
+                _filteredCategories.value = _categories.value
             }
         }
 

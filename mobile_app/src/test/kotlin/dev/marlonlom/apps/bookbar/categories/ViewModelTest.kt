@@ -70,4 +70,42 @@ class ViewModelTest : TestCase() {
             assertEquals(209, response.size)
         }
 
+    @Test
+    fun `Should find a category using search`() = testCoroutineRule.runBlockingTest {
+        val resultsFlow =
+            flowOf(Result.success(RemoteData.bookCategoriesList.filter { it.title == "Android" }))
+        Mockito.`when`(repository.search(Mockito.anyString())).thenReturn(resultsFlow)
+        viewModel.searchCategories("*android*")
+        viewModel.searchCategories("lorem ipsum")
+        val response = viewModel.filteredCategories.first()
+        assertNotNull(response)
+        assertTrue(response.isNotEmpty())
+        assertEquals(1, response.size)
+    }
+
+
+    @Test
+    fun `Should return complete categories list after not finding search results`() =
+        testCoroutineRule.runBlockingTest {
+            Mockito.`when`(repository.search(Mockito.anyString()))
+                .thenReturn(flowOf(Result.success(RemoteData.bookCategoriesList)))
+            viewModel.searchCategories("lorem ipsum")
+            val response = viewModel.filteredCategories.first()
+            assertNotNull(response)
+            assertTrue(response.isNotEmpty())
+            assertEquals(RemoteData.bookCategoriesList.size, response.size)
+        }
+
+    @Test
+    fun `Should return complete categories list after searching with empty text`() =
+        testCoroutineRule.runBlockingTest {
+            Mockito.`when`(repository.listAll())
+                .thenReturn(flowOf(Result.success(RemoteData.bookCategoriesList)))
+            viewModel.searchCategories("")
+            val response = viewModel.filteredCategories.first()
+            assertNotNull(response)
+            assertTrue(response.isNotEmpty())
+            assertEquals(RemoteData.bookCategoriesList.size, response.size)
+        }
+
 }
