@@ -82,6 +82,4 @@ class SavedBooksListAdapter(private val itemClicked: (BookDetail) -> Unit) :
         holder.bind(getItem(position), itemClicked)
     }
 
-
 }
-
