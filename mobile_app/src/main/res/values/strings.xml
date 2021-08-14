@@ -80,5 +80,12 @@
     <string name="label_saved_books_results">Saved books</string>
     <string name="text_saved_books_unsaved">Book unsaved</string>
     <string name="label_saved_books_undo_delete">Undo</string>
+    <!-- 06. texts / settings screen -->
     <string name="label_settings_screen_title">Settings</string>
+    <string name="label_settings_group_general">General</string>
+    <string name="label_settings_dark_theme_title">Default theme</string>
+    <string name="label_settings_dark_theme_dialog_title">Select one of the below options</string>
+    <string name="label_settings_group_help">Help</string>
+    <string name="label_settings_group_about">About</string>
+    <string name="label_settings_version_title">Version</string>
 </resources>

@@ -17,6 +17,7 @@
 package dev.marlonlom.apps.bookbar
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -37,9 +38,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val uiBinding by viewBinding(ActivityMainBinding::inflate)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_Bookbar)
-        super.onCreate(savedInstanceState)
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         Timber.d("onCreate")
         setupScreen()
     }

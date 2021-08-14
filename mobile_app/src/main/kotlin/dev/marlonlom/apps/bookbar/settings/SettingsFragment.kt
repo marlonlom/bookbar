@@ -17,8 +17,13 @@
 package dev.marlonlom.apps.bookbar.settings
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
+import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import dev.marlonlom.apps.bookbar.R
+import dev.marlonlom.apps.bookbar.utils.ThemeManager
+import timber.log.Timber
 
 /**
  * Application settings fragment class.
@@ -29,5 +34,35 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.bookbar_preferences, rootKey)
+        setupThemeSelectionList(findPreference("preference_key_dark_theme")!!)
+    }
+
+    private fun setupThemeSelectionList(themePreference: ListPreference) {
+        Timber.d("setupThemeSelectionList")
+        themePreference.setDefaultValue(
+            themePreference.sharedPreferences.getString(
+                "pref_theme_value",
+                "default"
+            )
+        )
+        themePreference.setOnPreferenceChangeListener { preference, newValue ->
+            Timber.d("themePreference.setOnPreferenceChangeListener(${preference.key}, $newValue)")
+            val themeModesArray =
+                requireContext().resources.getStringArray(R.array.entry_values_for_dark_theme_setting)
+            val selectedDefaultValue =
+                ThemeManager.getSelectedDefaultValue(themeModesArray, newValue.toString())
+            val selectedUiMode =
+                ThemeManager.getSelectedUiMode(themeModesArray, newValue.toString())
+
+            preference.preferenceManager.sharedPreferences.edit(commit = true) {
+                putString("pref_theme_value", selectedDefaultValue)
+            }
+            Timber.d("Values(selectedDefaultValue=$selectedDefaultValue, selectedUiMode=$selectedUiMode)")
+            preference.setDefaultValue(selectedDefaultValue)
+
+            AppCompatDelegate.setDefaultNightMode(selectedUiMode)
+            requireActivity().recreate()
+            true
+        }
     }
 }

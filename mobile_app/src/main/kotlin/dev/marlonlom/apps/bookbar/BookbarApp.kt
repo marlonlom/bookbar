@@ -17,6 +17,9 @@
 package dev.marlonlom.apps.bookbar
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.PreferenceManager
+import dev.marlonlom.apps.bookbar.utils.ThemeManager
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -31,5 +34,15 @@ class BookbarApp : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
         }
+        handleDefaultNightMode()
+    }
+
+    private fun handleDefaultNightMode() {
+        Timber.d("handleDefaultNightMode")
+        val defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val themeDefaultValue = defaultSharedPreferences.getString("pref_theme_value", "default")
+        val themeModesArray = resources.getStringArray(R.array.entry_values_for_dark_theme_setting)
+        val selectedUiMode = ThemeManager.getSelectedUiMode(themeModesArray, themeDefaultValue!!)
+        AppCompatDelegate.setDefaultNightMode(selectedUiMode)
     }
 }

@@ -15,14 +15,30 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="Help">
+        app:title="@string/label_settings_group_general">
+
+        <ListPreference
+            app:dialogTitle="@string/label_settings_dark_theme_dialog_title"
+            app:entries="@array/entries_for_dark_theme_setting"
+            app:entryValues="@array/entry_values_for_dark_theme_setting"
+            app:iconSpaceReserved="false"
+            app:key="preference_key_dark_theme"
+            app:title="@string/label_settings_dark_theme_title"
+            app:useSimpleSummaryProvider="true"
+            tools:defaultValue="light" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/label_settings_group_help">
         <Preference
             app:iconSpaceReserved="false"
-            app:key="bookbar_setting_feedback"
+            app:key="preference_key_feedback"
             app:summary="Report technical issues or suggest new features"
             app:title="Send feedback">
             <intent
@@ -31,7 +47,7 @@
         </Preference>
         <Preference
             app:iconSpaceReserved="false"
-            app:key="bookbar_setting_privacy_policy"
+            app:key="preference_key_privacy_policy"
             app:title="Privacy policy">
             <intent
                 android:action="android.intent.action.VIEW"
@@ -41,12 +57,12 @@
 
     <PreferenceCategory
         app:iconSpaceReserved="false"
-        app:title="About">
+        app:title="@string/label_settings_group_about">
         <Preference
             app:iconSpaceReserved="false"
-            app:key="bookbar_setting_version"
+            app:key="preference_key_version"
             app:summary="1.0.0"
-            app:title="Version" />
+            app:title="@string/label_settings_version_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>
