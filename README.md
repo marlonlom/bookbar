@@ -1,8 +1,9 @@
 
 # Bookbar
 
-[![Android CI](https://github.com/marlonlom/bookbar/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/marlonlom/bookbar/actions/workflows/build.yml)
-![](https://www.codefactor.io/repository/github/patrykandpatrick/vico/badge)
-![](https://kotlin-version.aws.icerock.dev/kotlin-version?group=com.patrykandpatrick.vico&name=core)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/marlonlom/bookbar/build.yml)
+![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/marlonlom/bookbar)
+![GitHub License](https://img.shields.io/github/license/marlonlom/bookbar)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/marlonlom/bookbar)
 
 A simple bookstore android app for viewing the most recent IT books.
