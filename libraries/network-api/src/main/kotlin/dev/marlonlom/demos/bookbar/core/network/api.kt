@@ -49,7 +49,7 @@ class BookStoreApiServiceImpl(
 ) : BookStoreApiService {
 
   override suspend fun getNewBooks(): NewBooksApiResponse = try {
-    httpClient.get("${baseUrl}new") {
+    httpClient.get("${baseUrl}/new") {
       accept(ContentType.Application.Json)
     }.body<NewBooksApiResponse>()
   } catch (exception: Exception) {
@@ -57,7 +57,7 @@ class BookStoreApiServiceImpl(
   }
 
   override suspend fun getBook(isbn13: String): BookDetailsApiResponse = try {
-    httpClient.get("${baseUrl}books/${isbn13}") {
+    httpClient.get("${baseUrl}/books/${isbn13}") {
       accept(ContentType.Application.Json)
     }.body<BookDetailsApiResponse>()
   } catch (exception: Exception) {
