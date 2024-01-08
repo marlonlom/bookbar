@@ -14,7 +14,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class NewBooksApiServiceTest {
+internal class NewBooksApiServiceTest {
 
   @Test
   fun `Should successfully fetch new books`(): Unit = runBlocking {

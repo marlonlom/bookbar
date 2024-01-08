@@ -13,7 +13,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-class BookDetailsApiServiceTest {
+internal class BookDetailsApiServiceTest {
 
   @Test
   fun `Should successfully fetch book details`(): Unit = runBlocking {
