@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2024 Marlonlom
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
+<resources>
+
+  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+    <item name="windowSplashScreenBackground">@color/brand_cocos_black</item>
+    <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+    <item name="windowSplashScreenAnimationDuration">200</item>
+    <item name="postSplashScreenTheme">@style/Theme.Bookbar</item>
+  </style>
+
+</resources>

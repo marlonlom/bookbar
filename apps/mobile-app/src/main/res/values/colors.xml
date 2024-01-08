@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2024 Marlonlom
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
+<resources>
+  <color name="brand_arapawa">#FF274B5D</color>
+  <color name="brand_arcavia_red">#FF690005</color>
+  <color name="brand_arctic_lichen_green">#FF707974</color>
+  <color name="brand_black">#FF000000</color>
+  <color name="brand_cautious_jade">#FFDBE5DF</color>
+  <color name="brand_chalcedony_green">#FF4B635A</color>
+  <color name="brand_chokecherry">#FF93000A</color>
+  <color name="brand_coach_green">#FF00382B</color>
+  <color name="brand_cocos_black">#FF191C1B</color>
+  <color name="brand_crowberry_blue">#FF0C3446</color>
+  <color name="brand_deep_slate_green">#FF002118</color>
+  <color name="brand_deep_slate_green_2">#FF082018</color>
+  <color name="brand_delicate_white">#FFEFF1EE</color>
+  <color name="brand_dirty_leather">#FF410002</color>
+  <color name="brand_fluorite_blue">#FFB2CCC1</color>
+  <color name="brand_garnet_black_green">#FF344C43</color>
+  <color name="brand_go_go_pink">#FFFFDAD6</color>
+  <color name="brand_icy_landscape">#FFC3E8FE</color>
+  <color name="brand_intrepid_grey">#FFE1E3E0</color>
+  <color name="brand_light_turquoise">#FF80F8D2</color>
+  <color name="brand_mallard_blue">#FF406376</color>
+  <color name="brand_medium_jungle_green">#FF1E352D</color>
+  <color name="brand_midnight_dreams">#FF001E2C</color>
+  <color name="brand_ocean_in_a_bowl">#FF62DBB7</color>
+  <color name="brand_oil">#FF2E312F</color>
+  <color name="brand_peach_bud">#FFFFB4AB</color>
+  <color name="brand_polar_seas">#FFA8CBE2</color>
+  <color name="brand_poster_green">#FF006B54</color>
+  <color name="brand_raspberry_leaf_green">#FF00513F</color>
+  <color name="brand_red_inferno">#FFBA1A1A</color>
+  <color name="brand_sandstone_grey_green">#FF89938E</color>
+  <color name="brand_smoke">#FFBFC9C3</color>
+  <color name="brand_sporting_green">#FF3F4945</color>
+  <color name="brand_turquoise_white">#FFCEE9DD</color>
+  <color name="brand_white">#FFFFFFFF</color>
+  <color name="brand_white_porcelain">#FFFBFDF9</color>
+</resources>

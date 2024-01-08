@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2024 Marlonlom
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <application
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:enableOnBackInvokedCallback="true"
+    android:fullBackupContent="@xml/backup_rules"
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:label="@string/app_name"
+    android:name=".BookbarApp"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.App.Starting"
+    android:windowSoftInputMode="adjustResize"
+    tools:targetApi="tiramisu">
+
+    <activity
+      android:name=".ui.main.MainActivity"
+      android:exported="true"
+      android:theme="@style/Theme.App.Starting">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+
+    </activity>
+
+    <activity
+      android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+      android:theme="@style/Theme.Bookbar.OssLicences" />
+
+    <activity
+      android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+      android:theme="@style/Theme.Bookbar.OssLicences" />
+
+
+  </application>
+
+</manifest>

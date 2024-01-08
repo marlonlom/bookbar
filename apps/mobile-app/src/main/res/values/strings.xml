@@ -1,0 +1,30 @@
+<!--
+  ~ Copyright 2024 Marlonlom
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
+<resources>
+  <string name="app_name" translatable="false">Bookbar</string>
+  <!-- General texts for top destinations: home, favorites -->
+  <string name="text_general_welcome">Welcome, IT book reader</string>
+  <!-- Bottom navigation bar -->
+  <string name="text_route_home">Home</string>
+  <string name="text_route_favorite">My books</string>
+  <string name="text_route_settings">Settings</string>
+  <!-- New books screen -->
+  <string name="title_bottom_new_releases">New releases</string>
+  <!-- Favorite books screen -->
+  <string name="title_bottom_favorites">Favorite books</string>
+  <!-- Settings screen -->
+  <string name="text_settings_dismiss">OK</string>
+  <string name="text_settings_dark_theme_preference">Dark theme</string>
+  <string name="text_settings_dynamic_color_preference">Use dynamic color</string>
+  <string name="text_settings_licenses">Licenses</string>
+  <string name="text_settings_feedback">Feedback</string>
+  <string name="url_settings_feedback" translatable="false">https://github.com/marlonlom/bookbar/issues/new</string>
+  <string name="text_settings_privacy_policy">Privacy policy</string>
+  <string name="url_settings_privacy_policy" translatable="false">https://itbook.store/privacypolicy</string>
+  <string name="title_settings_about_itbookstore">IT Bookstore</string>
+  <string name="text_settings_about_itbookstore">IT books data is provided from their web api.</string>
+  <string name="url_settings_about_itbookstore" translatable="false">https://api.itbook.store/</string>
+</resources>
