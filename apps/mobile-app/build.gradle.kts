@@ -33,7 +33,7 @@ android {
     }
 
     gradleLocalProperties(rootDir).apply {
-      buildConfigField("String", "ITBOOKSTORE_API_URL", getProperty("ITBOOKSTORE_API_URL"))
+      buildConfigField("String", "ITBOOKSTORE_API_URL", "\"${getProperty("ITBOOKSTORE_API_URL")}\"")
     }
   }
 
