@@ -9,8 +9,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import dev.marlonlom.demos.bookbar.core.database.dao.BookDetailsDao
 import dev.marlonlom.demos.bookbar.core.database.dao.FavoriteBooksDao
 import dev.marlonlom.demos.bookbar.core.database.dao.NewBooksDao
+import dev.marlonlom.demos.bookbar.core.database.entities.BookDetailEntity
 import dev.marlonlom.demos.bookbar.core.database.entities.FavoriteBookEntity
 import dev.marlonlom.demos.bookbar.core.database.entities.NewBookEntity
 
@@ -24,7 +26,8 @@ import dev.marlonlom.demos.bookbar.core.database.entities.NewBookEntity
   exportSchema = false,
   entities = [
     NewBookEntity::class,
-    FavoriteBookEntity::class
+    FavoriteBookEntity::class,
+    BookDetailEntity::class,
   ]
 )
 abstract class BookbarDatabase : RoomDatabase() {
@@ -42,6 +45,13 @@ abstract class BookbarDatabase : RoomDatabase() {
    * @return Favorite books dao.
    */
   abstract fun favoriteBooksDao(): FavoriteBooksDao
+
+  /**
+   * Returns the book details dao.
+   *
+   * @return Book details dao.
+   */
+  abstract fun bookDetailsDao(): BookDetailsDao
 
   companion object {
 
