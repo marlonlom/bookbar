@@ -21,15 +21,23 @@ import dev.marlonlom.demos.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.demos.bookbar.ui.common.WelcomeTitle
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
 
+/**
+ * Favorite books composable ui.
+ *
+ * @param appState Application ui state.
+ * @param onBookItemClicked Action for Book item clicked.
+ */
 @Composable
-fun FavoriteBooksRoute(appState: BookbarAppState) {
+fun FavoriteBooksRoute(
+  appState: BookbarAppState, onBookItemClicked: (String) -> Unit
+) {
   val contentHorizontalPadding = if (appState.is10InTabletWidth) 80.dp else 20.dp
   Column(
     modifier = Modifier
       .fillMaxSize()
       .padding(horizontal = contentHorizontalPadding)
       .background(MaterialTheme.colorScheme.background),
-    horizontalAlignment = Alignment.CenterHorizontally
+    horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     WelcomeTitle(appState = appState)
     HeadlineTitle(appState = appState, headlineTextRes = R.string.title_bottom_favorites)
@@ -37,8 +45,7 @@ fun FavoriteBooksRoute(appState: BookbarAppState) {
       columns = GridCells.Fixed(3),
       content = {
 
-      }
+      },
     )
   }
 }
-
