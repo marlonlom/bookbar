@@ -34,6 +34,7 @@ android {
 
     gradleLocalProperties(rootDir).apply {
       buildConfigField("String", "ITBOOKSTORE_API_URL", "\"${getProperty("ITBOOKSTORE_API_URL")}\"")
+      buildConfigField("String", "ITBOOKSTORE_BUY_URL", "\"${getProperty("ITBOOKSTORE_BUY_URL")}\"")
     }
   }
 
@@ -69,6 +70,7 @@ android {
 dependencies {
 
   implementation(project(":libraries:network-api"))
+  implementation(project(":libraries:database"))
   implementation(project(":libraries:preferences-datastore"))
 
   val composeBom = platform(libs.androidx.compose.bom)
