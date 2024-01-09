@@ -39,21 +39,9 @@ class BookstoreRepository(
       }
     )
   }
-}
 
-/**
- * Books list item domain data class.
- *
- * @author marlonlom
- *
- * @property title Book title.
- * @property isbn13 Book id as isb13.
- * @property price Book price as text.
- * @property image Book image url.
- */
-data class BooksListItem(
-  val isbn13: String,
-  val title: String,
-  val price: String,
-  val image: String,
-)
+  /** Favorite books listing as flow. */
+  val favoriteBooksFlow: Flow<List<BooksListItem>> = flow {
+    emit(emptyList())
+  }
+}
