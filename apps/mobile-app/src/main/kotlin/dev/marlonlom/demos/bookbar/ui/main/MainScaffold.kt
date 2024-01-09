@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import dev.marlonlom.demos.bookbar.core.preferences.UserPreferencesRepository
+import dev.marlonlom.demos.bookbar.ui.features.books_favorite.FavoriteBooksUiState
 import dev.marlonlom.demos.bookbar.ui.features.books_new.NewBooksUiState
 import dev.marlonlom.demos.bookbar.ui.features.settings.UserSettingsDialog
 import dev.marlonlom.demos.bookbar.ui.features.settings.UserSettingsViewModel
@@ -41,6 +42,7 @@ import dev.marlonlom.demos.bookbar.ui.navigation.BookbarRoutes
 import dev.marlonlom.demos.bookbar.ui.navigation.MainBottomNavBar
 import dev.marlonlom.demos.bookbar.ui.navigation.MainNavHost
 import dev.marlonlom.demos.bookbar.ui.navigation.MainNavigationRail
+import timber.log.Timber
 
 /**
  * Main navigation host composable ui.
@@ -48,6 +50,11 @@ import dev.marlonlom.demos.bookbar.ui.navigation.MainNavigationRail
  * @author marlonlom
  *
  * @param windowSizeClass Window size class.
+ * @param userPreferencesRepository User preferences repository.
+ * @param openOssLicencesInfo Action for opening oss licences information window.
+ * @param openExternalUrl Action for opening oss licences information window.
+ * @param newBooksListState New books list ui state.
+ * @param favoriteBooksListState Favorite books list ui state.
  * @param appState Application ui state.
  */
 @ExperimentalLayoutApi
@@ -59,13 +66,19 @@ fun MainScaffold(
   openOssLicencesInfo: () -> Unit,
   openExternalUrl: (String) -> Unit,
   newBooksListState: State<NewBooksUiState>,
+  favoriteBooksListState: State<FavoriteBooksUiState>,
   appState: BookbarAppState = rememberBookbarAppState(
     windowSizeClass = windowSizeClass,
-    newBooksList = newBooksListState.value
+    newBooksList = newBooksListState.value,
+    favoriteBooksList = favoriteBooksListState.value
   ),
 ) {
   var bottomNavSelectedIndex by remember { mutableIntStateOf(0) }
   var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
+
+  val onBookItemClicked: (String) -> Unit = { bookIsbn13 ->
+    Timber.d("Book[$bookIsbn13] Clicked.")
+  }
 
   if (showSettingsDialog) {
     UserSettingsDialog(
@@ -117,7 +130,7 @@ fun MainScaffold(
             },
           )
           Column(modifier = Modifier.fillMaxWidth(0.4f)) {
-            MainNavHost(appState)
+            MainNavHost(appState, onBookItemClicked)
           }
           Column(
             modifier = Modifier
@@ -132,7 +145,7 @@ fun MainScaffold(
           }
         }
       } else {
-        MainNavHost(appState)
+        MainNavHost(appState, onBookItemClicked)
       }
     }
   }

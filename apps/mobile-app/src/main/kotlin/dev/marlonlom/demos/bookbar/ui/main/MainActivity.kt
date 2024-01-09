@@ -33,6 +33,7 @@ import dev.marlonlom.demos.bookbar.core.network.BookStoreApiServiceImpl
 import dev.marlonlom.demos.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.demos.bookbar.dataStore
 import dev.marlonlom.demos.bookbar.domain.books.BookstoreRepository
+import dev.marlonlom.demos.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
 import dev.marlonlom.demos.bookbar.ui.features.books_new.NewBooksViewModel
 import dev.marlonlom.demos.bookbar.ui.main.MainActivityUiState.Loading
 import dev.marlonlom.demos.bookbar.ui.main.MainActivityUiState.Success
@@ -61,6 +62,11 @@ class MainActivity : ComponentActivity() {
   private val newBooksViewModel: NewBooksViewModel by viewModels(
     factoryProducer = {
       NewBooksViewModel.factory(newBookstoreRepository())
+    })
+
+  private val favoriteBooksViewModel: FavoriteBooksViewModel by viewModels(
+    factoryProducer = {
+      FavoriteBooksViewModel.factory(newBookstoreRepository())
     })
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +100,8 @@ class MainActivity : ComponentActivity() {
         windowSizeClass = windowSizeClass,
         activityContext = this,
         userPreferencesRepository = newUserPreferencesRepository(),
-        newBooksViewModel = newBooksViewModel
+        newBooksViewModel = newBooksViewModel,
+        favoriteBooksViewModel = favoriteBooksViewModel
       )
     }
   }
@@ -157,7 +164,8 @@ private fun AppContent(
   windowSizeClass: WindowSizeClass,
   activityContext: Context,
   userPreferencesRepository: UserPreferencesRepository,
-  newBooksViewModel: NewBooksViewModel
+  newBooksViewModel: NewBooksViewModel,
+  favoriteBooksViewModel: FavoriteBooksViewModel
 ) {
   BookbarTheme(
     darkTheme = shouldUseDarkTheme(mainActivityUiState),
@@ -165,6 +173,7 @@ private fun AppContent(
   ) {
 
     val newBooksListState = newBooksViewModel.uiState.collectAsStateWithLifecycle()
+    val favoriteBooksListState = favoriteBooksViewModel.uiState.collectAsStateWithLifecycle()
 
     MainScaffold(
       windowSizeClass = windowSizeClass,
@@ -177,7 +186,8 @@ private fun AppContent(
         Timber.d("[MainActivity.onCreate] Should open external url '$externalUrl'.")
         CustomTabsOpener.openUrl(activityContext, externalUrl)
       },
-      newBooksListState = newBooksListState
+      newBooksListState = newBooksListState,
+      favoriteBooksListState = favoriteBooksListState
     )
   }
 }

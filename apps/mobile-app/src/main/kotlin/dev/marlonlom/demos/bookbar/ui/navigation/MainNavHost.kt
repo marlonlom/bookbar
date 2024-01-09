@@ -19,17 +19,19 @@ import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
  * @author marlonlom
  *
  * @param appState App ui state.
+ * @param onBookItemClicked Action for Book item clicked.
  */
 @Composable
 fun MainNavHost(
-  appState: BookbarAppState
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit
 ) {
   NavHost(
     navController = appState.navController,
     startDestination = BookbarRoutes.Home.route
   ) {
-    homeDestination(appState)
-    favoritesDestination(appState)
+    homeDestination(appState, onBookItemClicked)
+    favoritesDestination(appState, onBookItemClicked)
   }
 }
 
@@ -39,12 +41,14 @@ fun MainNavHost(
  * @author marlonlom
  *
  * @param appState App ui state.
+ * @param onBookItemClicked Action for Book item clicked.
  */
 internal fun NavGraphBuilder.homeDestination(
-  appState: BookbarAppState
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit
 ) {
   composable(BookbarRoutes.Home.route) {
-    NewBooksRoute(appState)
+    NewBooksRoute(appState, onBookItemClicked)
   }
 }
 
@@ -54,11 +58,13 @@ internal fun NavGraphBuilder.homeDestination(
  * @author marlonlom
  *
  * @param appState App ui state.
+ * @param onBookItemClicked Action for Book item clicked.
  */
 internal fun NavGraphBuilder.favoritesDestination(
-  appState: BookbarAppState
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit
 ) {
   composable(BookbarRoutes.Favorite.route) {
-    FavoriteBooksRoute(appState)
+    FavoriteBooksRoute(appState, onBookItemClicked)
   }
 }

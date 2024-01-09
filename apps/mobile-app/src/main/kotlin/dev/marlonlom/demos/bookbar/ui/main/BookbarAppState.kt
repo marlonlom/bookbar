@@ -17,6 +17,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dev.marlonlom.demos.bookbar.ui.features.books_favorite.FavoriteBooksUiState
 import dev.marlonlom.demos.bookbar.ui.features.books_new.NewBooksUiState
 
 /**
@@ -34,7 +35,8 @@ fun rememberBookbarAppState(
   windowSizeClass: WindowSizeClass,
   navController: NavHostController = rememberNavController(),
   localConfiguration: Configuration = LocalConfiguration.current,
-  newBooksList: NewBooksUiState
+  newBooksList: NewBooksUiState,
+  favoriteBooksList: FavoriteBooksUiState
 ): BookbarAppState = remember(
   windowSizeClass,
   navController,
@@ -45,7 +47,8 @@ fun rememberBookbarAppState(
     navController = navController,
     windowSizeClass = windowSizeClass,
     localConfiguration = localConfiguration,
-    newBooksList = newBooksList
+    newBooksList = newBooksList,
+    favoriteBooksList = favoriteBooksList
   )
 }
 
@@ -65,6 +68,7 @@ class BookbarAppState(
   private val windowSizeClass: WindowSizeClass,
   private val localConfiguration: Configuration,
   val newBooksList: NewBooksUiState,
+  val favoriteBooksList: FavoriteBooksUiState,
 ) {
   val currentDestination: NavDestination?
     @Composable get() = navController
