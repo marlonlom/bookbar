@@ -45,6 +45,7 @@ class NewBooksViewModel(
      *
      * @param repository
      */
+    @JvmStatic
     fun factory(
       repository: BookstoreRepository
     ) = object : ViewModelProvider.Factory {

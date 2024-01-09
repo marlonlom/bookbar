@@ -43,6 +43,7 @@ import timber.log.Timber
 internal fun ClickableBookListGridCell(
   appState: BookbarAppState,
   bookItem: BooksListItem,
+  onBookItemClicked: (String) -> Unit
 ) {
 
   val imageHeight = when {
@@ -54,7 +55,7 @@ internal fun ClickableBookListGridCell(
   Column(
     modifier = Modifier
       .clickable {
-        Timber.d("Book[${bookItem.isbn13}] Clicked.")
+        onBookItemClicked(bookItem.isbn13)
       }
       .padding(vertical = 10.dp),
     horizontalAlignment = Alignment.CenterHorizontally

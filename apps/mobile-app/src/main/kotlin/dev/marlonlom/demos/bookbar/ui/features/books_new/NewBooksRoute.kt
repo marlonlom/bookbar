@@ -31,10 +31,12 @@ import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
  * @author marlonlom
  *
  * @param appState App ui state.
+ * @param onBookItemClicked Action for Book item clicked.
  */
 @Composable
 fun NewBooksRoute(
-  appState: BookbarAppState
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit
 ) {
   val contentHorizontalPadding = when {
     appState.is10InTabletWidth -> 80.dp
@@ -82,7 +84,7 @@ fun NewBooksRoute(
 
             items(appState.newBooksList.books.size) { bookIndex ->
               val bookItem: BooksListItem = appState.newBooksList.books[bookIndex]
-              ClickableBookListGridCell(appState, bookItem)
+              ClickableBookListGridCell(appState, bookItem, onBookItemClicked)
             }
           }
         )
