@@ -82,7 +82,7 @@ class BookbarAppState(
 
   val is10InTabletWidth get() = localConfiguration.smallestScreenWidthDp.dp >= 720.dp
 
-  val canShowBottomNavigation get() = (isCompactHeight.not()).and(isLandscapeOrientation.not())
+  val canShowBottomNavigation get() = isCompactHeight.not().and(isLandscapeOrientation.not())
 
-  val canShowNavigationRail get() = (isCompactHeight).or(is7InTabletWidth.and(isLandscapeOrientation))
+  val canShowNavigationRail get() = isCompactHeight.or(is7InTabletWidth.and(isLandscapeOrientation))
 }
