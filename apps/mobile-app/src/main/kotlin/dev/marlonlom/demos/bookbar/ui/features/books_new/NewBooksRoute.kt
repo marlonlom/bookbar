@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.marlonlom.demos.bookbar.R
-import dev.marlonlom.demos.bookbar.domain.books.BooksListItem
+import dev.marlonlom.demos.bookbar.domain.books.BooksListDomainItem
 import dev.marlonlom.demos.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.demos.bookbar.ui.common.WelcomeTitle
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
@@ -40,7 +40,7 @@ fun NewBooksRoute(
 ) {
   val contentHorizontalPadding = when {
     appState.is10InTabletWidth -> 80.dp
-    appState.is7InTabletWidth -> 60.dp
+    appState.is7InTabletWidth -> 40.dp
     else -> 20.dp
   }
 
@@ -83,7 +83,7 @@ fun NewBooksRoute(
             }
 
             items(appState.newBooksList.books.size) { bookIndex ->
-              val bookItem: BooksListItem = appState.newBooksList.books[bookIndex]
+              val bookItem: BooksListDomainItem = appState.newBooksList.books[bookIndex]
               ClickableBookListGridCell(appState, bookItem, onBookItemClicked)
             }
           }
