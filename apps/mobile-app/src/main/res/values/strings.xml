@@ -27,4 +27,16 @@
   <string name="title_settings_about_itbookstore">IT Bookstore</string>
   <string name="text_settings_about_itbookstore">IT books data is provided from their web api.</string>
   <string name="url_settings_about_itbookstore" translatable="false">https://api.itbook.store/</string>
+  <!-- Book detail screen -->
+  <string name="text_detail_book_description">Description</string>
+  <string name="text_detail_read_more">Read more</string>
+  <string name="text_detail_book_authors">Authors</string>
+  <string name="text_detail_book_sharing">Check out this great IT book: \"%1$s\" %2$s</string>
+  <string name="text_detail_book_isbn10">ISBN-10</string>
+  <string name="text_detail_book_isbn13">ISBN-13</string>
+  <string name="text_detail_book_publisher">Publisher</string>
+  <string name="text_detail_book_pages">Pages</string>
+  <string name="text_detail_book_published_year">Released year</string>
+  <string name="text_detail_book_language">Language</string>
+  <string name="text_detail_buy">Buy now</string>
 </resources>
