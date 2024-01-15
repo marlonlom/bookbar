@@ -71,7 +71,7 @@ data class FavoriteBookEntity(
  * @property image Book image url.
  * @property url Book url.
  */
-@Entity("book_detail")
+@Entity("it_book_detail")
 data class BookDetailEntity(
   @PrimaryKey val isbn13: String,
   val isbn10: String,

@@ -29,6 +29,17 @@ interface FavoriteBooksDao {
   fun getAll(): Flow<List<FavoriteBookEntity>>
 
   /**
+   * Returns the count of existence of favorite book using its isbn13.
+   *
+   * @param bookId Book id.
+   *
+   * @return 0 if not result, 1 if yes.
+   */
+  @Query("SELECT COUNT(fb.isbn13) FROM favorite_it_book fb WHERE fb.isbn13 = :bookId")
+  fun ifFavoriteBook(bookId: String): Flow<Int>
+
+
+  /**
    * Adds a book as favorite.
    *
    * @param book Favorite book.

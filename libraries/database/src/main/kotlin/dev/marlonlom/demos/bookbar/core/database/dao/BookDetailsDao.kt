@@ -26,8 +26,8 @@ interface BookDetailsDao {
    *
    * @return Found book detail.
    */
-  @Query("SELECT * FROM book_detail WHERE isbn13 = :bookId")
-  fun getBook(bookId: String): Flow<BookDetailEntity>
+  @Query("SELECT * FROM it_book_detail WHERE isbn13 = :bookId")
+  fun getBook(bookId: String): Flow<BookDetailEntity?>
 
   /**
    * Adds book detailed information.
