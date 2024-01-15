@@ -8,7 +8,7 @@ package dev.marlonlom.demos.bookbar.ui.features.books_favorite
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import dev.marlonlom.demos.bookbar.domain.books.BooksListItem
+import dev.marlonlom.demos.bookbar.domain.books.BooksListDomainItem
 import dev.marlonlom.demos.bookbar.domain.books.BookstoreRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -90,6 +90,6 @@ sealed interface FavoriteBooksUiState {
    * @property books Books list.
    */
   data class Success(
-    val books: List<BooksListItem>
+    val books: List<BooksListDomainItem>
   ) : FavoriteBooksUiState
 }
