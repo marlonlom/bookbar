@@ -26,7 +26,7 @@ fun MainNavigationRail(
   onNavSelectedIndexChanged: (Int, String) -> Unit,
 ) {
   NavigationRail {
-    BookbarRoutes.bottomNavRoutes.forEachIndexed { index, tuple ->
+    bottomNavRoutes.forEachIndexed { index, tuple ->
       NavigationRailItem(
         selected = navSelectedIndex == index,
         onClick = { onNavSelectedIndexChanged(index, tuple.route) },

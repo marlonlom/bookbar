@@ -11,6 +11,8 @@ import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.Home
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import dev.marlonlom.demos.bookbar.R
 
 /**
@@ -62,12 +64,27 @@ sealed class BookbarRoutes(
     icon = Icons.TwoTone.Settings
   )
 
-  companion object {
+  /**
+   * Book details destination for application navigation route.
+   *
+   * @author marlonlom
+   */
+  data object Details : BookbarRoutes(
+    route = "book/{bookId}",
+  ) {
 
-    /** Bottom navigation routes list. */
-    @JvmStatic
-    val bottomNavRoutes = arrayListOf(
-      Home, Favorite, Preferences
-    )
+    /** Navigation arguments for detail route. */
+    val navArguments get() = listOf(navArgument("bookId") { type = NavType.StringType })
+
+    /**
+     * Creates a route for getting book details.
+     *
+     * @param bookId Book id as isbn13.
+     *
+     * @return Book details route text.
+     */
+    fun createRoute(bookId: String) = "book/${bookId}"
   }
 }
+
+val bottomNavRoutes: List<BookbarRoutes> = listOf(BookbarRoutes.Home, BookbarRoutes.Favorite, BookbarRoutes.Preferences)
