@@ -8,15 +8,15 @@ package dev.marlonlom.demos.bookbar.ui.main
 import android.content.res.Configuration
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dev.marlonlom.demos.bookbar.domain.books.BookDetailResult
 import dev.marlonlom.demos.bookbar.ui.features.books_favorite.FavoriteBooksUiState
 import dev.marlonlom.demos.bookbar.ui.features.books_new.NewBooksUiState
 
@@ -36,19 +36,22 @@ fun rememberBookbarAppState(
   navController: NavHostController = rememberNavController(),
   localConfiguration: Configuration = LocalConfiguration.current,
   newBooksList: NewBooksUiState,
-  favoriteBooksList: FavoriteBooksUiState
+  favoriteBooksList: FavoriteBooksUiState,
+  detailedBook: BookDetailResult
 ): BookbarAppState = remember(
   windowSizeClass,
   navController,
   localConfiguration,
-  newBooksList
+  newBooksList,
+  detailedBook
 ) {
   BookbarAppState(
     navController = navController,
     windowSizeClass = windowSizeClass,
     localConfiguration = localConfiguration,
     newBooksList = newBooksList,
-    favoriteBooksList = favoriteBooksList
+    favoriteBooksList = favoriteBooksList,
+    bookDetails = detailedBook
   )
 }
 
@@ -69,10 +72,12 @@ class BookbarAppState(
   private val localConfiguration: Configuration,
   val newBooksList: NewBooksUiState,
   val favoriteBooksList: FavoriteBooksUiState,
+  val bookDetails: BookDetailResult,
 ) {
-  val currentDestination: NavDestination?
-    @Composable get() = navController
-      .currentBackStackEntryAsState().value?.destination
+  val canNavigateToDetail
+    get() = isCompactWidth.or(isLandscapeOrientation.not())
+
+  val isCompactWidth get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
   val isCompactHeight get() = windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
