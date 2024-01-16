@@ -15,7 +15,7 @@ A simple bookstore android app for viewing the most recent IT books from [itbook
 ## itbook.store api
 This application uses the [IT Bookstore API](https://api.itbook.store/) to load books information on any screen. To use the api, you will need to obtain the url from the API website.
 
-The following are the urls used for the app for fetching the it books. thos are meant to be created as environment variables and saved in `local.properties` file for reading purposes, after creating or using the mentioned file located in the root of the project, when building the app, it reads the properties and then saves it into the `BuildConfig` generated class for posterior usage. 
+The following are the urls used for the app for fetching the it books. those are meant to be created as environment variables and saved in `local.properties` file for reading purposes, after creating or using the mentioned file located in the root of the project, when building the app, it reads the properties and then saves it into the `BuildConfig` generated class for posterior usage. 
 
 ```
 ITBOOKSTORE_API_URL=abc
