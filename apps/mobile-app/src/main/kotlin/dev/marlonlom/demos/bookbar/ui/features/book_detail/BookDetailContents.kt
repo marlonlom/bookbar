@@ -185,9 +185,7 @@ internal fun HeaderTopBar(
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
     val showBackNavigationIcon = appState.isCompactWidth
-      .or(
-        appState.isCompactHeight.and(appState.isLandscapeOrientation)
-      ).or(
+    .or(
         appState.is7InTabletWidth.and(appState.isLandscapeOrientation.not())
       )
     if (showBackNavigationIcon) {
