@@ -28,6 +28,24 @@ Bookbar app was built taking in mind the [google's official architecture guidanc
 
 The UI State used for the app and features mentioned earlier, are handled in the view and viewmodel components. 
 
+
+### Navigation
+Bookbar uses a splashscreen as starting point for loading the main contents, after that, displays a home screen which contains three top destinations: `new books`, `favorite books`, `settings`. 
+In the `new books`, `favorite books` top destinations, when a book item from the list is selected/tapped/clicked, the app displays the book detail screen. 
+For the `settings` destination, the app displays a dialog with the following settings: dark theme, dynamic colors.
+
+![bookbar-navigation-diagram](https://github.com/marlonlom/bookbar/assets/1868030/c8c2fd4b-3d4d-4da5-b212-6a3fdea9a065)
+
+The navigation graph is defined as follows:
+
+| Route         | Label       | Icon                   | Top destination |
+|---------------|-------------|------------------------|-----------------|
+| home          | Home        | Icons.TwoTone.Home     |        Y        |
+| favorite      | Favorite    | Icons.TwoTone.Favorite |        Y        |
+| settings      | Preferences | Icons.TwoTone.Settings |        Y        |
+| book/{bookId} | Details     |                        |        N        |
+
+
 ### itbook.store api
 This application uses the [IT Bookstore API](https://api.itbook.store/) to load books information on any screen. To use the api, you will need to obtain the url from the API website.
 
