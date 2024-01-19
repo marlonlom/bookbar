@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.marlonlom.demos.bookbar.R
-import dev.marlonlom.demos.bookbar.domain.books.BooksListDomainItem
 import dev.marlonlom.demos.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.demos.bookbar.ui.common.WelcomeTitle
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
@@ -54,39 +53,43 @@ fun FavoriteBooksRoute(
       .background(MaterialTheme.colorScheme.background),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    when (appState.favoriteBooksList) {
-      FavoriteBooksUiState.Empty -> {
-        Text(text = "Empty results :(")
-      }
+    LazyVerticalGrid(
+      columns = GridCells.Fixed(1),
+      horizontalArrangement = Arrangement.spacedBy(20.dp),
+      content = {
+        item(span = { GridItemSpan(maxLineSpan) }) {
+          WelcomeTitle(appState = appState)
+        }
 
-      FavoriteBooksUiState.Loading -> {
-        Text(text = "Loading")
-      }
+        item(span = { GridItemSpan(maxLineSpan) }) {
+          HeadlineTitle(
+            appState = appState,
+            headlineTextRes = R.string.title_bottom_favorites
+          )
+        }
 
-      is FavoriteBooksUiState.Success -> {
-        LazyVerticalGrid(
-          columns = GridCells.Fixed(1),
-          horizontalArrangement = Arrangement.spacedBy(20.dp),
-          content = {
-            item(span = { GridItemSpan(maxLineSpan) }) {
-              WelcomeTitle(appState = appState)
+        when (appState.favoriteBooksList) {
+          FavoriteBooksUiState.Empty -> {
+            item {
+              Text(text = "Empty results :(")
             }
 
-            item(span = { GridItemSpan(maxLineSpan) }) {
-              HeadlineTitle(
-                appState = appState,
-                headlineTextRes = R.string.title_bottom_favorites
-              )
-            }
+          }
 
+          FavoriteBooksUiState.Loading -> {
+            item {
+              Text(text = "Loading")
+            }
+          }
+
+          is FavoriteBooksUiState.Success -> {
             val favoriteBooksCount = appState.favoriteBooksList.books.size
             items(favoriteBooksCount) { bookIndex ->
-              val bookItem: BooksListDomainItem = appState.favoriteBooksList.books[bookIndex]
               ClickableFavoriteBookItem(
-                bookIndex,
-                bookItem,
-                onBookItemClicked,
-                onRemoveFavoriteIconClicked
+                bookIndex = bookIndex,
+                bookItem = appState.favoriteBooksList.books[bookIndex],
+                onBookItemClicked = onBookItemClicked,
+                onRemoveFavoriteIconClicked = onRemoveFavoriteIconClicked
               )
               if ((bookIndex > 0).and(bookIndex < favoriteBooksCount)) {
                 Divider(
@@ -97,9 +100,10 @@ fun FavoriteBooksRoute(
               }
             }
           }
-        )
+
+        }
       }
-    }
+    )
   }
 }
 
