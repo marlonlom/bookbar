@@ -81,7 +81,7 @@ During development, were created the following modules, divided in two categorie
 Contribute to this project following the [Contributing Guideline](CONTRIBUTING.md).
 
 > [!IMPORTANT]
-> Please note that this is a sample Android app to demonstrate Android development and Jetpack composition features, so there is no need to contribute to out-of-scope functionality in this topic.
+> Please note that this is a sample Android app to demonstrate Android development and Jetpack compose features, so there is no need to contribute to out-of-scope functionality in this topic.
 
 
 ## License
