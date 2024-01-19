@@ -25,8 +25,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @author marlonlom
  *
  * @param appState App ui state.
+ * @param bookDetailsViewModel Book details viewmodel.
  * @param onBookItemClicked Action for Book item clicked.
  * @param openExternalUrl Action for opening external urls.
+ * @param onFavoriteBookIconClicked Action for favorite book icon clicked.
+ * @param onRemoveFavoriteIconClicked Action for favorite Book removal icon clicked.
+ * @param onShareIconClicked Action for book sharing icon clicked.
  */
 @ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
@@ -38,6 +42,7 @@ fun MainNavHost(
   onBookItemClicked: (String) -> Unit,
   openExternalUrl: (String) -> Unit,
   onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  onRemoveFavoriteIconClicked: (String) -> Unit,
   onShareIconClicked: (String) -> Unit
 ) {
   NavHost(
@@ -45,7 +50,7 @@ fun MainNavHost(
     startDestination = BookbarRoutes.Home.route
   ) {
     homeDestination(appState, onBookItemClicked)
-    favoritesDestination(appState, onBookItemClicked)
+    favoritesDestination(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
     detailsDestination(
       appState = appState,
       bookDetailsViewModel = bookDetailsViewModel,
@@ -80,13 +85,15 @@ internal fun NavGraphBuilder.homeDestination(
  *
  * @param appState App ui state.
  * @param onBookItemClicked Action for Book item clicked.
+ * @param onRemoveFavoriteIconClicked Action for favorite Book removal icon clicked.
  */
 internal fun NavGraphBuilder.favoritesDestination(
   appState: BookbarAppState,
-  onBookItemClicked: (String) -> Unit
+  onBookItemClicked: (String) -> Unit,
+  onRemoveFavoriteIconClicked: (String) -> Unit
 ) {
   composable(BookbarRoutes.Favorite.route) {
-    FavoriteBooksRoute(appState, onBookItemClicked)
+    FavoriteBooksRoute(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
   }
 }
 
