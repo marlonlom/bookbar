@@ -157,7 +157,8 @@ fun MainScaffold(
           onBookItemClicked = onBookItemClicked,
           openExternalUrl = appContentCallbacks.openExternalUrl,
           onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-          onShareIconClicked = appContentCallbacks.onShareIconClicked
+          onShareIconClicked = appContentCallbacks.onShareIconClicked,
+          onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
         )
       }
     }
@@ -204,11 +205,12 @@ private fun MainScaffoldLandscapeContent(
     Column(modifier = Modifier.fillMaxWidth(0.4f)) {
       MainNavHost(
         appState = appState,
-        onBookItemClicked = onBookItemClicked,
         bookDetailsViewModel = bookDetailsViewModel,
+        onBookItemClicked = onBookItemClicked,
         openExternalUrl = appContentCallbacks.openExternalUrl,
         onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-        onShareIconClicked = appContentCallbacks.onShareIconClicked
+        onShareIconClicked = appContentCallbacks.onShareIconClicked,
+        onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
       )
     }
     val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
