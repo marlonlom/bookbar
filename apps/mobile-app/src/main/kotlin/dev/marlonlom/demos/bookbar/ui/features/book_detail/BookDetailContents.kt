@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.ArrowBack
-import androidx.compose.material.icons.twotone.Bookmark
 import androidx.compose.material.icons.twotone.BookmarkAdded
 import androidx.compose.material.icons.twotone.BookmarkBorder
 import androidx.compose.material.icons.twotone.Share
@@ -186,7 +185,7 @@ internal fun HeaderTopBar(
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
     val showBackNavigationIcon = appState.isCompactWidth
-    .or(
+      .or(
         appState.is7InTabletWidth.and(appState.isLandscapeOrientation.not())
       )
     if (showBackNavigationIcon) {
@@ -234,7 +233,7 @@ internal fun FavoriteBookIconButton(
       onFavoriteBookIconClicked(bookDetailItem, bookDetailItem.favorite.not())
     },
   ) {
-    val favoriteIconVector = if (bookDetailItem.favorite) Icons.TwoTone.BookmarkAdded else Icons.TwoTone.BookmarkBorder
+    val favoriteIconVector = getFavoriteIconVector(bookDetailItem)
     Icon(
       imageVector = favoriteIconVector,
       contentDescription = null,
@@ -243,6 +242,14 @@ internal fun FavoriteBookIconButton(
     )
   }
 }
+
+@Composable
+private fun getFavoriteIconVector(bookDetailItem: BookDetailItem) =
+  if (bookDetailItem.favorite) {
+    Icons.TwoTone.BookmarkAdded
+  } else {
+    Icons.TwoTone.BookmarkBorder
+  }
 
 @Composable
 internal fun BackNavigationIconButton(
