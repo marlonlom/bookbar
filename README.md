@@ -26,12 +26,12 @@ Bookbar app was built taking in mind the [google's official architecture guidanc
 
 <img height="300" src="https://github.com/marlonlom/bookbar/assets/1868030/080c526a-485f-4e5f-aadf-7bf07c8a4dcd" />
 
-The UI State used for the app and features mentioned earlier, are handled in the view and viewmodel components. 
+The UI State used for the app and features mentioned earlier, are handled in the view and viewmodel components.
 
 
 ### Navigation
-Bookbar uses a splashscreen as starting point for loading the main contents, after that, displays a home screen which contains three top destinations: `new books`, `favorite books`, `settings`. 
-In the `new books`, `favorite books` top destinations, when a book item from the list is selected/tapped/clicked, the app displays the book detail screen. 
+Bookbar uses a splashscreen as starting point for loading the main contents, after that, displays a home screen which contains three top destinations: `new books`, `favorite books`, `settings`.
+In the `new books`, `favorite books` top destinations, when a book item from the list is selected/tapped/clicked, the app displays the book detail screen.
 For the `settings` destination, the app displays a dialog with the following settings: dark theme, dynamic colors.
 
 ![bookbar-navigation-diagram](https://github.com/marlonlom/bookbar/assets/1868030/c8c2fd4b-3d4d-4da5-b212-6a3fdea9a065)
@@ -41,7 +41,7 @@ The navigation graph is defined as follows:
 | Route         | Label       | Icon                   | Top destination |
 |---------------|-------------|------------------------|-----------------|
 | home          | Home        | Icons.TwoTone.Home     |        Y        |
-| favorite      | Favorite    | Icons.TwoTone.Favorite |        Y        |
+| favorite      | Favorite    | Icons.TwoTone.MenuBook |        Y        |
 | settings      | Preferences | Icons.TwoTone.Settings |        Y        |
 | book/{bookId} | Details     |                        |        N        |
 
@@ -49,7 +49,7 @@ The navigation graph is defined as follows:
 ### itbook.store api
 This application uses the [IT Bookstore API](https://api.itbook.store/) to load books information on any screen. To use the api, you will need to obtain the url from the API website.
 
-The following are the urls used for the app for fetching the it books. those are meant to be created as environment variables and saved in `local.properties` file for reading purposes, after creating or using the mentioned file located in the root of the project, when building the app, it reads the properties and then saves it into the `BuildConfig` generated class for posterior usage. 
+The following are the urls used for the app for fetching the it books. those are meant to be created as environment variables and saved in `local.properties` file for reading purposes, after creating or using the mentioned file located in the root of the project, when building the app, it reads the properties and then saves it into the `BuildConfig` generated class for posterior usage.
 
 ```
 ITBOOKSTORE_API_URL=abc
@@ -69,7 +69,7 @@ During development, were created the following modules, divided in two categorie
 
 ## User Interface
 
-- The app was designed using Material 3 guidelines. 
+- The app was designed using Material 3 guidelines.
 - The Screens and UI elements are built entirely using Jetpack Compose.
 - The app has a default theme built by material 3 theme builder.
 - The app ui handles dynamic colors for theming based on the user's current color theme (supported for android 12 and later)
@@ -80,8 +80,8 @@ During development, were created the following modules, divided in two categorie
 ## Contribution
 Contribute to this project following the [Contributing Guideline](CONTRIBUTING.md).
 
-> [!IMPORTANT] 
-> Please note that this is a sample Android app to demonstrate Android development and Jetpack composition features, so there is no need to contribute to out-of-scope functionality in this topic.
+> [!IMPORTANT]
+> Please note that this is a sample Android app to demonstrate Android development and Jetpack compose features, so there is no need to contribute to out-of-scope functionality in this topic.
 
 
 ## License

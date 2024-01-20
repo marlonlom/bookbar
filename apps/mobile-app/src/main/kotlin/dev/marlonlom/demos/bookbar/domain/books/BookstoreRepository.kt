@@ -9,6 +9,7 @@ import dev.marlonlom.demos.bookbar.core.database.BookbarDatabase
 import dev.marlonlom.demos.bookbar.core.network.BookDetailsApiResponse
 import dev.marlonlom.demos.bookbar.core.network.BookStoreApiService
 import dev.marlonlom.demos.bookbar.core.network.NewBooksApiResponse
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -27,7 +28,8 @@ import timber.log.Timber
  */
 class BookstoreRepository(
   private val bookstoreDatabase: BookbarDatabase,
-  private val bookstoreWebApi: BookStoreApiService
+  private val bookstoreWebApi: BookStoreApiService,
+  private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
   /** New books listing as flow. */
@@ -140,6 +142,8 @@ class BookstoreRepository(
    *
    */
   suspend fun removeFavoriteBook(bookId: String) {
-    bookstoreDatabase.favoriteBooksDao().deleteByBookId(bookId)
+    withContext(coroutineDispatcher) {
+      bookstoreDatabase.favoriteBooksDao().deleteByBookId(bookId)
+    }
   }
 }

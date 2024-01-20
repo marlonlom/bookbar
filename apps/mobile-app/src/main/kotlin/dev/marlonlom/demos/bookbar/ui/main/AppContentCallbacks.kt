@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dev.marlonlom.demos.bookbar.domain.books.BookDetailItem
 import dev.marlonlom.demos.bookbar.ui.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.demos.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
 import dev.marlonlom.demos.bookbar.ui.util.BookSharingUtil
 import dev.marlonlom.demos.bookbar.ui.util.CustomTabsOpener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,13 +28,15 @@ import timber.log.Timber
  * @property onShareIconClicked Action for performing sharing functionality.
  * @property onBookSelectedForDetail Action for selecting book for details.
  * @property onFavoriteBookIconClicked Action for favorite book button clicked.
+ * @property onRemoveFavoriteIconClicked
  */
 data class AppContentCallbacks(
   val openOssLicencesInfo: () -> Unit,
   val openExternalUrl: (String) -> Unit,
   val onShareIconClicked: (String) -> Unit,
   val onBookSelectedForDetail: (String) -> Unit,
-  val onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit
+  val onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  val onRemoveFavoriteIconClicked: (String) -> Unit
 )
 
 /**
@@ -42,12 +45,14 @@ data class AppContentCallbacks(
  * @author marlonlom
  *
  * @param activityContext Activity context.
+ * @param favoriteBooksViewModel Favorite Book listing viewmodel.
  * @param bookDetailsViewModel Book details viewmodel.
  */
 @ExperimentalCoroutinesApi
 @Composable
 internal fun newAppContentCallbacks(
   activityContext: Context,
+  favoriteBooksViewModel: FavoriteBooksViewModel,
   bookDetailsViewModel: BookDetailsViewModel
 ) = AppContentCallbacks(
   openOssLicencesInfo = {
@@ -63,11 +68,16 @@ internal fun newAppContentCallbacks(
     BookSharingUtil.beginShare(activityContext, message)
   },
   onBookSelectedForDetail = { bookId ->
-    Timber.d("[AppContent.onSaveFavoriteBook] Should select book for details.")
+    Timber.d("[AppContent.onBookSelectedForDetail] Should select book for details.")
     bookDetailsViewModel.setSelectedBook(bookId = bookId)
   },
   onFavoriteBookIconClicked = { bookDetail: BookDetailItem, markedFavorite: Boolean ->
     Timber.d("[AppContent.onSaveFavoriteBook] Should toggle Book[${bookDetail.isbn13}] as favorite? $markedFavorite.")
     bookDetailsViewModel.toggleFavorite(bookDetail, markedFavorite)
+    favoriteBooksViewModel.fetchLatest()
+  },
+  onRemoveFavoriteIconClicked = { bookId ->
+    Timber.d("[AppContent.onRemoveFavoriteIconClicked] Should remove Book[$bookId] as favorite.")
+    favoriteBooksViewModel.removeFavorite(bookId)
   }
 )

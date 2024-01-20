@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.Home
+import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
@@ -50,7 +51,7 @@ sealed class BookbarRoutes(
   data object Favorite : BookbarRoutes(
     route = "favorite",
     label = R.string.text_route_favorite,
-    icon = Icons.TwoTone.Favorite
+    icon = Icons.TwoTone.MenuBook
   )
 
   /**

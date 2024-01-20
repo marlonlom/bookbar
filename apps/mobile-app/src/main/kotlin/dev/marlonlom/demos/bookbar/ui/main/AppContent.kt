@@ -51,7 +51,11 @@ fun AppContent(
     val detailedBookUiState =
       bookDetailsViewModel.bookDetailUiState.collectAsStateWithLifecycle(BookDetailResult.NotFound)
 
-    val appContentCallbacks = newAppContentCallbacks(activityContext, bookDetailsViewModel)
+    val appContentCallbacks = newAppContentCallbacks(
+      activityContext,
+      favoriteBooksViewModel,
+      bookDetailsViewModel
+    )
 
     MainScaffold(
       windowSizeClass = windowSizeClass,

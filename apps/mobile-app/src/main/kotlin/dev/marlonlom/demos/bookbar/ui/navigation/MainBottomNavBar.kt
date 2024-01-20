@@ -27,7 +27,6 @@ fun MainBottomNavBar(
 ) {
   NavigationBar {
     bottomNavRoutes.forEachIndexed { index, tuple ->
-      println("[NavigationBar] index=$index, tuple=$tuple ")
       NavigationBarItem(
         selected = navSelectedIndex == index,
         onClick = { onNavSelectedIndexChanged(index, tuple.route) },
