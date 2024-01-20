@@ -144,7 +144,17 @@ fun MainScaffold(
       if (appState.canShowNavigationRail.and(isTopDestination)) {
         MainScaffoldLandscapeContent(
           bottomNavSelectedIndex = bottomNavSelectedIndex,
-          setShowSettingsDialog = { selected -> showSettingsDialog = selected },
+          onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
+            if (selectedRoute == BookbarRoutes.Preferences.route) {
+              showSettingsDialog = true
+            } else {
+              bottomNavSelectedIndex = selectedIndex
+              handleSelectedTopDestination(
+                navController = appState.navController,
+                selectedRoute = selectedRoute,
+              )
+            }
+          },
           appState = appState,
           onBookItemClicked = onBookItemClicked,
           bookDetailsViewModel = bookDetailsViewModel,
@@ -183,24 +193,16 @@ fun MainScaffold(
 @Composable
 private fun MainScaffoldLandscapeContent(
   bottomNavSelectedIndex: Int,
-  setShowSettingsDialog: (Boolean) -> Unit,
+  onNavSelectedIndexChanged: (Int, String) -> Unit,
   appState: BookbarAppState,
   onBookItemClicked: (String) -> Unit,
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
 ) {
-  var bottomNavSelectedIndex1 = bottomNavSelectedIndex
   Row {
     MainNavigationRail(
-      navSelectedIndex = bottomNavSelectedIndex1,
-      onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
-        if (selectedRoute == BookbarRoutes.Preferences.route) {
-          setShowSettingsDialog(true)
-        } else {
-          bottomNavSelectedIndex1 = selectedIndex
-          handleSelectedTopDestination(appState.navController, selectedRoute)
-        }
-      },
+      navSelectedIndex = bottomNavSelectedIndex,
+      onNavSelectedIndexChanged = onNavSelectedIndexChanged,
     )
     Column(modifier = Modifier.fillMaxWidth(0.4f)) {
       MainNavHost(
