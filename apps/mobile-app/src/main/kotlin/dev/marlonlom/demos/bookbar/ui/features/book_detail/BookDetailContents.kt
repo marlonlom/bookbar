@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.ArrowBack
 import androidx.compose.material.icons.twotone.Bookmark
+import androidx.compose.material.icons.twotone.BookmarkAdded
 import androidx.compose.material.icons.twotone.BookmarkBorder
 import androidx.compose.material.icons.twotone.Share
 import androidx.compose.material.icons.twotone.ShoppingBag
@@ -233,7 +234,7 @@ internal fun FavoriteBookIconButton(
       onFavoriteBookIconClicked(bookDetailItem, bookDetailItem.favorite.not())
     },
   ) {
-    val favoriteIconVector = if (bookDetailItem.favorite) Icons.TwoTone.Bookmark else Icons.TwoTone.BookmarkBorder
+    val favoriteIconVector = if (bookDetailItem.favorite) Icons.TwoTone.BookmarkAdded else Icons.TwoTone.BookmarkBorder
     Icon(
       imageVector = favoriteIconVector,
       contentDescription = null,
