@@ -54,7 +54,7 @@ internal fun ClickableFavoriteBookItem(
         bookTitle = bookItem.title,
         bookPosterImage = bookItem.image,
         imageHeight = 140.dp,
-        aspectRatio = (1f / 2f)
+        aspectRatio = 1f / 2f
       )
     }
     Column(
