@@ -25,7 +25,7 @@ interface FavoriteBooksDao {
    *
    * @return Books list.
    */
-  @Query("SELECT * FROM favorite_it_book ORDER BY creation_date")
+  @Query("SELECT * FROM favorite_it_book ORDER BY creation_date DESC")
   fun getAll(): Flow<List<FavoriteBookEntity>>
 
   /**

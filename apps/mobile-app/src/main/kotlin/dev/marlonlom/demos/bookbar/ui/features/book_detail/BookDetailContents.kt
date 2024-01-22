@@ -44,6 +44,13 @@ import dev.marlonlom.demos.bookbar.domain.books.BookDetailItem
 import dev.marlonlom.demos.bookbar.ui.common.BookPosterImage
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
 
+/**
+ * Raring bar for book details composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param bookDetailItem Book detail item.
+ */
 @Composable
 internal fun BookRatingsBar(bookDetailItem: BookDetailItem) {
   val bookRatingVal = bookDetailItem.rating.toInt()
@@ -58,6 +65,12 @@ internal fun BookRatingsBar(bookDetailItem: BookDetailItem) {
   }
 }
 
+/**
+ * Book detail custom divider composable ui.
+ *
+ * @author marlonlom
+ *
+ */
 @Composable
 internal fun BookDetailDivider() {
   Divider(
@@ -68,6 +81,15 @@ internal fun BookDetailDivider() {
   )
 }
 
+/**
+ * Book details heading section composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param appState Application ui state.
+ * @param bookDetailItem Book detail item.
+ * @param onBuyBookIconClicked Action for buy book icon button clicked.
+ */
 @Composable
 internal fun BookHeadingSection(
   appState: BookbarAppState,
@@ -99,6 +121,15 @@ internal fun BookHeadingSection(
   }
 }
 
+/**
+ * Book detail heading inner content composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param appState Application ui state.
+ * @param bookDetailItem Book detail item.
+ * @param onBuyBookIconClicked Action for buy book icon button clicked.
+ */
 @Composable
 internal fun BookHeadingContent(
   appState: BookbarAppState,
@@ -144,6 +175,14 @@ internal fun BookHeadingContent(
   }
 }
 
+/**
+ * Buy book button composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param bookDetailItem Book detail item.
+ * @param onBuyBookIconClicked Action for buy book icon button clicked.
+ */
 @Composable
 internal fun BuyBookButton(
   bookDetailItem: BookDetailItem,
@@ -168,6 +207,18 @@ internal fun BuyBookButton(
   }
 }
 
+/**
+ * Book details header top bar composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param appState Application ui state.
+ * @param bookDetailItem Book detail item.
+ * @param onBackNavigationIconClicked Action for back navigation button clicked.
+ * @param onFavoriteBookIconClicked Action for favorite book toggle icon button clicked.
+ * @param onShareBookIconClicked Action for share book icon button clicked.
+ * @param backgroundColor Content background color.
+ */
 @Composable
 internal fun HeaderTopBar(
   appState: BookbarAppState,
@@ -193,12 +244,20 @@ internal fun HeaderTopBar(
     }
     Spacer(modifier = Modifier.weight(1.0f))
     FavoriteBookIconButton(
-      onFavoriteBookIconClicked, bookDetailItem
+      bookDetailItem, onFavoriteBookIconClicked
     )
     ShareBookIconButton(bookDetailItem, onShareBookIconClicked)
   }
 }
 
+/**
+ * Book sharing button composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param bookDetailItem Book detail item.
+ * @param onShareBookIconClicked Action for sharing book button clicked.
+ */
 @Composable
 internal fun ShareBookIconButton(
   bookDetailItem: BookDetailItem,
@@ -223,17 +282,28 @@ internal fun ShareBookIconButton(
   }
 }
 
+/**
+ * Favorite book icon button composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param onFavoriteBookIconClicked Action for favorite book toggle icon clicked.
+ * @param bookDetailItem Book detail item.
+ */
 @Composable
 internal fun FavoriteBookIconButton(
-  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-  bookDetailItem: BookDetailItem
+  bookDetailItem: BookDetailItem,
+  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit
 ) {
   IconButton(
     onClick = {
       onFavoriteBookIconClicked(bookDetailItem, bookDetailItem.favorite.not())
     },
   ) {
-    val favoriteIconVector = getFavoriteIconVector(bookDetailItem)
+    val favoriteIconVector = when {
+      bookDetailItem.favorite -> Icons.TwoTone.BookmarkAdded
+      else -> Icons.TwoTone.BookmarkBorder
+    }
     Icon(
       imageVector = favoriteIconVector,
       contentDescription = null,
@@ -243,14 +313,13 @@ internal fun FavoriteBookIconButton(
   }
 }
 
-@Composable
-private fun getFavoriteIconVector(bookDetailItem: BookDetailItem) =
-  if (bookDetailItem.favorite) {
-    Icons.TwoTone.BookmarkAdded
-  } else {
-    Icons.TwoTone.BookmarkBorder
-  }
-
+/**
+ * Back navigation button for book details composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param onBackNavigationIconClicked Action for back navigation button clicked.
+ */
 @Composable
 internal fun BackNavigationIconButton(
   onBackNavigationIconClicked: () -> Unit,
@@ -267,6 +336,14 @@ internal fun BackNavigationIconButton(
   }
 }
 
+/**
+ * book detail text slot composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param titleStringRes Title text as string resource.
+ * @param sectionContent Section content as composable.
+ */
 @Composable
 internal fun BookTextSlot(
   @StringRes titleStringRes: Int,

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -25,11 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -84,7 +84,7 @@ fun MainScaffold(
 ) {
   val currentAppRoute = appState.navController
     .currentBackStackEntryAsState().value?.destination?.route ?: BookbarRoutes.Home.route
-  var bottomNavSelectedIndex by remember {
+  var bottomNavSelectedIndex by rememberSaveable {
     mutableIntStateOf(
       bottomNavRoutes.map { it.route }.indexOf(currentAppRoute)
     )
@@ -198,7 +198,7 @@ private fun MainScaffoldLandscapeContent(
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
 ) {
-  Row {
+  Row(verticalAlignment = Alignment.CenterVertically) {
     MainNavigationRail(
       navSelectedIndex = bottomNavSelectedIndex,
       onNavSelectedIndexChanged = onNavSelectedIndexChanged,
@@ -219,10 +219,11 @@ private fun MainScaffoldLandscapeContent(
       modifier = Modifier
         .background(
           color = detailContentBackgroundColor,
-          shape = RectangleShape
+          shape = RoundedCornerShape(size = 20.dp)
         )
-        .padding(20.dp)
-        .fillMaxSize()
+        .padding(horizontal = 20.dp)
+        .fillMaxSize(0.95f),
+      horizontalAlignment = Alignment.CenterHorizontally
     ) {
       when (appState.bookDetails) {
         BookDetailResult.Loading -> {
