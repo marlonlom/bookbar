@@ -74,7 +74,6 @@ internal fun newAppContentCallbacks(
   onFavoriteBookIconClicked = { bookDetail: BookDetailItem, markedFavorite: Boolean ->
     Timber.d("[AppContent.onSaveFavoriteBook] Should toggle Book[${bookDetail.isbn13}] as favorite? $markedFavorite.")
     bookDetailsViewModel.toggleFavorite(bookDetail, markedFavorite)
-    favoriteBooksViewModel.fetchLatest()
   },
   onRemoveFavoriteIconClicked = { bookId ->
     Timber.d("[AppContent.onRemoveFavoriteIconClicked] Should remove Book[$bookId] as favorite.")

@@ -22,7 +22,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -73,14 +72,14 @@ fun MainScaffold(
   userPreferencesRepository: UserPreferencesRepository,
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
-  newBooksListState: State<NewBooksUiState>,
-  favoriteBooksListState: State<FavoriteBooksUiState>,
-  detailedBookUiState: State<BookDetailResult>,
+  newBooksListState: NewBooksUiState,
+  favoriteBooksListState: FavoriteBooksUiState,
+  detailedBookUiState: BookDetailResult,
   appState: BookbarAppState = rememberBookbarAppState(
     windowSizeClass = windowSizeClass,
-    newBooksList = newBooksListState.value,
-    favoriteBooksList = favoriteBooksListState.value,
-    detailedBook = detailedBookUiState.value
+    newBooksList = newBooksListState,
+    favoriteBooksList = favoriteBooksListState,
+    detailedBook = detailedBookUiState
   ),
 ) {
   val currentAppRoute = appState.navController
@@ -143,6 +142,7 @@ fun MainScaffold(
     ) {
       if (appState.canShowNavigationRail.and(isTopDestination)) {
         MainScaffoldLandscapeContent(
+          appState = appState,
           bottomNavSelectedIndex = bottomNavSelectedIndex,
           onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
             if (selectedRoute == BookbarRoutes.Preferences.route) {
@@ -155,7 +155,6 @@ fun MainScaffold(
               )
             }
           },
-          appState = appState,
           onBookItemClicked = onBookItemClicked,
           bookDetailsViewModel = bookDetailsViewModel,
           appContentCallbacks = appContentCallbacks,
@@ -180,21 +179,21 @@ fun MainScaffold(
  *
  * @author marlonlom
  *
- * @param bottomNavSelectedIndex
- * @param setShowSettingsDialog
- * @param appState
- * @param onBookItemClicked
- * @param bookDetailsViewModel
- * @param appContentCallbacks
+ * @param appState Application ui state.
+ * @param bottomNavSelectedIndex Bottom navigation / Navigation rail selected index
+ * @param onNavSelectedIndexChanged Action for changed top destination route.
+ * @param onBookItemClicked Action for book list item clicked.
+ * @param bookDetailsViewModel Book details viewmodel.
+ * @param appContentCallbacks Application content callbacks.
  */
 @ExperimentalCoroutinesApi
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 private fun MainScaffoldLandscapeContent(
+  appState: BookbarAppState,
   bottomNavSelectedIndex: Int,
   onNavSelectedIndexChanged: (Int, String) -> Unit,
-  appState: BookbarAppState,
   onBookItemClicked: (String) -> Unit,
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
