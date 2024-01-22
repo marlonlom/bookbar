@@ -19,6 +19,13 @@ import androidx.compose.ui.unit.sp
 import dev.marlonlom.demos.bookbar.R
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
 
+/**
+ * Welcome title text common composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param appState Application ui state.
+ */
 @Composable
 fun WelcomeTitle(
   appState: BookbarAppState
@@ -48,6 +55,12 @@ fun WelcomeTitle(
   )
 }
 
+/**
+ * Headline title text common composable ui.
+ *
+ * @param appState Application ui state.
+ * @param headlineTextRes Headline text as string resource.
+ */
 @Composable
 fun HeadlineTitle(
   appState: BookbarAppState,
