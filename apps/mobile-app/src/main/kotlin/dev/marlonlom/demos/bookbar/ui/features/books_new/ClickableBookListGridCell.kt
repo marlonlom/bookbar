@@ -32,9 +32,9 @@ import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
  */
 @Composable
 internal fun ClickableBookListGridCell(
-    appState: BookbarAppState,
-    bookItem: BooksListDomainItem,
-    onBookItemClicked: (String) -> Unit
+  appState: BookbarAppState,
+  bookItem: BooksListDomainItem,
+  onBookItemClicked: (String) -> Unit
 ) {
 
   val imageHeight = when {
@@ -51,7 +51,7 @@ internal fun ClickableBookListGridCell(
       .padding(vertical = 10.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    BookPosterImage(bookItem.title, bookItem.image, imageHeight)
+    BookPosterImage(bookItem.title, bookItem.image, imageHeight, 1f / 2f)
     BookTitleText(bookItem)
     BookPriceText(bookItem)
   }
