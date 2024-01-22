@@ -49,11 +49,16 @@ fun BookDetailContent(
   onShareIconClicked: (String) -> Unit,
   backgroundColor: Color = MaterialTheme.colorScheme.background
 ) {
+  val contentHorizontalPadding = when {
+    appState.is7InTabletWidth -> 60.dp
+    else -> 20.dp
+  }
+
   LazyColumn(
     state = rememberLazyListState(),
     modifier = Modifier
       .fillMaxWidth()
-      .padding(20.dp),
+      .padding(contentHorizontalPadding),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     stickyHeader {
@@ -137,7 +142,7 @@ internal fun BookTextSlots(
     sectionContent = {
       val readMoreText = stringResource(R.string.text_detail_read_more)
       val annotatedString = buildAnnotatedString {
-        append(bookDetailItem.desc.replace("&#039;","'"))
+        append(bookDetailItem.desc.replace("&#039;", "'"))
         append("  ")
         pushStringAnnotation(tag = readMoreText, annotation = bookDetailItem.url)
         withStyle(
