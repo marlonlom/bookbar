@@ -36,6 +36,20 @@ import dev.marlonlom.demos.bookbar.domain.books.BookDetailItem
 import dev.marlonlom.demos.bookbar.ui.main.BookbarAppState
 import timber.log.Timber
 
+/**
+ * Book detail content composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param appState Application ui state.
+ * @param bookDetailItem Book detail item value.
+ * @param onBackNavigationIconClicked Action for back navigation icon button clicked.
+ * @param onBuyBookIconClicked Action for buy book button clicked.
+ * @param onReadMoreTextClicked Action for read more about book link clicked.
+ * @param onFavoriteBookIconClicked Action for favorite book toggle icon button clicked.
+ * @param onShareIconClicked Action for share book icon button clicked.
+ * @param backgroundColor Content background color.
+ */
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
@@ -50,7 +64,8 @@ fun BookDetailContent(
   backgroundColor: Color = MaterialTheme.colorScheme.background
 ) {
   val contentHorizontalPadding = when {
-    appState.is7InTabletWidth -> 60.dp
+    appState.is10InTabletWidth -> 60.dp
+    appState.is7InTabletWidth -> 40.dp
     else -> 20.dp
   }
 
@@ -120,6 +135,14 @@ fun BookDetailContent(
   }
 }
 
+/**
+ * Book text section slot composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param bookDetailItem Book detail item
+ * @param onReadMoreTextClicked Action for read more about book link clicked.
+ */
 @Composable
 internal fun BookTextSlots(
   bookDetailItem: BookDetailItem,
@@ -181,6 +204,13 @@ internal fun BookTextSlots(
   )
 }
 
+/**
+ * Book details table section composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param bookDetailItem Book detail item.
+ */
 @Composable
 internal fun BookInfoTableCells(bookDetailItem: BookDetailItem) {
   BookInfoTableCell(R.string.text_detail_book_isbn10, bookDetailItem.isbn10)
@@ -191,6 +221,14 @@ internal fun BookInfoTableCells(bookDetailItem: BookDetailItem) {
   BookInfoTableCell(R.string.text_detail_book_language, bookDetailItem.language)
 }
 
+/**
+ * Book details table cell content composable ui.
+ *
+ * @author marlonlom
+ *
+ * @param titleStringRes Title text as string resource.
+ * @param detailText Detail text content.
+ */
 @Composable
 internal fun BookInfoTableCell(
   @StringRes titleStringRes: Int,
