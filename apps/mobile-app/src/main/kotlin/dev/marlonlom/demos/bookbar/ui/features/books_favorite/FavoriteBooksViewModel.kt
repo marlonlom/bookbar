@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
@@ -37,7 +38,9 @@ class FavoriteBooksViewModel(
   )
 
   init {
-    this.fetchLatest()
+    viewModelScope.launch {
+      fetchFavoriteBooks()
+    }
   }
 
   /**
@@ -48,23 +51,21 @@ class FavoriteBooksViewModel(
   fun removeFavorite(isbn13: String) {
     viewModelScope.launch {
       repository.removeFavoriteBook(isbn13)
-      fetchLatest()
+      fetchFavoriteBooks()
     }
   }
 
-  /** Fetch latest favorite books. */
-  fun fetchLatest() {
-    viewModelScope.launch {
-      repository.favoriteBooksFlow
-        .map { books ->
-          when {
-            books.isNotEmpty() -> FavoriteBooksUiState.Success(books)
-            else -> FavoriteBooksUiState.Empty
-          }
-        }.collect { favoriteBooksUiState ->
-          _uiState.value = favoriteBooksUiState
+  /** Fetch favorite books from repository. */
+  private suspend fun fetchFavoriteBooks() {
+    repository.favoriteBooksFlow
+      .map { books ->
+        when {
+          books.isNotEmpty() -> FavoriteBooksUiState.Success(books)
+          else -> FavoriteBooksUiState.Empty
         }
-    }
+      }.collect { favoriteBooksUiState ->
+        _uiState.update { favoriteBooksUiState }
+      }
   }
 
   companion object {

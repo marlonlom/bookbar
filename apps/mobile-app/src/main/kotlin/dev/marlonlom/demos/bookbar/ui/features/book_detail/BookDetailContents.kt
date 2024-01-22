@@ -154,14 +154,14 @@ internal fun BuyBookButton(
       onBuyBookIconClicked(bookDetailItem.buyUrl)
     },
     colors = ButtonDefaults.buttonColors(
-      containerColor = MaterialTheme.colorScheme.secondaryContainer,
-      contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+      containerColor = MaterialTheme.colorScheme.primary,
+      contentColor = MaterialTheme.colorScheme.onPrimary
     )
   ) {
     Image(
       Icons.TwoTone.ShoppingBag,
       contentDescription = stringResource(R.string.text_detail_buy),
-      colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSecondaryContainer),
+      colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
       modifier = Modifier.size(20.dp)
     )
     Text(text = stringResource(R.string.text_detail_buy), Modifier.padding(start = 10.dp))

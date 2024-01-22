@@ -6,6 +6,7 @@
 package dev.marlonlom.demos.bookbar.domain.books
 
 import dev.marlonlom.demos.bookbar.core.database.BookbarDatabase
+import dev.marlonlom.demos.bookbar.core.database.entities.FavoriteBookEntity
 import dev.marlonlom.demos.bookbar.core.network.BookDetailsApiResponse
 import dev.marlonlom.demos.bookbar.core.network.BookStoreApiService
 import dev.marlonlom.demos.bookbar.core.network.NewBooksApiResponse
@@ -73,9 +74,9 @@ class BookstoreRepository(
 
   /** Favorite books listing as flow. */
   val favoriteBooksFlow: Flow<List<BooksListDomainItem>> = flow {
-    emit(bookstoreDatabase.favoriteBooksDao().getAll().first().map {
-      it.toDomain()
-    })
+    bookstoreDatabase.favoriteBooksDao().getAll().collect { entities ->
+      emit(entities.map(FavoriteBookEntity::toDomain))
+    }
   }
 
   /**
