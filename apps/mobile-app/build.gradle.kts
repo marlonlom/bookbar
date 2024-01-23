@@ -17,11 +17,11 @@ plugins {
 }
 
 android {
-  namespace = "dev.marlonlom.demos.bookbar"
+  namespace = "dev.marlonlom.apps.bookbar"
   compileSdk = 34
 
   defaultConfig {
-    applicationId = "dev.marlonlom.demos.bookbar"
+    applicationId = "dev.marlonlom.apps.bookbar"
     minSdk = 24
     targetSdk = 34
     versionCode = 1

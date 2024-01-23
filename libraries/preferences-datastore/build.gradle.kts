@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-  namespace = "dev.marlonlom.demos.bookbar.data.preferences"
+  namespace = "dev.marlonlom.apps.bookbar.data.preferences"
   compileSdk = 34
 
   defaultConfig {
