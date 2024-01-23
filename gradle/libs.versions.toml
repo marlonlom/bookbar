@@ -1,6 +1,6 @@
 [versions]
 agp = "8.2.1"
-kotlin = "1.9.10"
+kotlin = "1.9.22"
 ksp = "1.9.10-1.0.13"
 
 [libraries]
@@ -20,7 +20,7 @@ google-oss-licenses = "com.google.android.gms:play-services-oss-licenses:17.0.1"
 google-oss-licenses-plugin = "com.google.android.gms:oss-licenses-plugin:0.10.6"
 jakewharton-timber = "com.jakewharton.timber:timber:5.0.1"
 kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
-kotlin-serialization-plugin = "org.jetbrains.kotlin:kotlin-serialization:1.9.10"
+kotlin-serialization-plugin = "org.jetbrains.kotlin:kotlin-serialization:1.9.22"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2"
 
 # test-implementation
