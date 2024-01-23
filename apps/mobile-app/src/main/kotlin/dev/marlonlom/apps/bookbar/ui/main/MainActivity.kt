@@ -5,7 +5,6 @@
 
 package dev.marlonlom.apps.bookbar.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,7 +15,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +22,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.marlonlom.apps.bookbar.BuildConfig
@@ -38,7 +35,6 @@ import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewMo
 import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Loading
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Success
-import dev.marlonlom.apps.bookbar.ui.theme.BookbarTheme
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
