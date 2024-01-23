@@ -22,6 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Bookbar"
 include(":apps:mobile-app")
-include(":libraries:network-api")
-include(":libraries:preferences-datastore")
-include(":libraries:database")
+include(":features:core:network-api")
+include(":features:core:preferences-datastore")
+include(":features:core:database")

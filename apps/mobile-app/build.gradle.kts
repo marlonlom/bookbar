@@ -69,9 +69,9 @@ android {
 
 dependencies {
 
-  implementation(project(":libraries:network-api"))
-  implementation(project(":libraries:database"))
-  implementation(project(":libraries:preferences-datastore"))
+  implementation(project(":features:core:network-api"))
+  implementation(project(":features:core:database"))
+  implementation(project(":features:core:preferences-datastore"))
 
   val composeBom = platform(libs.androidx.compose.bom)
   implementation(composeBom)
