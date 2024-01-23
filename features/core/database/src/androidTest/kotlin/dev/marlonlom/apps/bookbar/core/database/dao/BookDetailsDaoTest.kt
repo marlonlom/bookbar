@@ -46,7 +46,7 @@ internal class BookDetailsDaoTest {
 
   @Test
   fun shouldNotFindBookUsingIsbn13() = runTest {
-    val foundItem: BookDetailEntity = dao.getBook("9781098106225").first()
+    val foundItem: BookDetailEntity? = dao.getBook("9781098106225").first()
     assertThat(foundItem).isNull()
   }
 
@@ -69,7 +69,7 @@ internal class BookDetailsDaoTest {
       url = "https://itbook.store/books/9781098106225"
     )
     dao.save(entity)
-    val foundItem: BookDetailEntity = dao.getBook("9781098106225").first()
+    val foundItem: BookDetailEntity? = dao.getBook("9781098106225").first()
     assertThat(foundItem).isNotNull()
   }
 
