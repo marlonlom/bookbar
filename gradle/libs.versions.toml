@@ -19,7 +19,7 @@ coil-compose = "io.coil-kt:coil-compose:2.5.0"
 google-oss-licenses = "com.google.android.gms:play-services-oss-licenses:17.0.1"
 google-oss-licenses-plugin = "com.google.android.gms:oss-licenses-plugin:0.10.6"
 jakewharton-timber = "com.jakewharton.timber:timber:5.0.1"
-kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0"
+kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
 kotlin-serialization-plugin = "org.jetbrains.kotlin:kotlin-serialization:1.9.22"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2"
 
