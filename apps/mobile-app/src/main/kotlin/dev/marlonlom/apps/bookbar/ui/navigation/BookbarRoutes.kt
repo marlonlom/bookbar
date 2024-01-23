@@ -7,7 +7,6 @@ package dev.marlonlom.apps.bookbar.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.Home
 import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Settings
