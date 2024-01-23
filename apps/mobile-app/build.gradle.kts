@@ -17,11 +17,11 @@ plugins {
 }
 
 android {
-  namespace = "dev.marlonlom.demos.bookbar"
+  namespace = "dev.marlonlom.apps.bookbar"
   compileSdk = 34
 
   defaultConfig {
-    applicationId = "dev.marlonlom.demos.bookbar"
+    applicationId = "dev.marlonlom.apps.bookbar"
     minSdk = 24
     targetSdk = 34
     versionCode = 1
@@ -69,9 +69,9 @@ android {
 
 dependencies {
 
-  implementation(project(":libraries:network-api"))
-  implementation(project(":libraries:database"))
-  implementation(project(":libraries:preferences-datastore"))
+  implementation(project(":features:core:network-api"))
+  implementation(project(":features:core:database"))
+  implementation(project(":features:core:preferences-datastore"))
 
   val composeBom = platform(libs.androidx.compose.bom)
   implementation(composeBom)
