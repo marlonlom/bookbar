@@ -42,9 +42,15 @@ dependencies {
 
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.datastore.preferences)
+  implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.kotlinx.coroutines.core)
 
   testImplementation(libs.junit)
 
+  androidTestImplementation(libs.androidx.arch.core.testing)
   androidTestImplementation(libs.androidx.test.espresso.core)
   androidTestImplementation(libs.androidx.test.ext.junit)
+  androidTestImplementation(libs.google.truth)
+  androidTestImplementation(libs.kotlinx.coroutines.test)
+
 }
