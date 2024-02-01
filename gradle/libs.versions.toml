@@ -53,7 +53,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 
 # implementation: ktor-client
 ktor-client-android = "io.ktor:ktor-client-android:2.3.7"
-ktor-client-content-negotiation = "io.ktor:ktor-client-content-negotiation:2.3.7"
+ktor-client-content-negotiation = "io.ktor:ktor-client-content-negotiation:2.3.8"
 ktor-serialization-kotlinx-json = "io.ktor:ktor-serialization-kotlinx-json:2.3.7"
 ktor-client-logging-jvm = "io.ktor:ktor-client-logging-jvm:2.3.7"
 
