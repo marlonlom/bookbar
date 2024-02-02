@@ -24,7 +24,7 @@ import dev.marlonlom.apps.bookbar.R
  * @property label Route label string resource.
  * @property icon Route icon as image vector.
  */
-sealed class BookbarRoutes(
+sealed class BookbarRoute(
   val route: String,
   @StringRes
   val label: Int = -1,
@@ -36,7 +36,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Home : BookbarRoutes(
+  data object Home : BookbarRoute(
     route = "home",
     label = R.string.text_route_home,
     icon = Icons.TwoTone.Home
@@ -47,7 +47,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Favorite : BookbarRoutes(
+  data object Favorite : BookbarRoute(
     route = "favorite",
     label = R.string.text_route_favorite,
     icon = Icons.AutoMirrored.TwoTone.MenuBook
@@ -58,7 +58,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Settings : BookbarRoutes(
+  data object Settings : BookbarRoute(
     route = "settings",
     label = R.string.text_route_settings,
     icon = Icons.TwoTone.Settings
@@ -69,7 +69,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Details : BookbarRoutes(
+  data object Details : BookbarRoute(
     route = "book/{bookId}",
   ) {
 
