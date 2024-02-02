@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Favorite books list fetch viewmodel.
@@ -33,7 +32,7 @@ class FavoriteBooksViewModel(
   private val _uiState: MutableStateFlow<FavoriteBooksUiState> = MutableStateFlow(FavoriteBooksUiState.Empty)
   val uiState: StateFlow<FavoriteBooksUiState> = _uiState.stateIn(
     scope = viewModelScope,
-    started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+    started = SharingStarted.Eagerly,
     initialValue = FavoriteBooksUiState.Loading,
   )
 

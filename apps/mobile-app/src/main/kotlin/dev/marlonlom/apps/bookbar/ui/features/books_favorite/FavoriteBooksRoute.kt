@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.apps.bookbar.ui.common.WelcomeTitle
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 /**
  * Favorite books composable ui.
@@ -35,9 +35,9 @@ import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
  */
 @Composable
 fun FavoriteBooksRoute(
-  appState: BookbarAppState,
-  onBookItemClicked: (String) -> Unit,
-  onRemoveFavoriteIconClicked: (String) -> Unit,
+    appState: BookbarAppState,
+    onBookItemClicked: (String) -> Unit,
+    onRemoveFavoriteIconClicked: (String) -> Unit,
 ) {
   val contentHorizontalPadding = when {
     appState.is10InTabletWidth -> 80.dp
