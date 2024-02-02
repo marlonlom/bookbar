@@ -156,7 +156,7 @@ fun MainScaffold(
           },
         ) {
           if (appState.isLandscapeOrientation) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.Top) {
               Column(modifier = Modifier.fillMaxWidth(0.4f)) {
                 MainNavHost(
                   appState = appState,
@@ -270,7 +270,7 @@ private fun MainScaffoldLandscapeContent(
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
 ) {
-  Row(verticalAlignment = Alignment.CenterVertically) {
+  Row(verticalAlignment = Alignment.Top) {
     MainNavigationRail(
       navSelectedIndex = bottomNavSelectedIndex,
       onNavSelectedIndexChanged = onNavSelectedIndexChanged,
