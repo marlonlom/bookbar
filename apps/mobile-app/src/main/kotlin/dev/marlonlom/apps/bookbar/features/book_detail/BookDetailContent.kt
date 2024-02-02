@@ -64,7 +64,7 @@ fun BookDetailContent(
     backgroundColor: Color = MaterialTheme.colorScheme.background
 ) {
   val contentHorizontalPadding = when {
-    appState.is7InTabletWidth -> 40.dp
+    appState.is7InTabletWidth.and(appState.isLandscapeOrientation.not()) -> 40.dp
     else -> 20.dp
   }
 

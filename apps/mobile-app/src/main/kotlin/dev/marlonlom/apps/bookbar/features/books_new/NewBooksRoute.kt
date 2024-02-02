@@ -81,9 +81,11 @@ fun NewBooksRoute(
             modifier = Modifier.fillMaxHeight(),
             verticalArrangement = Arrangement.Center
           ) {
-            Text(text = "Loading", modifier = Modifier
-              .fillMaxWidth()
-              .padding(20.dp))
+            Text(
+              text = "Loading", modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
+            )
             Spacer(modifier = Modifier.weight(1f))
           }
         }
