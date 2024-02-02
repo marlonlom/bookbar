@@ -8,12 +8,11 @@ package dev.marlonlom.apps.bookbar.ui.features.settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
-import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * User preferences viewmodel.
@@ -37,7 +36,7 @@ class UserSettingsViewModel(
       )
     }.stateIn(
       scope = viewModelScope,
-      started = WhileSubscribed(5.seconds.inWholeMilliseconds),
+      started = SharingStarted.Companion.Eagerly,
       initialValue = SettingsUiState.Loading,
     )
 

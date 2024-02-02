@@ -32,17 +32,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.marlonlom.apps.bookbar.R
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
 @Composable
 fun UserSettingsDialog(
-  appState: BookbarAppState,
-  viewModel: UserSettingsViewModel,
-  onDialogDismissed: () -> Unit,
-  openOssLicencesInfo: () -> Unit,
-  openExternalUrl: (String) -> Unit,
+    appState: BookbarAppState,
+    viewModel: UserSettingsViewModel,
+    onDialogDismissed: () -> Unit,
+    openOssLicencesInfo: () -> Unit,
+    openExternalUrl: (String) -> Unit,
 ) {
   val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
   UserSettingsDialog(
@@ -59,12 +59,12 @@ fun UserSettingsDialog(
 @ExperimentalMaterial3Api
 @Composable
 private fun UserSettingsDialog(
-  appState: BookbarAppState,
-  settingsUiState: SettingsUiState,
-  onDialogDismissed: () -> Unit,
-  onBooleanSettingUpdated: (String, Boolean) -> Unit,
-  openExternalUrl: (String) -> Unit,
-  openOssLicencesInfo: () -> Unit,
+    appState: BookbarAppState,
+    settingsUiState: SettingsUiState,
+    onDialogDismissed: () -> Unit,
+    onBooleanSettingUpdated: (String, Boolean) -> Unit,
+    openExternalUrl: (String) -> Unit,
+    openOssLicencesInfo: () -> Unit,
 ) {
   val configuration = LocalConfiguration.current
   AlertDialog(
