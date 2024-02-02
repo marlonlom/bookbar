@@ -275,7 +275,8 @@ private fun MainScaffoldLandscapeContent(
       navSelectedIndex = bottomNavSelectedIndex,
       onNavSelectedIndexChanged = onNavSelectedIndexChanged,
     )
-    Column(modifier = Modifier.fillMaxWidth(0.4f)) {
+    val fraction = if (appState.isLandscapeOrientation) 0.5f else 1f
+    Column(modifier = Modifier.fillMaxWidth(fraction)) {
       MainNavHost(
         appState = appState,
         bookDetailsViewModel = bookDetailsViewModel,
@@ -286,37 +287,39 @@ private fun MainScaffoldLandscapeContent(
         onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
       )
     }
-    val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
-    Column(
-      modifier = Modifier
-        .background(
-          color = detailContentBackgroundColor,
-          shape = RoundedCornerShape(size = 20.dp)
-        )
-        .padding(horizontal = 20.dp)
-        .fillMaxSize(0.95f),
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-      when (appState.bookDetails) {
-        BookDetailResult.Loading -> {
-          Text(text = "Loading book ...")
-        }
-
-        BookDetailResult.NotFound -> {
-          Text(text = appState.bookDetails.toString())
-        }
-
-        is BookDetailResult.Success -> {
-          BookDetailContent(
-            appState = appState,
-            bookDetailItem = appState.bookDetails.item,
-            onBackNavigationIconClicked = {},
-            onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
-            onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
-            onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-            onShareIconClicked = appContentCallbacks.onShareIconClicked,
-            backgroundColor = detailContentBackgroundColor
+    if (appState.isLandscapeOrientation) {
+      val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
+      Column(
+        modifier = Modifier
+          .background(
+            color = detailContentBackgroundColor,
+            shape = RoundedCornerShape(size = 20.dp)
           )
+          .padding(horizontal = 20.dp)
+          .fillMaxSize(0.95f),
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        when (appState.bookDetails) {
+          BookDetailResult.Loading -> {
+            Text(text = "Loading book ...")
+          }
+
+          BookDetailResult.NotFound -> {
+            Text(text = appState.bookDetails.toString())
+          }
+
+          is BookDetailResult.Success -> {
+            BookDetailContent(
+              appState = appState,
+              bookDetailItem = appState.bookDetails.item,
+              onBackNavigationIconClicked = {},
+              onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
+              onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
+              onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+              onShareIconClicked = appContentCallbacks.onShareIconClicked,
+              backgroundColor = detailContentBackgroundColor
+            )
+          }
         }
       }
     }
