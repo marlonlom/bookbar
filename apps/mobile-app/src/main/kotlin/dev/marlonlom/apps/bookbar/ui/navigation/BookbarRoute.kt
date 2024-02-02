@@ -7,8 +7,8 @@ package dev.marlonlom.apps.bookbar.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Home
-import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
@@ -50,7 +50,7 @@ sealed class BookbarRoutes(
   data object Favorite : BookbarRoutes(
     route = "favorite",
     label = R.string.text_route_favorite,
-    icon = Icons.TwoTone.MenuBook
+    icon = Icons.AutoMirrored.TwoTone.MenuBook
   )
 
   /**
@@ -58,7 +58,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Preferences : BookbarRoutes(
+  data object Settings : BookbarRoutes(
     route = "settings",
     label = R.string.text_route_settings,
     icon = Icons.TwoTone.Settings
@@ -85,6 +85,13 @@ sealed class BookbarRoutes(
      */
     fun createRoute(bookId: String) = "book/${bookId}"
   }
+
+  companion object {
+    /** Top destination routes list. */
+    @JvmStatic
+    val topDestinationRoutes
+      get() = listOfNotNull(Home, Favorite, Settings)
+  }
+
 }
 
-val bottomNavRoutes: List<BookbarRoutes> = listOf(BookbarRoutes.Home, BookbarRoutes.Favorite, BookbarRoutes.Preferences)

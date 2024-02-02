@@ -47,6 +47,7 @@ import dev.marlonlom.apps.bookbar.ui.navigation.MainBottomNavBar
 import dev.marlonlom.apps.bookbar.ui.navigation.MainNavHost
 import dev.marlonlom.apps.bookbar.ui.navigation.MainNavigationRail
 import dev.marlonlom.apps.bookbar.ui.navigation.bottomNavRoutes
+import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
@@ -69,6 +70,7 @@ import timber.log.Timber
 @Composable
 fun MainScaffold(
   windowSizeClass: WindowSizeClass,
+  devicePosture: DevicePosture,
   userPreferencesRepository: UserPreferencesRepository,
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
@@ -77,6 +79,7 @@ fun MainScaffold(
   detailedBookUiState: BookDetailResult,
   appState: BookbarAppState = rememberBookbarAppState(
     windowSizeClass = windowSizeClass,
+    devicePosture = devicePosture,
     newBooksList = newBooksListState,
     favoriteBooksList = favoriteBooksListState,
     detailedBook = detailedBookUiState
