@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -30,10 +30,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @Composable
 fun BookDetailRoute(
-  appState: BookbarAppState,
-  openExternalUrl: (String) -> Unit,
-  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-  onShareIconClicked: (String) -> Unit,
+    appState: BookbarAppState,
+    openExternalUrl: (String) -> Unit,
+    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+    onShareIconClicked: (String) -> Unit,
 ) {
   BackHandler {
     appState.navController.popBackStack()
