@@ -5,22 +5,24 @@
 
 package dev.marlonlom.apps.bookbar.ui.features.books_new
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.apps.bookbar.ui.common.WelcomeTitle
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 /**
  * New books route composable ui.
@@ -30,66 +32,68 @@ import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
  * @param appState App ui state.
  * @param onBookItemClicked Action for Book item clicked.
  */
+@ExperimentalFoundationApi
 @Composable
 fun NewBooksRoute(
   appState: BookbarAppState,
   onBookItemClicked: (String) -> Unit
 ) {
   val contentHorizontalPadding = when {
-    appState.is10InTabletWidth -> 80.dp
     appState.is7InTabletWidth -> 40.dp
     else -> 20.dp
   }
 
-  val gridColumnsCount = when {
-    appState.is7InTabletWidth and appState.isLandscapeOrientation -> 2
-    appState.is7InTabletWidth -> 3
-    else -> 2
+  val verticalSpace = when {
+    appState.is10InTabletWidth -> 20.dp
+    else -> 10.dp
   }
 
-  LazyVerticalGrid(
+  LazyColumn(
     modifier = Modifier
-      .fillMaxSize()
-      .padding(horizontal = contentHorizontalPadding)
-      .background(MaterialTheme.colorScheme.background),
-    columns = GridCells.Fixed(gridColumnsCount),
-    horizontalArrangement = Arrangement.spacedBy(20.dp),
-    content = {
-      item(span = { GridItemSpan(maxLineSpan) }) {
+      .fillMaxWidth()
+      .padding(contentHorizontalPadding),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(verticalSpace),
+  ) {
+    stickyHeader {
+      Column(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
         WelcomeTitle(appState = appState)
-      }
-
-      item(span = { GridItemSpan(maxLineSpan) }) {
         HeadlineTitle(
           appState = appState,
           headlineTextRes = R.string.title_bottom_new_releases
         )
+        Divider()
       }
-
-      when (appState.newBooksList) {
-        NewBooksUiState.Empty -> {
-          item {
-            Text(text = "Empty results :(")
-          }
-        }
-
-        NewBooksUiState.Loading -> {
-          item {
-            Text(text = "Loading")
-          }
-        }
-
-        is NewBooksUiState.Success -> {
-          items(appState.newBooksList.books.size) { bookIndex ->
-            ClickableBookListGridCell(
-              appState = appState,
-              bookItem = appState.newBooksList.books[bookIndex],
-              onBookItemClicked = onBookItemClicked
-            )
-          }
-        }
-      }
-
     }
-  )
+
+    when (appState.newBooksList) {
+      NewBooksUiState.Empty -> {
+        item {
+          Text(text = "Empty results :(")
+        }
+      }
+
+      NewBooksUiState.Loading -> {
+        item {
+          Text(text = "Loading")
+        }
+      }
+
+      is NewBooksUiState.Success -> {
+        items(
+          count = appState.newBooksList.books.size,
+          key = { position ->
+            appState.newBooksList.books[position].isbn13
+          }
+        ) { bookIndex ->
+          BookListItem(
+            appState = appState,
+            bookItem = appState.newBooksList.books[bookIndex],
+            onBookItemClicked = onBookItemClicked
+          )
+        }
+      }
+    }
+  }
+
 }

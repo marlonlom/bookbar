@@ -5,6 +5,7 @@
 
 package dev.marlonlom.apps.bookbar.ui.features.books_new
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,15 +14,12 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -35,61 +33,6 @@ import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.domain.books.BooksListDomainItem
 import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
-@Composable
-fun ClickableBookListItem(
-) {
-  val bookItem = BooksListDomainItem(
-    isbn13 = "9781484292143",
-    title = "Expert Performance Indexing in Azure SQL and SQL Server 2022, 4th Edition",
-    price = "$58.79",
-    image = "https://itbook.store/img/books/9781484292143.png"
-  )
-  Row(
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(horizontal = 20.dp),
-    verticalAlignment = Alignment.Bottom,
-    horizontalArrangement = Arrangement.spacedBy(10.dp)
-  ) {
-    AsyncImage(
-      model = ImageRequest.Builder(LocalContext.current)
-        .data(bookItem.image)
-        .crossfade(true)
-        .build(),
-      placeholder = painterResource(R.drawable.img_books_placeholder),
-      contentDescription = bookItem.title,
-      contentScale = ContentScale.Crop,
-      modifier = Modifier
-        .clip(RoundedCornerShape(10.dp))
-        .width(80.dp)
-        .height(120.dp)
-        .aspectRatio(1f / 2f)
-    )
-    Column(modifier = Modifier.fillMaxWidth()) {
-      Text(
-        modifier = Modifier
-          .fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        text = bookItem.title,
-        style = MaterialTheme.typography.bodyLarge,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.secondary,
-        maxLines = 2,
-        overflow = TextOverflow.Ellipsis,
-      )
-      Text(
-        modifier = Modifier
-          .padding(top = 4.dp),
-        text = bookItem.price,
-        style = MaterialTheme.typography.labelMedium,
-        fontWeight = FontWeight.Normal,
-        color = MaterialTheme.colorScheme.secondary,
-        maxLines = 1,
-      )
-    }
-  }
-}
-
 /**
  * Clickable book grid cell for new books.
  *
@@ -99,42 +42,59 @@ fun ClickableBookListItem(
  * @param bookItem Book list item.
  */
 @Composable
-internal fun ClickableBookListGridCell(
+internal fun BookListItem(
   appState: BookbarAppState,
   bookItem: BooksListDomainItem,
   onBookItemClicked: (String) -> Unit
 ) {
 
+  val contentHeight = when {
+    appState.is10InTabletWidth -> 160.dp
+    else -> 120.dp
+  }
+
+  val imageWidth = when {
+    appState.is10InTabletWidth -> 120.dp
+    else -> 80.dp
+  }
+
   Row(
     modifier = Modifier
+      .background(
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
+        shape = MaterialTheme.shapes.medium
+      )
+      .height(contentHeight)
+      .padding(vertical = 4.dp)
       .fillMaxWidth()
       .clickable {
         onBookItemClicked(bookItem.isbn13)
-      }
-      .padding(horizontal = 20.dp),
-    verticalAlignment = Alignment.Bottom,
+      },
+    verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(10.dp)
   ) {
-    AsyncImage(
-      model = ImageRequest.Builder(LocalContext.current)
-        .data(bookItem.image)
-        .crossfade(true)
-        .build(),
-      placeholder = painterResource(R.drawable.img_books_placeholder),
-      contentDescription = bookItem.title,
-      contentScale = ContentScale.Crop,
+    Column(
       modifier = Modifier
-        .clip(RoundedCornerShape(10.dp))
-        .size(80.dp, 120.dp)
-        .aspectRatio(1f / 2f)
-    )
-    Column(modifier = Modifier.fillMaxWidth()) {
-      Text(
+        .width(imageWidth)
+    ) {
+      AsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+          .data(bookItem.image)
+          .crossfade(true)
+          .build(),
+        placeholder = painterResource(R.drawable.img_books_placeholder),
+        contentDescription = bookItem.title,
+        contentScale = ContentScale.Crop,
         modifier = Modifier
-          .fillMaxWidth(),
+          .aspectRatio(3f / 4f)
+          .padding(4.dp)
+      )
+    }
+    Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+      Text(
         textAlign = TextAlign.Start,
         text = bookItem.title,
-        style = MaterialTheme.typography.bodyLarge,
+        style = MaterialTheme.typography.titleLarge,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.secondary,
         maxLines = 2,
@@ -144,7 +104,7 @@ internal fun ClickableBookListGridCell(
         modifier = Modifier
           .padding(top = 4.dp),
         text = bookItem.price,
-        style = MaterialTheme.typography.labelMedium,
+        style = MaterialTheme.typography.bodyMedium,
         fontWeight = FontWeight.Normal,
         color = MaterialTheme.colorScheme.secondary,
         maxLines = 1,
