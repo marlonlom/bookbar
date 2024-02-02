@@ -12,10 +12,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailRoute
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksRoute
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksRoute
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailRoute
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksRoute
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksRoute
 import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -37,13 +37,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalMaterial3Api
 @Composable
 fun MainNavHost(
-    appState: BookbarAppState,
-    bookDetailsViewModel: BookDetailsViewModel,
-    onBookItemClicked: (String) -> Unit,
-    openExternalUrl: (String) -> Unit,
-    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-    onRemoveFavoriteIconClicked: (String) -> Unit,
-    onShareIconClicked: (String) -> Unit
+  appState: BookbarAppState,
+  bookDetailsViewModel: BookDetailsViewModel,
+  onBookItemClicked: (String) -> Unit,
+  openExternalUrl: (String) -> Unit,
+  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  onRemoveFavoriteIconClicked: (String) -> Unit,
+  onShareIconClicked: (String) -> Unit
 ) {
   NavHost(
     navController = appState.navController,
@@ -113,11 +113,11 @@ internal fun NavGraphBuilder.favoritesDestination(
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 internal fun NavGraphBuilder.detailsDestination(
-    appState: BookbarAppState,
-    bookDetailsViewModel: BookDetailsViewModel,
-    openExternalUrl: (String) -> Unit,
-    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-    onShareIconClicked: (String) -> Unit
+  appState: BookbarAppState,
+  bookDetailsViewModel: BookDetailsViewModel,
+  openExternalUrl: (String) -> Unit,
+  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  onShareIconClicked: (String) -> Unit
 ) {
   composable(
     route = BookbarRoute.Details.route,

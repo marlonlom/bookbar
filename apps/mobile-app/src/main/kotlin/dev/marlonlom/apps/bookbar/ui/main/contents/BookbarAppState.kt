@@ -19,8 +19,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.FoldingFeature
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksUiState
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksUiState
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksUiState
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksUiState
 import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 
 /**

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.settings
+package dev.marlonlom.apps.bookbar.features.settings
 
 import android.os.Build
 import androidx.annotation.StringRes
@@ -35,8 +35,8 @@ import dev.marlonlom.apps.bookbar.R
 
 @Composable
 internal fun SettingsPanelContent(
-  settingsUiState: SettingsUiState.Success,
-  onBooleanSettingUpdated: (String, Boolean) -> Unit
+    settingsUiState: SettingsUiState.Success,
+    onBooleanSettingUpdated: (String, Boolean) -> Unit
 ) {
   BooleanSettingSwitchRow(
     titleTextRes = R.string.text_settings_dynamic_color_preference,

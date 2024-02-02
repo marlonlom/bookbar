@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.books_favorite
+package dev.marlonlom.apps.bookbar.features.books_favorite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

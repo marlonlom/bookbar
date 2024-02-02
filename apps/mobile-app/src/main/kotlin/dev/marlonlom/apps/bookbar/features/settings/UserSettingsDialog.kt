@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.settings
+package dev.marlonlom.apps.bookbar.features.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -38,11 +38,11 @@ import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 @ExperimentalMaterial3Api
 @Composable
 fun UserSettingsDialog(
-    appState: BookbarAppState,
-    viewModel: UserSettingsViewModel,
-    onDialogDismissed: () -> Unit,
-    openOssLicencesInfo: () -> Unit,
-    openExternalUrl: (String) -> Unit,
+  appState: BookbarAppState,
+  viewModel: UserSettingsViewModel,
+  onDialogDismissed: () -> Unit,
+  openOssLicencesInfo: () -> Unit,
+  openExternalUrl: (String) -> Unit,
 ) {
   val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
   UserSettingsDialog(
@@ -59,12 +59,12 @@ fun UserSettingsDialog(
 @ExperimentalMaterial3Api
 @Composable
 private fun UserSettingsDialog(
-    appState: BookbarAppState,
-    settingsUiState: SettingsUiState,
-    onDialogDismissed: () -> Unit,
-    onBooleanSettingUpdated: (String, Boolean) -> Unit,
-    openExternalUrl: (String) -> Unit,
-    openOssLicencesInfo: () -> Unit,
+  appState: BookbarAppState,
+  settingsUiState: SettingsUiState,
+  onDialogDismissed: () -> Unit,
+  onBooleanSettingUpdated: (String, Boolean) -> Unit,
+  openExternalUrl: (String) -> Unit,
+  openOssLicencesInfo: () -> Unit,
 ) {
   val configuration = LocalConfiguration.current
   AlertDialog(

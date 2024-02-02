@@ -31,9 +31,9 @@ import dev.marlonlom.apps.bookbar.core.network.BookStoreApiServiceImpl
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.apps.bookbar.dataStore
 import dev.marlonlom.apps.bookbar.domain.books.BookstoreRepository
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksViewModel
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksViewModel
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Loading
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Success
 import dev.marlonlom.apps.bookbar.ui.main.contents.AppContent

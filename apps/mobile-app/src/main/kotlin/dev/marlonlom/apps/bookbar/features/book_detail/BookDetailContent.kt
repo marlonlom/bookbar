@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.book_detail
+package dev.marlonlom.apps.bookbar.features.book_detail
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi

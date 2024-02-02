@@ -11,9 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksViewModel
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksViewModel
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState
 import dev.marlonlom.apps.bookbar.ui.main.scaffold.MainScaffold
 import dev.marlonlom.apps.bookbar.ui.theme.BookbarTheme
