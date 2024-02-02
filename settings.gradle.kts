@@ -20,7 +20,7 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "Bookbar"
+rootProject.name = "bookbar"
 include(":apps:mobile-app")
 include(":features:core:network-api")
 include(":features:core:preferences-datastore")

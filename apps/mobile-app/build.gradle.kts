@@ -93,6 +93,7 @@ dependencies {
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.androidx.navigation.compose)
+  implementation(libs.androidx.window)
   implementation(libs.bundles.database.room)
   implementation(libs.bundles.network.ktor.client)
   implementation(libs.coil.compose)

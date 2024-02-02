@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.books_new
+package dev.marlonlom.apps.bookbar.features.books_new
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -35,7 +35,7 @@ class NewBooksViewModel(
       }
     }.stateIn(
       scope = viewModelScope,
-      started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+      started = SharingStarted.Eagerly,
       initialValue = NewBooksUiState.Loading,
     )
 

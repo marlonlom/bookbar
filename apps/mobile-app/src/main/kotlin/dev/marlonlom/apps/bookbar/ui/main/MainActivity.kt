@@ -11,33 +11,39 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.window.layout.WindowInfoTracker
 import dev.marlonlom.apps.bookbar.BuildConfig
 import dev.marlonlom.apps.bookbar.core.database.BookbarDatabase
 import dev.marlonlom.apps.bookbar.core.network.BookStoreApiServiceImpl
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.apps.bookbar.dataStore
 import dev.marlonlom.apps.bookbar.domain.books.BookstoreRepository
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksViewModel
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksViewModel
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Loading
 import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState.Success
+import dev.marlonlom.apps.bookbar.ui.main.contents.AppContent
+import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /**
@@ -98,9 +104,12 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       val windowSizeClass = calculateWindowSizeClass(activity = this)
+      val devicePosture by devicePostureFlow.collectAsStateWithLifecycle()
+
       AppContent(
         mainActivityUiState = mainActivityUiState,
         windowSizeClass = windowSizeClass,
+        devicePosture = devicePosture,
         activityContext = this,
         userPreferencesRepository = newUserPreferencesRepository(),
         newBooksViewModel = newBooksViewModel,
@@ -117,35 +126,14 @@ class MainActivity : ComponentActivity() {
     bookstoreDatabase = BookbarDatabase.getInstance(this)
   )
 
-}
-
-/**
- * Returns true/false if dynamic colors are applied to the ui.
- *
- * @param mainActivityUiState Main activity ui state.
- * @return true/false
- */
-@Composable
-internal fun shouldUseDynamicColor(
-  mainActivityUiState: MainActivityUiState
-): Boolean = when (mainActivityUiState) {
-  Loading -> false
-  is Success -> mainActivityUiState.userData.useDynamicColor
-}
-
-/**
- * Returns true/false if dark theme is applied to the ui.
- *
- * @param mainActivityUiState Main activity ui state.
- * @return true/false
- */
-@Composable
-internal fun shouldUseDarkTheme(
-  mainActivityUiState: MainActivityUiState
-): Boolean = when (mainActivityUiState) {
-  Loading -> isSystemInDarkTheme()
-  is Success -> {
-    val useDarkTheme = mainActivityUiState.userData.useDarkTheme
-    if (useDarkTheme.not()) isSystemInDarkTheme() else useDarkTheme
-  }
+  private val devicePostureFlow = WindowInfoTracker
+    .getOrCreate(this@MainActivity)
+    .windowLayoutInfo(this@MainActivity)
+    .flowWithLifecycle(lifecycle)
+    .map { layoutInfo -> DevicePosture.fromLayoutInfo(layoutInfo) }
+    .stateIn(
+      scope = lifecycleScope,
+      started = SharingStarted.Eagerly,
+      initialValue = DevicePosture.NormalPosture
+    )
 }

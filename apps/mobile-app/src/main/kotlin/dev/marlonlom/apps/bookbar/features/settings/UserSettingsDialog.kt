@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.settings
+package dev.marlonlom.apps.bookbar.features.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dev.marlonlom.apps.bookbar.R
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api

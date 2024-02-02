@@ -12,11 +12,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailRoute
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksRoute
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksRoute
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailRoute
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksRoute
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksRoute
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -47,7 +47,7 @@ fun MainNavHost(
 ) {
   NavHost(
     navController = appState.navController,
-    startDestination = BookbarRoutes.Home.route
+    startDestination = BookbarRoute.Home.route
   ) {
     homeDestination(appState, onBookItemClicked)
     favoritesDestination(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
@@ -69,11 +69,12 @@ fun MainNavHost(
  * @param appState App ui state.
  * @param onBookItemClicked Action for Book item clicked.
  */
+@ExperimentalFoundationApi
 internal fun NavGraphBuilder.homeDestination(
-  appState: BookbarAppState,
-  onBookItemClicked: (String) -> Unit
+    appState: BookbarAppState,
+    onBookItemClicked: (String) -> Unit
 ) {
-  composable(BookbarRoutes.Home.route) {
+  composable(BookbarRoute.Home.route) {
     NewBooksRoute(appState, onBookItemClicked)
   }
 }
@@ -88,11 +89,11 @@ internal fun NavGraphBuilder.homeDestination(
  * @param onRemoveFavoriteIconClicked Action for favorite Book removal icon clicked.
  */
 internal fun NavGraphBuilder.favoritesDestination(
-  appState: BookbarAppState,
-  onBookItemClicked: (String) -> Unit,
-  onRemoveFavoriteIconClicked: (String) -> Unit
+    appState: BookbarAppState,
+    onBookItemClicked: (String) -> Unit,
+    onRemoveFavoriteIconClicked: (String) -> Unit
 ) {
-  composable(BookbarRoutes.Favorite.route) {
+  composable(BookbarRoute.Favorite.route) {
     FavoriteBooksRoute(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
   }
 }
@@ -119,8 +120,8 @@ internal fun NavGraphBuilder.detailsDestination(
   onShareIconClicked: (String) -> Unit
 ) {
   composable(
-    route = BookbarRoutes.Details.route,
-    arguments = BookbarRoutes.Details.navArguments
+    route = BookbarRoute.Details.route,
+    arguments = BookbarRoute.Details.navArguments
   ) { navBackStackEntry ->
     val bookId = navBackStackEntry.arguments?.getString("bookId")
     requireNotNull(bookId) { "bookId parameter wasn't found. Please make sure it's set!" }

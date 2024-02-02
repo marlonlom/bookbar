@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.main
+package dev.marlonlom.apps.bookbar.ui.main.scaffold
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,22 +32,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailContent
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksUiState
-import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksUiState
-import dev.marlonlom.apps.bookbar.ui.features.settings.UserSettingsDialog
-import dev.marlonlom.apps.bookbar.ui.features.settings.UserSettingsViewModel
-import dev.marlonlom.apps.bookbar.ui.navigation.BookbarRoutes
-import dev.marlonlom.apps.bookbar.ui.navigation.MainBottomNavBar
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailContent
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksUiState
+import dev.marlonlom.apps.bookbar.features.books_new.NewBooksUiState
+import dev.marlonlom.apps.bookbar.features.settings.UserSettingsDialog
+import dev.marlonlom.apps.bookbar.features.settings.UserSettingsViewModel
+import dev.marlonlom.apps.bookbar.ui.main.contents.AppContentCallbacks
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.rememberBookbarAppState
+import dev.marlonlom.apps.bookbar.ui.navigation.BookbarRoute
 import dev.marlonlom.apps.bookbar.ui.navigation.MainNavHost
-import dev.marlonlom.apps.bookbar.ui.navigation.MainNavigationRail
-import dev.marlonlom.apps.bookbar.ui.navigation.bottomNavRoutes
+import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
@@ -69,6 +69,7 @@ import timber.log.Timber
 @Composable
 fun MainScaffold(
   windowSizeClass: WindowSizeClass,
+  devicePosture: DevicePosture,
   userPreferencesRepository: UserPreferencesRepository,
   bookDetailsViewModel: BookDetailsViewModel,
   appContentCallbacks: AppContentCallbacks,
@@ -77,19 +78,23 @@ fun MainScaffold(
   detailedBookUiState: BookDetailResult,
   appState: BookbarAppState = rememberBookbarAppState(
     windowSizeClass = windowSizeClass,
+    devicePosture = devicePosture,
     newBooksList = newBooksListState,
     favoriteBooksList = favoriteBooksListState,
     detailedBook = detailedBookUiState
   ),
 ) {
   val currentAppRoute = appState.navController
-    .currentBackStackEntryAsState().value?.destination?.route ?: BookbarRoutes.Home.route
+    .currentBackStackEntryAsState().value?.destination?.route
+    ?: BookbarRoute.Home.route
+
   var bottomNavSelectedIndex by rememberSaveable {
     mutableIntStateOf(
-      bottomNavRoutes.map { it.route }.indexOf(currentAppRoute)
+      BookbarRoute.topDestinationRoutes.map { it.route }.indexOf(currentAppRoute)
     )
   }
-  val isTopDestination = currentAppRoute in bottomNavRoutes.map { it.route }
+
+  val isTopDestination = currentAppRoute in BookbarRoute.topDestinationRoutes.map { it.route }
 
   var showSettingsDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -97,7 +102,7 @@ fun MainScaffold(
     Timber.d("Book[$bookIsbn13] Clicked. canNavigateToDetail=${appState.canNavigateToDetail}")
     if (appState.canNavigateToDetail) {
       appState.navController.navigate(
-        BookbarRoutes.Details.createRoute(bookIsbn13)
+        BookbarRoute.Details.createRoute(bookIsbn13)
       )
     } else {
       bookDetailsViewModel.setSelectedBook(bookIsbn13)
@@ -121,14 +126,11 @@ fun MainScaffold(
         MainBottomNavBar(
           navSelectedIndex = bottomNavSelectedIndex,
           onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
-            if (selectedRoute == BookbarRoutes.Preferences.route) {
+            if (selectedRoute == BookbarRoute.Settings.route) {
               showSettingsDialog = true
             } else {
               bottomNavSelectedIndex = selectedIndex
-              handleSelectedTopDestination(
-                navController = appState.navController,
-                selectedRoute = selectedRoute,
-              )
+              appState.changeTopDestination(selectedRoute)
             }
           },
         )
@@ -138,21 +140,91 @@ fun MainScaffold(
     Box(
       modifier = Modifier
         .safeDrawingPadding()
+        .navigationBarsPadding()
         .padding(paddingValues)
     ) {
-      if (appState.canShowNavigationRail.and(isTopDestination)) {
+      if (appState.canShowExpandedNavigationDrawer.and(isTopDestination)) {
+        ExpandedNavigationDrawer(
+          selectedPosition = bottomNavSelectedIndex,
+          onSelectedPositionChanged = { selectedIndex, selectedRoute ->
+            if (selectedRoute == BookbarRoute.Settings.route) {
+              showSettingsDialog = true
+            } else {
+              bottomNavSelectedIndex = selectedIndex
+              appState.changeTopDestination(selectedRoute)
+            }
+          },
+        ) {
+          if (appState.isLandscapeOrientation) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+              Column(modifier = Modifier.fillMaxWidth(0.4f)) {
+                MainNavHost(
+                  appState = appState,
+                  bookDetailsViewModel = bookDetailsViewModel,
+                  onBookItemClicked = onBookItemClicked,
+                  openExternalUrl = appContentCallbacks.openExternalUrl,
+                  onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+                  onShareIconClicked = appContentCallbacks.onShareIconClicked,
+                  onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
+                )
+              }
+              val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
+              Column(
+                modifier = Modifier
+                  .background(
+                    color = detailContentBackgroundColor,
+                    shape = RoundedCornerShape(size = 20.dp)
+                  )
+                  .padding(horizontal = 20.dp)
+                  .fillMaxSize(0.95f),
+                horizontalAlignment = Alignment.CenterHorizontally
+              ) {
+                when (appState.bookDetails) {
+                  BookDetailResult.Loading -> {
+                    Text(text = "Loading book ...")
+                  }
+
+                  BookDetailResult.NotFound -> {
+                    Text(text = appState.bookDetails.toString())
+                  }
+
+                  is BookDetailResult.Success -> {
+                    BookDetailContent(
+                      appState = appState,
+                      bookDetailItem = appState.bookDetails.item,
+                      onBackNavigationIconClicked = {},
+                      onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
+                      onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
+                      onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+                      onShareIconClicked = appContentCallbacks.onShareIconClicked,
+                      backgroundColor = detailContentBackgroundColor
+                    )
+                  }
+                }
+              }
+            }
+          } else {
+            MainNavHost(
+              appState = appState,
+              bookDetailsViewModel = bookDetailsViewModel,
+              onBookItemClicked = onBookItemClicked,
+              openExternalUrl = appContentCallbacks.openExternalUrl,
+              onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+              onShareIconClicked = appContentCallbacks.onShareIconClicked,
+              onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
+            )
+          }
+        }
+      } else if (appState.canShowNavigationRail.and(isTopDestination)) {
         MainScaffoldLandscapeContent(
           appState = appState,
           bottomNavSelectedIndex = bottomNavSelectedIndex,
           onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
-            if (selectedRoute == BookbarRoutes.Preferences.route) {
+            if (selectedRoute == BookbarRoute.Settings.route) {
               showSettingsDialog = true
             } else {
               bottomNavSelectedIndex = selectedIndex
-              handleSelectedTopDestination(
-                navController = appState.navController,
-                selectedRoute = selectedRoute,
-              )
+              appState.changeTopDestination(selectedRoute)
             }
           },
           onBookItemClicked = onBookItemClicked,
@@ -248,25 +320,5 @@ private fun MainScaffoldLandscapeContent(
         }
       }
     }
-  }
-}
-
-/**
- * Handle navigation to selected top destination.
- *
- * @param navController Navigation controller.
- * @param selectedRoute Selected destination route.
- */
-internal fun handleSelectedTopDestination(
-  navController: NavHostController,
-  selectedRoute: String,
-) {
-  navController.navigate(selectedRoute) {
-    popUpTo(navController.graph.findStartDestination().id) {
-      saveState = true
-      inclusive = true
-    }
-    launchSingleTop = true
-    restoreState = true
   }
 }

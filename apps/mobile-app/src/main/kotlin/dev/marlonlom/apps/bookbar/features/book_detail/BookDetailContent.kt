@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.book_detail
+package dev.marlonlom.apps.bookbar.features.book_detail
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -33,7 +33,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 import timber.log.Timber
 
 /**
@@ -54,17 +54,16 @@ import timber.log.Timber
 @ExperimentalMaterial3Api
 @Composable
 fun BookDetailContent(
-  appState: BookbarAppState,
-  bookDetailItem: BookDetailItem,
-  onBackNavigationIconClicked: () -> Unit,
-  onBuyBookIconClicked: (String) -> Unit,
-  onReadMoreTextClicked: (String) -> Unit,
-  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-  onShareIconClicked: (String) -> Unit,
-  backgroundColor: Color = MaterialTheme.colorScheme.background
+    appState: BookbarAppState,
+    bookDetailItem: BookDetailItem,
+    onBackNavigationIconClicked: () -> Unit,
+    onBuyBookIconClicked: (String) -> Unit,
+    onReadMoreTextClicked: (String) -> Unit,
+    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+    onShareIconClicked: (String) -> Unit,
+    backgroundColor: Color = MaterialTheme.colorScheme.background
 ) {
   val contentHorizontalPadding = when {
-    appState.is10InTabletWidth -> 60.dp
     appState.is7InTabletWidth -> 40.dp
     else -> 20.dp
   }

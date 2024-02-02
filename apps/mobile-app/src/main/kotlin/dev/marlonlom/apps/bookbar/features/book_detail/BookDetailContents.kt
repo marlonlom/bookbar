@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.features.book_detail
+package dev.marlonlom.apps.bookbar.features.book_detail
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
 import dev.marlonlom.apps.bookbar.ui.common.BookPosterImage
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 /**
  * Raring bar for book details composable ui.
@@ -92,9 +92,9 @@ internal fun BookDetailDivider() {
  */
 @Composable
 internal fun BookHeadingSection(
-  appState: BookbarAppState,
-  bookDetailItem: BookDetailItem,
-  onBuyBookIconClicked: (String) -> Unit
+    appState: BookbarAppState,
+    bookDetailItem: BookDetailItem,
+    onBuyBookIconClicked: (String) -> Unit
 ) {
   val posterImageContainerWidth = if (appState.isLandscapeOrientation.and(appState.isCompactWidth.not())) 0.2f else 0.4f
   Row(
@@ -132,9 +132,9 @@ internal fun BookHeadingSection(
  */
 @Composable
 internal fun BookHeadingContent(
-  appState: BookbarAppState,
-  bookDetailItem: BookDetailItem,
-  onBuyBookIconClicked: (String) -> Unit
+    appState: BookbarAppState,
+    bookDetailItem: BookDetailItem,
+    onBuyBookIconClicked: (String) -> Unit
 ) {
   BookRatingsBar(bookDetailItem)
   Text(
@@ -221,12 +221,12 @@ internal fun BuyBookButton(
  */
 @Composable
 internal fun HeaderTopBar(
-  appState: BookbarAppState,
-  bookDetailItem: BookDetailItem,
-  onBackNavigationIconClicked: () -> Unit,
-  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-  onShareBookIconClicked: (String) -> Unit,
-  backgroundColor: Color = MaterialTheme.colorScheme.background,
+    appState: BookbarAppState,
+    bookDetailItem: BookDetailItem,
+    onBackNavigationIconClicked: () -> Unit,
+    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+    onShareBookIconClicked: (String) -> Unit,
+    backgroundColor: Color = MaterialTheme.colorScheme.background,
 ) {
   Row(
     modifier = Modifier

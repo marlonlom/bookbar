@@ -7,8 +7,8 @@ package dev.marlonlom.apps.bookbar.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Home
-import androidx.compose.material.icons.twotone.MenuBook
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavType
@@ -24,7 +24,7 @@ import dev.marlonlom.apps.bookbar.R
  * @property label Route label string resource.
  * @property icon Route icon as image vector.
  */
-sealed class BookbarRoutes(
+sealed class BookbarRoute(
   val route: String,
   @StringRes
   val label: Int = -1,
@@ -36,7 +36,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Home : BookbarRoutes(
+  data object Home : BookbarRoute(
     route = "home",
     label = R.string.text_route_home,
     icon = Icons.TwoTone.Home
@@ -47,10 +47,10 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Favorite : BookbarRoutes(
+  data object Favorite : BookbarRoute(
     route = "favorite",
     label = R.string.text_route_favorite,
-    icon = Icons.TwoTone.MenuBook
+    icon = Icons.AutoMirrored.TwoTone.MenuBook
   )
 
   /**
@@ -58,7 +58,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Preferences : BookbarRoutes(
+  data object Settings : BookbarRoute(
     route = "settings",
     label = R.string.text_route_settings,
     icon = Icons.TwoTone.Settings
@@ -69,7 +69,7 @@ sealed class BookbarRoutes(
    *
    * @author marlonlom
    */
-  data object Details : BookbarRoutes(
+  data object Details : BookbarRoute(
     route = "book/{bookId}",
   ) {
 
@@ -85,6 +85,13 @@ sealed class BookbarRoutes(
      */
     fun createRoute(bookId: String) = "book/${bookId}"
   }
+
+  companion object {
+    /** Top destination routes list. */
+    @JvmStatic
+    val topDestinationRoutes
+      get() = listOfNotNull(Home, Favorite, Settings)
+  }
+
 }
 
-val bottomNavRoutes: List<BookbarRoutes> = listOf(BookbarRoutes.Home, BookbarRoutes.Favorite, BookbarRoutes.Preferences)

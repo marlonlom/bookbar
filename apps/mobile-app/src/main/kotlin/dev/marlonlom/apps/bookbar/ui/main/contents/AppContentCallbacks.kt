@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.main
+package dev.marlonlom.apps.bookbar.ui.main.contents
 
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailItem
-import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
-import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
+import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.util.BookSharingUtil
 import dev.marlonlom.apps.bookbar.ui.util.CustomTabsOpener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
