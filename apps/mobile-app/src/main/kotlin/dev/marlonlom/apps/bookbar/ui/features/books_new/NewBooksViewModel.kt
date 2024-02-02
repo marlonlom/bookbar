@@ -35,7 +35,7 @@ class NewBooksViewModel(
       }
     }.stateIn(
       scope = viewModelScope,
-      started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+      started = SharingStarted.Eagerly,
       initialValue = NewBooksUiState.Loading,
     )
 

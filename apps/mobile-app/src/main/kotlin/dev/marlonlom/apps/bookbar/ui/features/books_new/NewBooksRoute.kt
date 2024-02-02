@@ -9,6 +9,8 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -75,7 +77,15 @@ fun NewBooksRoute(
 
       NewBooksUiState.Loading -> {
         item {
-          Text(text = "Loading")
+          Column(
+            modifier = Modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.Center
+          ) {
+            Text(text = "Loading", modifier = Modifier
+              .fillMaxWidth()
+              .padding(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
+          }
         }
       }
 
