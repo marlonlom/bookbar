@@ -1,4 +1,4 @@
-package dev.marlonlom.apps.bookbar.ui.main
+package dev.marlonlom.apps.bookbar.ui.main.contents
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -14,6 +14,8 @@ import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
 import dev.marlonlom.apps.bookbar.ui.features.book_detail.BookDetailsViewModel
 import dev.marlonlom.apps.bookbar.ui.features.books_favorite.FavoriteBooksViewModel
 import dev.marlonlom.apps.bookbar.ui.features.books_new.NewBooksViewModel
+import dev.marlonlom.apps.bookbar.ui.main.MainActivityUiState
+import dev.marlonlom.apps.bookbar.ui.main.scaffold.MainScaffold
 import dev.marlonlom.apps.bookbar.ui.theme.BookbarTheme
 import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 import kotlinx.coroutines.ExperimentalCoroutinesApi

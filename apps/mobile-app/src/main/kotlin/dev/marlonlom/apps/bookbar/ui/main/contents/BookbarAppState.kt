@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package dev.marlonlom.apps.bookbar.ui.main
+package dev.marlonlom.apps.bookbar.ui.main.contents
 
 import android.content.res.Configuration
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
