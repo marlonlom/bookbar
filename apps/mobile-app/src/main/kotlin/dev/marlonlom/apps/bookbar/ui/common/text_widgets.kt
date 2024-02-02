@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.marlonlom.apps.bookbar.R
-import dev.marlonlom.apps.bookbar.ui.main.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 
 /**
  * Welcome title text common composable ui.
@@ -31,16 +31,14 @@ fun WelcomeTitle(
   appState: BookbarAppState
 ) {
   val topBaselinePadding = when {
-    appState.is7InTabletWidth and appState.isLandscapeOrientation -> 40.dp
-    appState.is7InTabletWidth -> 80.dp
-    appState.is10InTabletWidth -> 100.dp
+    appState.is10InTabletWidth -> 60.dp
+    appState.is7InTabletWidth -> 40.dp
     appState.isCompactHeight -> 40.dp
     else -> 60.dp
   }
 
   val textStyle = when {
     appState.is7InTabletWidth and appState.isLandscapeOrientation -> MaterialTheme.typography.titleMedium
-    appState.is7InTabletWidth -> MaterialTheme.typography.headlineMedium
     else -> MaterialTheme.typography.titleMedium
   }
 
