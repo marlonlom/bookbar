@@ -19,6 +19,7 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:label="@string/app_name"
     android:name=".BookbarApp"
+    android:resizeableActivity="true"
     android:supportsRtl="true"
     android:theme="@style/Theme.App.Starting"
     android:windowSoftInputMode="adjustResize"
