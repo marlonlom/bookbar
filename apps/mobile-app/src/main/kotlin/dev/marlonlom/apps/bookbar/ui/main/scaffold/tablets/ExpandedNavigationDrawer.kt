@@ -1,4 +1,4 @@
-package dev.marlonlom.apps.bookbar.ui.main.scaffold
+package dev.marlonlom.apps.bookbar.ui.main.scaffold.tablets
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,8 +33,7 @@ fun ExpandedNavigationDrawer(
       PermanentDrawerSheet(
         modifier = Modifier
           .width(200.dp)
-          .padding(top = 40.dp)
-          .padding(horizontal = 20.dp),
+          .padding(20.dp),
       ) {
         NavigationDrawerContent(
           selectedPosition = selectedPosition,

@@ -25,6 +25,7 @@ import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.ui.common.HeadlineTitle
 import dev.marlonlom.apps.bookbar.ui.common.WelcomeTitle
 import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 
 /**
  * New books route composable ui.
@@ -41,7 +42,8 @@ fun NewBooksRoute(
   onBookItemClicked: (String) -> Unit
 ) {
   val contentHorizontalPadding = when {
-    appState.is7InTabletWidth -> 40.dp
+    appState.is7InTabletWidth.and(appState.isLandscapeOrientation) -> 20.dp
+    appState.is7InTabletWidth.and(appState.devicePosture is DevicePosture.NormalPosture) -> 40.dp
     else -> 20.dp
   }
 
@@ -53,7 +55,7 @@ fun NewBooksRoute(
   LazyColumn(
     modifier = Modifier
       .fillMaxWidth()
-      .padding(contentHorizontalPadding),
+      .padding(horizontal = contentHorizontalPadding),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(verticalSpace),
   ) {

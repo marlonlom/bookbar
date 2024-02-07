@@ -10,6 +10,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -22,7 +23,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -48,20 +48,18 @@ import timber.log.Timber
  * @param onReadMoreTextClicked Action for read more about book link clicked.
  * @param onFavoriteBookIconClicked Action for favorite book toggle icon button clicked.
  * @param onShareIconClicked Action for share book icon button clicked.
- * @param backgroundColor Content background color.
  */
 @ExperimentalFoundationApi
 @ExperimentalMaterial3Api
 @Composable
 fun BookDetailContent(
-    appState: BookbarAppState,
-    bookDetailItem: BookDetailItem,
-    onBackNavigationIconClicked: () -> Unit,
-    onBuyBookIconClicked: (String) -> Unit,
-    onReadMoreTextClicked: (String) -> Unit,
-    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-    onShareIconClicked: (String) -> Unit,
-    backgroundColor: Color = MaterialTheme.colorScheme.background
+  appState: BookbarAppState,
+  bookDetailItem: BookDetailItem,
+  onBackNavigationIconClicked: () -> Unit,
+  onBuyBookIconClicked: (String) -> Unit,
+  onReadMoreTextClicked: (String) -> Unit,
+  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  onShareIconClicked: (String) -> Unit,
 ) {
   val contentHorizontalPadding = when {
     appState.is7InTabletWidth.and(appState.isLandscapeOrientation.not()) -> 40.dp
@@ -71,15 +69,15 @@ fun BookDetailContent(
   LazyColumn(
     state = rememberLazyListState(),
     modifier = Modifier
-      .fillMaxWidth()
-      .padding(contentHorizontalPadding),
+      .fillMaxSize()
+      .padding(horizontal = contentHorizontalPadding)
+      .padding(top = 20.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     stickyHeader {
       HeaderTopBar(
         appState = appState,
         bookDetailItem = bookDetailItem,
-        backgroundColor = backgroundColor,
         onBackNavigationIconClicked = onBackNavigationIconClicked,
         onFavoriteBookIconClicked = onFavoriteBookIconClicked,
         onShareBookIconClicked = onShareIconClicked

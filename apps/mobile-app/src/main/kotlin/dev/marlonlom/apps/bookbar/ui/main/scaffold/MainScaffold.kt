@@ -6,22 +6,12 @@
 package dev.marlonlom.apps.bookbar.ui.main.scaffold
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,13 +19,11 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import dev.marlonlom.apps.bookbar.core.preferences.UserPreferencesRepository
 import dev.marlonlom.apps.bookbar.domain.books.BookDetailResult
-import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailContent
+import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailStatusContent
 import dev.marlonlom.apps.bookbar.features.book_detail.BookDetailsViewModel
 import dev.marlonlom.apps.bookbar.features.books_favorite.FavoriteBooksUiState
 import dev.marlonlom.apps.bookbar.features.books_new.NewBooksUiState
@@ -44,6 +32,10 @@ import dev.marlonlom.apps.bookbar.features.settings.UserSettingsViewModel
 import dev.marlonlom.apps.bookbar.ui.main.contents.AppContentCallbacks
 import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
 import dev.marlonlom.apps.bookbar.ui.main.contents.rememberBookbarAppState
+import dev.marlonlom.apps.bookbar.ui.main.scaffold.folding.FoldingSeparatingLandscapeContent
+import dev.marlonlom.apps.bookbar.ui.main.scaffold.folding.FoldingSeparatingPortraitContent
+import dev.marlonlom.apps.bookbar.ui.main.scaffold.folding.NotFoldedMediumContent
+import dev.marlonlom.apps.bookbar.ui.main.scaffold.tablets.TabletScaffoldContent
 import dev.marlonlom.apps.bookbar.ui.navigation.BookbarRoute
 import dev.marlonlom.apps.bookbar.ui.navigation.MainNavHost
 import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
@@ -56,10 +48,13 @@ import timber.log.Timber
  * @author marlonlom
  *
  * @param windowSizeClass Window size class.
- * @param userPreferencesRepository User preferences repository.
+ * @param devicePosture Device posture.
  * @param appContentCallbacks Application content callbacks.
+ * @param userPreferencesRepository User preferences repository.
+ * @param bookDetailsViewModel Book details view model.
  * @param newBooksListState New books list ui state.
  * @param favoriteBooksListState Favorite books list ui state.
+ * @param detailedBookUiState Book details ui state.
  * @param appState Application ui state.
  */
 @ExperimentalCoroutinesApi
@@ -70,9 +65,9 @@ import timber.log.Timber
 fun MainScaffold(
   windowSizeClass: WindowSizeClass,
   devicePosture: DevicePosture,
+  appContentCallbacks: AppContentCallbacks,
   userPreferencesRepository: UserPreferencesRepository,
   bookDetailsViewModel: BookDetailsViewModel,
-  appContentCallbacks: AppContentCallbacks,
   newBooksListState: NewBooksUiState,
   favoriteBooksListState: FavoriteBooksUiState,
   detailedBookUiState: BookDetailResult,
@@ -84,9 +79,8 @@ fun MainScaffold(
     detailedBook = detailedBookUiState
   ),
 ) {
-  val currentAppRoute = appState.navController
-    .currentBackStackEntryAsState().value?.destination?.route
-    ?: BookbarRoute.Home.route
+  val currentAppRoute =
+    appState.navController.currentBackStackEntryAsState().value?.destination?.route ?: BookbarRoute.Home.route
 
   var bottomNavSelectedIndex by rememberSaveable {
     mutableIntStateOf(
@@ -138,100 +132,10 @@ fun MainScaffold(
     },
   ) { paddingValues ->
     Box(
-      modifier = Modifier
-        .safeDrawingPadding()
-        .navigationBarsPadding()
-        .padding(paddingValues)
+      Modifier.padding(paddingValues),
     ) {
-      if (appState.canShowExpandedNavigationDrawer.and(isTopDestination)) {
-        ExpandedNavigationDrawer(
-          selectedPosition = bottomNavSelectedIndex,
-          onSelectedPositionChanged = { selectedIndex, selectedRoute ->
-            if (selectedRoute == BookbarRoute.Settings.route) {
-              showSettingsDialog = true
-            } else {
-              bottomNavSelectedIndex = selectedIndex
-              appState.changeTopDestination(selectedRoute)
-            }
-          },
-        ) {
-          if (appState.isLandscapeOrientation) {
-            Row(verticalAlignment = Alignment.Top) {
-              Column(modifier = Modifier.fillMaxWidth(0.4f)) {
-                MainNavHost(
-                  appState = appState,
-                  bookDetailsViewModel = bookDetailsViewModel,
-                  onBookItemClicked = onBookItemClicked,
-                  openExternalUrl = appContentCallbacks.openExternalUrl,
-                  onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-                  onShareIconClicked = appContentCallbacks.onShareIconClicked,
-                  onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
-                )
-              }
-              val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
-              Column(
-                modifier = Modifier
-                  .background(
-                    color = detailContentBackgroundColor,
-                    shape = RoundedCornerShape(size = 20.dp)
-                  )
-                  .padding(horizontal = 20.dp)
-                  .fillMaxSize(0.95f),
-                horizontalAlignment = Alignment.CenterHorizontally
-              ) {
-                when (appState.bookDetails) {
-                  BookDetailResult.Loading -> {
-                    Text(text = "Loading book ...")
-                  }
 
-                  BookDetailResult.NotFound -> {
-                    Text(text = appState.bookDetails.toString())
-                  }
-
-                  is BookDetailResult.Success -> {
-                    BookDetailContent(
-                      appState = appState,
-                      bookDetailItem = appState.bookDetails.item,
-                      onBackNavigationIconClicked = {},
-                      onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
-                      onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
-                      onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-                      onShareIconClicked = appContentCallbacks.onShareIconClicked,
-                      backgroundColor = detailContentBackgroundColor
-                    )
-                  }
-                }
-              }
-            }
-          } else {
-            MainNavHost(
-              appState = appState,
-              bookDetailsViewModel = bookDetailsViewModel,
-              onBookItemClicked = onBookItemClicked,
-              openExternalUrl = appContentCallbacks.openExternalUrl,
-              onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-              onShareIconClicked = appContentCallbacks.onShareIconClicked,
-              onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
-            )
-          }
-        }
-      } else if (appState.canShowNavigationRail.and(isTopDestination)) {
-        MainScaffoldLandscapeContent(
-          appState = appState,
-          bottomNavSelectedIndex = bottomNavSelectedIndex,
-          onNavSelectedIndexChanged = { selectedIndex, selectedRoute ->
-            if (selectedRoute == BookbarRoute.Settings.route) {
-              showSettingsDialog = true
-            } else {
-              bottomNavSelectedIndex = selectedIndex
-              appState.changeTopDestination(selectedRoute)
-            }
-          },
-          onBookItemClicked = onBookItemClicked,
-          bookDetailsViewModel = bookDetailsViewModel,
-          appContentCallbacks = appContentCallbacks,
-        )
-      } else {
+      val listingUi: @Composable () -> Unit = {
         MainNavHost(
           appState = appState,
           bookDetailsViewModel = bookDetailsViewModel,
@@ -242,84 +146,111 @@ fun MainScaffold(
           onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
         )
       }
-    }
-  }
-}
 
-/**
- * Main scaffold landscape content composable ui.
- *
- * @author marlonlom
- *
- * @param appState Application ui state.
- * @param bottomNavSelectedIndex Bottom navigation / Navigation rail selected index
- * @param onNavSelectedIndexChanged Action for changed top destination route.
- * @param onBookItemClicked Action for book list item clicked.
- * @param bookDetailsViewModel Book details viewmodel.
- * @param appContentCallbacks Application content callbacks.
- */
-@ExperimentalCoroutinesApi
-@ExperimentalFoundationApi
-@ExperimentalMaterial3Api
-@Composable
-private fun MainScaffoldLandscapeContent(
-  appState: BookbarAppState,
-  bottomNavSelectedIndex: Int,
-  onNavSelectedIndexChanged: (Int, String) -> Unit,
-  onBookItemClicked: (String) -> Unit,
-  bookDetailsViewModel: BookDetailsViewModel,
-  appContentCallbacks: AppContentCallbacks,
-) {
-  Row(verticalAlignment = Alignment.Top) {
-    MainNavigationRail(
-      navSelectedIndex = bottomNavSelectedIndex,
-      onNavSelectedIndexChanged = onNavSelectedIndexChanged,
-    )
-    val fraction = if (appState.isLandscapeOrientation) 0.5f else 1f
-    Column(modifier = Modifier.fillMaxWidth(fraction)) {
-      MainNavHost(
-        appState = appState,
-        bookDetailsViewModel = bookDetailsViewModel,
-        onBookItemClicked = onBookItemClicked,
-        openExternalUrl = appContentCallbacks.openExternalUrl,
-        onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-        onShareIconClicked = appContentCallbacks.onShareIconClicked,
-        onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
-      )
-    }
-    if (appState.isLandscapeOrientation) {
-      val detailContentBackgroundColor = MaterialTheme.colorScheme.secondaryContainer
-      Column(
-        modifier = Modifier
-          .background(
-            color = detailContentBackgroundColor,
-            shape = RoundedCornerShape(size = 20.dp)
+      val detailsUi: @Composable () -> Unit = {
+        BookDetailStatusContent(
+          appState = appState,
+          onBackNavigationIconClicked = {},
+          onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
+          onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
+          onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+          onShareIconClicked = appContentCallbacks.onShareIconClicked
+        )
+      }
+
+      val navigationRailUi: @Composable (Int, (Int, String) -> Unit) -> Unit =
+        { bottomNavIndex, bottomNavIndexChanged ->
+          MainNavigationRail(
+            navSelectedIndex = bottomNavIndex,
+            onNavSelectedIndexChanged = bottomNavIndexChanged,
           )
-          .padding(horizontal = 20.dp)
-          .fillMaxSize(0.95f),
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        when (appState.bookDetails) {
-          BookDetailResult.Loading -> {
-            Text(text = "Loading book ...")
-          }
+        }
 
-          BookDetailResult.NotFound -> {
-            Text(text = appState.bookDetails.toString())
-          }
+      when {
+        appState.canShowExpandedNavigationDrawer.and(isTopDestination) -> {
+          TabletScaffoldContent(
+            appState = appState,
+            selectedPosition = bottomNavSelectedIndex,
+            onSelectedPositionChanged = { selectedIndex, selectedRoute ->
+              if (selectedRoute == BookbarRoute.Settings.route) {
+                showSettingsDialog = true
+              } else {
+                bottomNavSelectedIndex = selectedIndex
+                appState.changeTopDestination(selectedRoute)
+              }
+            },
+            firstContent = { listingUi() },
+            secondContent = { detailsUi() }
+          )
+        }
 
-          is BookDetailResult.Success -> {
-            BookDetailContent(
-              appState = appState,
-              bookDetailItem = appState.bookDetails.item,
-              onBackNavigationIconClicked = {},
-              onBuyBookIconClicked = appContentCallbacks.openExternalUrl,
-              onReadMoreTextClicked = appContentCallbacks.openExternalUrl,
-              onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
-              onShareIconClicked = appContentCallbacks.onShareIconClicked,
-              backgroundColor = detailContentBackgroundColor
-            )
-          }
+        appState.canShowNavigationRail.and(isTopDestination).and(appState.isDeviceNormalPosture) -> {
+          NotFoldedMediumContent(
+            isLandscapeOrientation = appState.isLandscapeOrientation,
+            navigationRail = {
+              navigationRailUi(
+                bottomNavSelectedIndex,
+              ) { selectedIndex, selectedRoute ->
+                if (selectedRoute == BookbarRoute.Settings.route) {
+                  showSettingsDialog = true
+                } else {
+                  bottomNavSelectedIndex = selectedIndex
+                  appState.changeTopDestination(selectedRoute)
+                }
+              }
+            },
+            leftContent = { listingUi() },
+          ) { detailsUi() }
+        }
+
+        appState.canShowNavigationRail.and(isTopDestination).and(appState.isDeviceSeparatingHorizontal) -> {
+          FoldingSeparatingLandscapeContent(
+            navigationRail = {
+              navigationRailUi(
+                bottomNavSelectedIndex,
+              ) { selectedIndex, selectedRoute ->
+                if (selectedRoute == BookbarRoute.Settings.route) {
+                  showSettingsDialog = true
+                } else {
+                  bottomNavSelectedIndex = selectedIndex
+                  appState.changeTopDestination(selectedRoute)
+                }
+              }
+            },
+            leftContent = { listingUi() },
+            rightContent = { detailsUi() },
+          )
+        }
+
+        appState.canShowNavigationRail.and(isTopDestination).and(appState.isDeviceSeparatingVertical) -> {
+          FoldingSeparatingPortraitContent(
+            navigationRail = {
+              navigationRailUi(
+                bottomNavSelectedIndex,
+              ) { selectedIndex, selectedRoute ->
+                if (selectedRoute == BookbarRoute.Settings.route) {
+                  showSettingsDialog = true
+                } else {
+                  bottomNavSelectedIndex = selectedIndex
+                  appState.changeTopDestination(selectedRoute)
+                }
+              }
+            },
+            leftContent = { listingUi() },
+            rightContent = { detailsUi() },
+          )
+        }
+
+        else -> {
+          MainNavHost(
+            appState = appState,
+            bookDetailsViewModel = bookDetailsViewModel,
+            onBookItemClicked = onBookItemClicked,
+            openExternalUrl = appContentCallbacks.openExternalUrl,
+            onFavoriteBookIconClicked = appContentCallbacks.onFavoriteBookIconClicked,
+            onShareIconClicked = appContentCallbacks.onShareIconClicked,
+            onRemoveFavoriteIconClicked = appContentCallbacks.onRemoveFavoriteIconClicked
+          )
         }
       }
     }

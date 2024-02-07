@@ -62,7 +62,7 @@ sealed interface DevicePosture {
     fun fromLayoutInfo(layoutInfo: WindowLayoutInfo): DevicePosture {
       val foldingFeature =
         layoutInfo.displayFeatures.filterIsInstance<FoldingFeature>().firstOrNull()
-
+      
       return when {
 
         isBookPosture(foldingFeature) -> BookPosture(

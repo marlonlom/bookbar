@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.marlonlom.apps.bookbar.R
 import dev.marlonlom.apps.bookbar.ui.main.contents.BookbarAppState
+import dev.marlonlom.apps.bookbar.ui.util.DevicePosture
 
 /**
  * Welcome title text common composable ui.
@@ -65,8 +66,8 @@ fun HeadlineTitle(
   @StringRes headlineTextRes: Int
 ) {
   val textStyle = when {
-    appState.is7InTabletWidth and appState.isLandscapeOrientation -> MaterialTheme.typography.displaySmall
-    appState.is7InTabletWidth -> MaterialTheme.typography.displayLarge
+    appState.is7InTabletWidth.and(appState.isLandscapeOrientation)  -> MaterialTheme.typography.displaySmall
+    appState.is7InTabletWidth.and(appState.devicePosture is DevicePosture.NormalPosture) -> MaterialTheme.typography.displayLarge
     else -> MaterialTheme.typography.displaySmall
   }
 

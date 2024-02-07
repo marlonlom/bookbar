@@ -7,7 +7,6 @@ package dev.marlonlom.apps.bookbar.features.books_new
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -71,7 +70,6 @@ internal fun BookListItem(
         onBookItemClicked(bookItem.isbn13)
       },
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(10.dp)
   ) {
     Column(
       modifier = Modifier
@@ -90,16 +88,26 @@ internal fun BookListItem(
           .padding(4.dp)
       )
     }
-    Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+
+    Column(
+      modifier = Modifier
+        .padding(2.dp)
+    ) {
+      val titleTypography = when {
+        appState.isDeviceSeparating.or(appState.isDeviceBookPosture) -> MaterialTheme.typography.titleMedium
+        else -> MaterialTheme.typography.titleLarge
+      }
+
       Text(
         textAlign = TextAlign.Start,
         text = bookItem.title,
-        style = MaterialTheme.typography.titleLarge,
+        style = titleTypography,
         fontWeight = FontWeight.SemiBold,
         color = MaterialTheme.colorScheme.secondary,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
       )
+
       Text(
         modifier = Modifier
           .padding(top = 4.dp),
