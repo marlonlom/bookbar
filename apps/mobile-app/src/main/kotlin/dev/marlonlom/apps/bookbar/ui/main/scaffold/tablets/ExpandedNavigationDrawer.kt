@@ -1,4 +1,4 @@
-package dev.marlonlom.apps.bookbar.ui.main.scaffold
+package dev.marlonlom.apps.bookbar.ui.main.scaffold.tablets
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
