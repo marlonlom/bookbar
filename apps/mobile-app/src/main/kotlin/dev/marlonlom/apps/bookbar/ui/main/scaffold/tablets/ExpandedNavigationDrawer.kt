@@ -33,8 +33,7 @@ fun ExpandedNavigationDrawer(
       PermanentDrawerSheet(
         modifier = Modifier
           .width(200.dp)
-          .padding(top = 40.dp)
-          .padding(horizontal = 20.dp),
+          .padding(20.dp),
       ) {
         NavigationDrawerContent(
           selectedPosition = selectedPosition,
