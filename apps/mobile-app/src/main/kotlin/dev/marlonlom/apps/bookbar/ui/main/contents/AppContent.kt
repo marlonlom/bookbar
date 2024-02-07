@@ -64,14 +64,14 @@ fun AppContent(
     )
 
     MainScaffold(
-      windowSizeClass = windowSizeClass,
-      devicePosture = devicePosture,
-      userPreferencesRepository = userPreferencesRepository,
-      bookDetailsViewModel = bookDetailsViewModel,
-      appContentCallbacks = appContentCallbacks,
-      newBooksListState = newBooksListState,
-      favoriteBooksListState = favoriteBooksListState,
-      detailedBookUiState = detailedBookUiState
+        windowSizeClass = windowSizeClass,
+        devicePosture = devicePosture,
+        appContentCallbacks = appContentCallbacks,
+        userPreferencesRepository = userPreferencesRepository,
+        bookDetailsViewModel = bookDetailsViewModel,
+        newBooksListState = newBooksListState,
+        favoriteBooksListState = favoriteBooksListState,
+        detailedBookUiState = detailedBookUiState
     )
   }
 }

@@ -82,7 +82,7 @@ fun rememberBookbarAppState(
 @Stable
 class BookbarAppState(
   internal val navController: NavHostController,
-  private val windowSizeClass: WindowSizeClass,
+  val windowSizeClass: WindowSizeClass,
   val devicePosture: DevicePosture,
   private val localConfiguration: Configuration,
   val newBooksList: NewBooksUiState,
@@ -102,11 +102,13 @@ class BookbarAppState(
 
   val is10InTabletWidth get() = localConfiguration.smallestScreenWidthDp.dp >= 720.dp
 
-  val canShowBottomNavigation get() = isCompactWidth
+  val canShowBottomNavigation get() = isCompactWidth.and(devicePosture is DevicePosture.NormalPosture)
 
   val canShowNavigationRail get() = isCompactWidth.not().and(is10InTabletWidth.not())
 
   val canShowExpandedNavigationDrawer get() = isCompactWidth.not().and(is10InTabletWidth)
+
+  val isDeviceNormalPosture get() = devicePosture is DevicePosture.NormalPosture
 
   val isDeviceBookPosture get() = devicePosture is DevicePosture.BookPosture
 
