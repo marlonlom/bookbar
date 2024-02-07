@@ -7,7 +7,6 @@ package dev.marlonlom.apps.bookbar.features.book_detail
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.ArrowBack
+import androidx.compose.material.icons.automirrored.twotone.ArrowBack
 import androidx.compose.material.icons.twotone.BookmarkAdded
 import androidx.compose.material.icons.twotone.BookmarkBorder
 import androidx.compose.material.icons.twotone.Share
@@ -33,7 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -92,9 +90,9 @@ internal fun BookDetailDivider() {
  */
 @Composable
 internal fun BookHeadingSection(
-    appState: BookbarAppState,
-    bookDetailItem: BookDetailItem,
-    onBuyBookIconClicked: (String) -> Unit
+  appState: BookbarAppState,
+  bookDetailItem: BookDetailItem,
+  onBuyBookIconClicked: (String) -> Unit
 ) {
   val posterImageContainerWidth = if (appState.isLandscapeOrientation.and(appState.isCompactWidth.not())) 0.2f else 0.4f
   Row(
@@ -132,9 +130,9 @@ internal fun BookHeadingSection(
  */
 @Composable
 internal fun BookHeadingContent(
-    appState: BookbarAppState,
-    bookDetailItem: BookDetailItem,
-    onBuyBookIconClicked: (String) -> Unit
+  appState: BookbarAppState,
+  bookDetailItem: BookDetailItem,
+  onBuyBookIconClicked: (String) -> Unit
 ) {
   BookRatingsBar(bookDetailItem)
   Text(
@@ -217,21 +215,18 @@ internal fun BuyBookButton(
  * @param onBackNavigationIconClicked Action for back navigation button clicked.
  * @param onFavoriteBookIconClicked Action for favorite book toggle icon button clicked.
  * @param onShareBookIconClicked Action for share book icon button clicked.
- * @param backgroundColor Content background color.
  */
 @Composable
 internal fun HeaderTopBar(
-    appState: BookbarAppState,
-    bookDetailItem: BookDetailItem,
-    onBackNavigationIconClicked: () -> Unit,
-    onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
-    onShareBookIconClicked: (String) -> Unit,
-    backgroundColor: Color = MaterialTheme.colorScheme.background,
+  appState: BookbarAppState,
+  bookDetailItem: BookDetailItem,
+  onBackNavigationIconClicked: () -> Unit,
+  onFavoriteBookIconClicked: (BookDetailItem, Boolean) -> Unit,
+  onShareBookIconClicked: (String) -> Unit,
 ) {
   Row(
     modifier = Modifier
-      .fillMaxWidth()
-      .background(backgroundColor),
+      .fillMaxWidth(),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
@@ -328,7 +323,7 @@ internal fun BackNavigationIconButton(
     onClick = { onBackNavigationIconClicked() },
   ) {
     Icon(
-      Icons.TwoTone.ArrowBack,
+      Icons.AutoMirrored.TwoTone.ArrowBack,
       contentDescription = null,
       tint = MaterialTheme.colorScheme.secondary,
       modifier = Modifier.size(24.dp)

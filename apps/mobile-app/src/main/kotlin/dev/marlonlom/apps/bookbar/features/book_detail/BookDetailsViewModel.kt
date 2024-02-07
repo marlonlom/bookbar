@@ -49,20 +49,21 @@ class BookDetailsViewModel(
       emit(BookDetailResult.Loading)
       if (bookId.isEmpty()) {
         emit(BookDetailResult.NotFound)
-      }
-      combine(
-        bookstoreRepository.findBook(bookId),
-        bookstoreRepository.isFavoriteBook(bookId)
-      ) { bookDetailResult: BookDetailResult, isFavorite: Boolean ->
-        return@combine when (bookDetailResult) {
-          is Success -> Success(
-            item = bookDetailResult.item.copy(favorite = isFavorite)
-          )
+      } else {
+        combine(
+          bookstoreRepository.findBook(bookId),
+          bookstoreRepository.isFavoriteBook(bookId)
+        ) { bookDetailResult: BookDetailResult, isFavorite: Boolean ->
+          return@combine when (bookDetailResult) {
+            is Success -> Success(
+              item = bookDetailResult.item.copy(favorite = isFavorite)
+            )
 
-          else -> bookDetailResult
+            else -> bookDetailResult
+          }
+        }.collect { detailResult: BookDetailResult ->
+          emit(detailResult)
         }
-      }.collect { detailResult: BookDetailResult ->
-        emit(detailResult)
       }
     }
 
