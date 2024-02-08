@@ -5,6 +5,8 @@
 
 package dev.marlonlom.apps.bookbar.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -47,7 +49,11 @@ fun MainNavHost(
 ) {
   NavHost(
     navController = appState.navController,
-    startDestination = BookbarRoute.Home.route
+    startDestination = BookbarRoute.Home.route,
+    enterTransition = { EnterTransition.None },
+    exitTransition = { ExitTransition.None },
+    popEnterTransition = { EnterTransition.None },
+    popExitTransition = { ExitTransition.None },
   ) {
     homeDestination(appState, onBookItemClicked)
     favoritesDestination(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
@@ -71,8 +77,8 @@ fun MainNavHost(
  */
 @ExperimentalFoundationApi
 internal fun NavGraphBuilder.homeDestination(
-    appState: BookbarAppState,
-    onBookItemClicked: (String) -> Unit
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit
 ) {
   composable(BookbarRoute.Home.route) {
     NewBooksRoute(appState, onBookItemClicked)
@@ -89,9 +95,9 @@ internal fun NavGraphBuilder.homeDestination(
  * @param onRemoveFavoriteIconClicked Action for favorite Book removal icon clicked.
  */
 internal fun NavGraphBuilder.favoritesDestination(
-    appState: BookbarAppState,
-    onBookItemClicked: (String) -> Unit,
-    onRemoveFavoriteIconClicked: (String) -> Unit
+  appState: BookbarAppState,
+  onBookItemClicked: (String) -> Unit,
+  onRemoveFavoriteIconClicked: (String) -> Unit
 ) {
   composable(BookbarRoute.Favorite.route) {
     FavoriteBooksRoute(appState, onBookItemClicked, onRemoveFavoriteIconClicked)
