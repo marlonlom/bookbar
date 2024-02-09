@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.Public
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -85,7 +86,7 @@ private fun BooleanSettingSwitchRow(
 
 @Composable
 internal fun SettingsSectionDivider() {
-  Divider(Modifier.padding(top = 8.dp))
+  HorizontalDivider(Modifier.padding(top = 8.dp))
 }
 
 @ExperimentalLayoutApi

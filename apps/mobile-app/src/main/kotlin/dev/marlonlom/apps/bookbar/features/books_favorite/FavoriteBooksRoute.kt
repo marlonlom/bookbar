@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -88,7 +89,7 @@ fun FavoriteBooksRoute(
               onRemoveFavoriteIconClicked = onRemoveFavoriteIconClicked
             )
             if ((bookIndex > 0).and(bookIndex < favoriteBooksCount)) {
-              Divider(
+              HorizontalDivider(
                 modifier = Modifier
                   .fillMaxWidth()
                   .padding(vertical = 10.dp)
