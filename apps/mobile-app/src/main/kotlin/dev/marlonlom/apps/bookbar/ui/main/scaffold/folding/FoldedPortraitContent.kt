@@ -7,17 +7,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 
 /**
- * Folded content content composable ui when device is in separating posture
+ * Folded content composable ui when device is in book posture
  * and portrait orientation.
  *
  * @author marlonlom
@@ -27,10 +24,10 @@ import androidx.compose.ui.unit.dp
  * @param rightContent Right content composable ui.
  */
 @Composable
-fun FoldingSeparatingPortraitContent(
+fun FoldedPortraitContent(
   navigationRail: @Composable () -> Unit,
   leftContent: @Composable () -> Unit,
-  rightContent: @Composable () -> Unit
+  rightContent: @Composable () -> Unit,
 ) {
   Row(modifier = Modifier.safeDrawingPadding()) {
     Column(
@@ -44,19 +41,18 @@ fun FoldingSeparatingPortraitContent(
         navigationRail()
 
         Column(
-          modifier = Modifier.fillMaxSize(),
-          verticalArrangement = Arrangement.Top
+          modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top
         ) {
           leftContent()
         }
       }
     }
 
-    val detailBg: Color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.25f)
     Column(
       modifier = Modifier
-        .fillMaxSize()
-        .background(detailBg),
+        .fillMaxWidth()
+        .fillMaxHeight()
+        .background(MaterialTheme.colorScheme.surface),
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.Start
     ) {

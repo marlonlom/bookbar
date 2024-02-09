@@ -25,6 +25,8 @@ import androidx.compose.material.icons.twotone.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -71,7 +73,7 @@ internal fun BookRatingsBar(bookDetailItem: BookDetailItem) {
  */
 @Composable
 internal fun BookDetailDivider() {
-  Divider(
+  HorizontalDivider(
     modifier = Modifier
       .fillMaxWidth()
       .padding(vertical = 10.dp),
@@ -94,27 +96,45 @@ internal fun BookHeadingSection(
   bookDetailItem: BookDetailItem,
   onBuyBookIconClicked: (String) -> Unit
 ) {
-  val posterImageContainerWidth = if (appState.isLandscapeOrientation.and(appState.isCompactWidth.not())) 0.2f else 0.4f
-  Row(
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(vertical = 10.dp),
-    verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.spacedBy(10.dp)
-  ) {
-    Column(modifier = Modifier.fillMaxWidth(posterImageContainerWidth)) {
-      BookPosterImage(
-        bookTitle = bookDetailItem.title,
-        bookPosterImage = bookDetailItem.image,
-        imageHeight = 160.dp,
-        aspectRatio = 3f / 4f
-      )
-    }
+  if (appState.isDeviceSeparatingVertical.or(appState.isDeviceBookPostureVertical)) {
     Column(
+      modifier = Modifier
+        .padding(vertical = 10.dp),
       verticalArrangement = Arrangement.SpaceBetween,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
+      BookPosterImage(
+        bookTitle = bookDetailItem.title,
+        bookPosterImage = bookDetailItem.image,
+        imageHeight = 200.dp,
+        aspectRatio = 3f / 4f
+      )
       BookHeadingContent(appState = appState, bookDetailItem, onBuyBookIconClicked)
+    }
+  } else {
+    val posterImageContainerWidth =
+      if (appState.isLandscapeOrientation.and(appState.isCompactWidth.not())) 0.2f else 0.4f
+    Row(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 10.dp),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+      Column(modifier = Modifier.fillMaxWidth(posterImageContainerWidth)) {
+        BookPosterImage(
+          bookTitle = bookDetailItem.title,
+          bookPosterImage = bookDetailItem.image,
+          imageHeight = 160.dp,
+          aspectRatio = 3f / 4f
+        )
+      }
+      Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        BookHeadingContent(appState = appState, bookDetailItem, onBuyBookIconClicked)
+      }
     }
   }
 }
@@ -216,6 +236,7 @@ internal fun BuyBookButton(
  * @param onFavoriteBookIconClicked Action for favorite book toggle icon button clicked.
  * @param onShareBookIconClicked Action for share book icon button clicked.
  */
+@ExperimentalMaterial3Api
 @Composable
 internal fun HeaderTopBar(
   appState: BookbarAppState,
@@ -230,10 +251,11 @@ internal fun HeaderTopBar(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
   ) {
-    val showBackNavigationIcon = appState.isCompactWidth
-      .or(
-        appState.is7InTabletWidth.and(appState.isLandscapeOrientation.not())
-      )
+    val showBackNavigationIcon = appState.let {
+      it.isCompactWidth
+        .or(it.is7InTabletWidth.and(it.isLandscapeOrientation.not()))
+        .and(it.isDeviceBookPosture.not().and(it.isDeviceSeparating.not()))
+    }
     if (showBackNavigationIcon) {
       BackNavigationIconButton(onBackNavigationIconClicked)
     }
