@@ -26,6 +26,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -72,7 +73,7 @@ internal fun BookRatingsBar(bookDetailItem: BookDetailItem) {
  */
 @Composable
 internal fun BookDetailDivider() {
-  Divider(
+  HorizontalDivider(
     modifier = Modifier
       .fillMaxWidth()
       .padding(vertical = 10.dp),
