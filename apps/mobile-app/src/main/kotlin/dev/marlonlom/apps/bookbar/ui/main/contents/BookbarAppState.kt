@@ -90,7 +90,7 @@ class BookbarAppState(
   val bookDetails: BookDetailResult,
 ) {
   val canNavigateToDetail
-    get() = isCompactWidth.or(isLandscapeOrientation.not())
+    get() = isCompactWidth.or(isLandscapeOrientation.not()).and(isDeviceBookPosture.not().and(isDeviceSeparating.not()))
 
   val isCompactWidth get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
