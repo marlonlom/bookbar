@@ -74,7 +74,7 @@ fun BookDetailContent(
       .padding(top = 20.dp),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    stickyHeader {
+    item {
       HeaderTopBar(
         appState = appState,
         bookDetailItem = bookDetailItem,
