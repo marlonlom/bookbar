@@ -108,6 +108,8 @@ class BookbarAppState(
 
   val canShowExpandedNavigationDrawer get() = isCompactWidth.not().and(is10InTabletWidth)
 
+  val screenWidthDp get() = localConfiguration.screenWidthDp.dp
+
   val isDeviceNormalPosture get() = devicePosture is DevicePosture.NormalPosture
 
   val isDeviceBookPosture get() = devicePosture is DevicePosture.BookPosture
