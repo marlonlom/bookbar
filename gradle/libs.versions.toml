@@ -34,7 +34,7 @@ androidx-arch-core-testing = "androidx.arch.core:core-testing:2.2.0"
 androidx-test-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
 androidx-test-ext-junit = "androidx.test.ext:junit:1.1.5"
 google-truth = "com.google.truth:truth:1.4.1"
-kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
+kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
 
 # implementation: androidx-compose-with-bom
 androidx-compose-bom = "androidx.compose:compose-bom:2024.02.00"
