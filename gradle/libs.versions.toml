@@ -22,7 +22,7 @@ google-oss-licenses-plugin = "com.google.android.gms:oss-licenses-plugin:0.10.6"
 jakewharton-timber = "com.jakewharton.timber:timber:5.0.1"
 kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
 kotlin-serialization-plugin = "org.jetbrains.kotlin:kotlin-serialization:1.9.22"
-kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0"
 kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
 kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
