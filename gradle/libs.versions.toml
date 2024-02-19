@@ -24,7 +24,7 @@ kotlin-gradle-plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
 kotlin-serialization-plugin = "org.jetbrains.kotlin:kotlin-serialization:1.9.22"
 kotlinx-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
 kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
-kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
 # test-implementation
 junit = "junit:junit:4.13.2"
