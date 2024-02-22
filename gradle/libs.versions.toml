@@ -37,7 +37,7 @@ google-truth = "com.google.truth:truth:1.4.1"
 kotlinx-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
 
 # implementation: androidx-compose-with-bom
-androidx-compose-bom = "androidx.compose:compose-bom:2024.02.00"
+androidx-compose-bom = "androidx.compose:compose-bom:2024.02.01"
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-material3-wsc = { module = "androidx.compose.material3:material3-window-size-class" }
