@@ -3,16 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
-/*
- * Copyright 2024 Marlonlom
- * SPDX-License-Identifier: Apache-2.0
- */
-
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
+  id(libs.plugins.google.mapsplatform.secrets.get().pluginId)
   id("com.google.android.gms.oss-licenses-plugin")
 }
 
@@ -30,11 +24,6 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables {
       useSupportLibrary = true
-    }
-
-    gradleLocalProperties(rootDir).apply {
-      buildConfigField("String", "ITBOOKSTORE_API_URL", "\"${getProperty("ITBOOKSTORE_API_URL")}\"")
-      buildConfigField("String", "ITBOOKSTORE_BUY_URL", "\"${getProperty("ITBOOKSTORE_BUY_URL")}\"")
     }
   }
 
@@ -71,6 +60,10 @@ android {
       excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
   }
+  secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "secrets.defaults.properties"
+  }
 }
 
 dependencies {
@@ -103,6 +96,7 @@ dependencies {
   implementation(libs.bundles.database.room)
   implementation(libs.bundles.network.ktor.client)
   implementation(libs.coil.compose)
+  implementation(libs.google.guava.listenablefuture9999)
   implementation(libs.google.oss.licenses)
   implementation(libs.jakewharton.timber)
 

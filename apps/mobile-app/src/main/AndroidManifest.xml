@@ -45,7 +45,6 @@
       android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
       android:theme="@style/Theme.Bookbar.OssLicences" />
 
-
   </application>
 
 </manifest>
