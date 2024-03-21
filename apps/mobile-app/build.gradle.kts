@@ -53,7 +53,8 @@ android {
     buildConfig = true
   }
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.5.8"
+    kotlinCompilerExtensionVersion = libs.versions.kotlinComposeCompiler.get()
+
   }
   packaging {
     resources {
@@ -97,6 +98,7 @@ dependencies {
   implementation(libs.bundles.network.ktor.client)
   implementation(libs.coil.compose)
   implementation(libs.google.guava.listenablefuture9999)
+  implementation("com.google.guava:guava:31.0.1-jre")
   implementation(libs.google.oss.licenses)
   implementation(libs.jakewharton.timber)
 
